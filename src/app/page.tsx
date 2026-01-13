@@ -3,9 +3,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <Header />
-
+    <div>
       <section className="mx-auto max-w-6xl px-6 pt-10 pb-16">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <h1 className="lg:col-span-2 text-center text-5xl font-semibold tracking-tight sm:text-6xl">
@@ -141,52 +139,7 @@ print(job.results())`}
           </div>
         </div>
       </section>
-    </main>
-  );
-}
-
-function Header() {
-  return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-xl bg-accent" />
-          <span className="text-sm font-semibold tracking-tight">
-            Qa<span className="text-accent">a</span>S
-          </span>
-        </Link>
-
-        <nav className="hidden items-center gap-6 md:flex">
-          <Link className="text-sm text-foreground/80 hover:text-foreground" href="/product">
-            Product
-          </Link>
-          <Link className="text-sm text-foreground/80 hover:text-foreground" href="/docs">
-            Docs
-          </Link>
-          <Link className="text-sm text-foreground/80 hover:text-foreground" href="/blog">
-            Blog
-          </Link>
-          <Link className="text-sm text-foreground/80 hover:text-foreground" href="/pricing">
-            Pricing
-          </Link>
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <Link
-            href="/contact"
-            className="hidden rounded-xl border border-border px-4 py-2 text-sm font-medium hover:bg-white/10 md:inline-flex"
-          >
-            Contact
-          </Link>
-          <Link
-            href="/docs"
-            className="rounded-xl bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent/90"
-          >
-            Get started
-          </Link>
-        </div>
-      </div>
-    </header>
+    </div>
   );
 }
 
