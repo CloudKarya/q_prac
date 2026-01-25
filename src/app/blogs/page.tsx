@@ -1,0 +1,38 @@
+import type { Metadata } from "next";
+import { blogPosts } from "@/content/blogPosts";
+import { BlogsClient } from "./BlogsClient";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description:
+    "Searchable, practical notes on quantum workflows and enterprise readiness — focused on disciplined experimentation and clear constraints.",
+  alternates: {
+    canonical: "/blogs",
+  },
+  openGraph: {
+    title: "Q-Prac Blog",
+    description:
+      "Practical notes on quantum workflows: what’s real today, what isn’t, and how to build disciplined optionality.",
+    url: "/blogs",
+    type: "website",
+    images: [{ url: "/blogs/opengraph-image" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Q-Prac Blog",
+    description:
+      "Practical notes on quantum workflows: what’s real today, what isn’t, and how to build disciplined optionality.",
+    images: ["/blogs/opengraph-image"],
+  },
+};
+
+export default async function BlogsPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const q = typeof params.q === "string" ? params.q : "";
+
+  return <BlogsClient posts={blogPosts} initialQuery={q} />;
+}

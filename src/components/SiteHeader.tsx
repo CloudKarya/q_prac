@@ -30,7 +30,7 @@ export function SiteHeader() {
           </Link>
           <Link
             className="text-sm text-foreground/80 hover:text-foreground"
-            href="/blog"
+            href="/blogs"
           >
             Blog
           </Link>
