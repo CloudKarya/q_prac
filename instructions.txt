@@ -1,3 +1,10 @@
 #run locally 
 npm run dev
 
+# Optional (recommended) env vars for blogs/SEO/integrations
+# Create a file named `.env.local` in the project root:
+#
+# NEXT_PUBLIC_SITE_URL=http://localhost:3000
+# NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+# NEXT_PUBLIC_DISQUS_SHORTNAME=your-shortname
+

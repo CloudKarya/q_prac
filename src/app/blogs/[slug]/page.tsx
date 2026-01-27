@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPostBySlug } from "@/content/blogPosts";
 import { postRegistry } from "@/content/postRegistry";
+import { DisqusComments } from "@/components/DisqusComments";
 
 export const dynamicParams = false;
 
@@ -132,6 +133,24 @@ export default async function BlogPostPage({
           <hr className="my-7 border-surface-border" />
 
           <Post />
+
+          <hr className="my-7 border-surface-border" />
+
+          <section aria-labelledby="comments">
+            <h2 id="comments" className="text-xl font-semibold tracking-tight">
+              Comments
+            </h2>
+            <p className="mt-2 text-sm text-surface-foreground/70">
+              Powered by Disqus.
+            </p>
+            <div className="mt-4">
+              <DisqusComments
+                url={base ? `${base}/blogs/${post.slug}` : `/blogs/${post.slug}`}
+                identifier={`blog:${post.slug}`}
+                title={post.title}
+              />
+            </div>
+          </section>
         </article>
       </div>
     </main>
