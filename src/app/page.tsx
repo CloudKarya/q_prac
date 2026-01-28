@@ -34,7 +34,7 @@ export default function HomePage() {
           <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-6">
               <h2 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">
-                Evaluate Quantum decisions with QuPracs
+                Evaluate Quantum decisions with <span className="text-accent">Qu</span>Pracs
               </h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/85 sm:text-lg">
                 Quantum Readiness, Strategy, and prototype-backed decisions. We help teams separate signal
