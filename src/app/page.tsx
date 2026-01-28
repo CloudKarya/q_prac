@@ -7,8 +7,8 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-6 pt-10 pb-16">
         {/* HERO */}
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <h1 className="lg:col-span-2 text-center text-4xl font-semibold tracking-tight sm:text-4xl">
-            Quantum Readiness, Strategy, and Prototype-Backed Decisions
+          <h1 className="lg:col-span-2 text-center text-4xl font-semibold tracking-tight sm:text-5xl">
+            Quantum Practioners for the Enterprise
           </h1>
 
           {/* Left: copy */}
