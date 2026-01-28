@@ -1,0 +1,12 @@
+<svg width="720" height="720" viewBox="0 0 720 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="720" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3F7FDA"/>
+      <stop offset="1" stop-color="#0B1020"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="720" rx="48" fill="url(#g)"/>
+  <circle cx="360" cy="310" r="120" fill="#FFFFFF" fill-opacity="0.30"/>
+  <rect x="170" y="420" width="380" height="240" rx="120" fill="#FFFFFF" fill-opacity="0.22"/>
+  <text x="52" y="118" fill="#FFFFFF" fill-opacity="0.70" font-family="Arial, Helvetica, sans-serif" font-size="28">Placeholder headshot</text>
+</svg>
