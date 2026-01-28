@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-background/60">
@@ -15,24 +17,24 @@ export function SiteFooter() {
             <div className="text-sm font-semibold text-foreground">Main pages</div>
             <ul className="mt-3 space-y-2 text-sm text-foreground/70">
               <li>
-                <a className="hover:text-foreground" href="/">
+                <Link className="hover:text-foreground" href="/">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="hover:text-foreground" href="/product">
+                <Link className="hover:text-foreground" href="/product">
                   Product
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="hover:text-foreground" href="/consulting">
+                <Link className="hover:text-foreground" href="/consulting">
                   Consulting
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="hover:text-foreground" href="/pricing">
+                <Link className="hover:text-foreground" href="/pricing">
                   Pricing
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -41,24 +43,24 @@ export function SiteFooter() {
             <div className="text-sm font-semibold text-foreground">Other pages</div>
             <ul className="mt-3 space-y-2 text-sm text-foreground/70">
               <li>
-                <a className="hover:text-foreground" href="/blogs">
+                <Link className="hover:text-foreground" href="/blogs">
                   Blogs
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="hover:text-foreground" href="/tutorials">
+                <Link className="hover:text-foreground" href="/tutorials">
                   Tutorials
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="hover:text-foreground" href="/about">
+                <Link className="hover:text-foreground" href="/about">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="hover:text-foreground" href="/contact">
+                <Link className="hover:text-foreground" href="/contact">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -74,12 +76,12 @@ export function SiteFooter() {
                 placeholder="Email address"
                 className="w-full rounded-xl border border-border bg-muted px-3 py-2 text-sm text-foreground placeholder:text-foreground/60"
               />
-              <a
+              <Link
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent/90"
               >
                 Send
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -89,13 +91,13 @@ export function SiteFooter() {
             Copyright {new Date().getFullYear()} QuPracs, from CloudKarya, Inc.
           </div>
           <div className="flex items-center gap-2 text-xs text-foreground/60">
-            <a className="hover:text-foreground" href="/privacy">
+            <Link className="hover:text-foreground" href="/privacy">
               Privacy
-            </a>
+            </Link>
             <span>•</span>
-            <a className="hover:text-foreground" href="/terms">
+            <Link className="hover:text-foreground" href="/terms">
               Terms
-            </a>
+            </Link>
           </div>
         </div>
       </div>

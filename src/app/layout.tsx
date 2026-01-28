@@ -37,7 +37,9 @@ export default function RootLayout({
           <SiteFooter />
         </div>
 
-        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_ID} />
+        <GoogleAnalytics
+          measurementId={process.env.NEXT_PUBLIC_GA_ID ?? "G-QPQZDXZCM5"}
+        />
       </body>
     </html>
   );
