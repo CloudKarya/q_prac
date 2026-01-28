@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { blogPosts, getBlogPostBySlug } from "@/content/blogPosts";
-import { postRegistry } from "@/content/postRegistry";
+import { notFound, redirect } from "next/navigation";
+import { getAllBlogPosts, getAnyBlogPostBySlug, isMarkdownPost } from "@/content/allBlogPosts";
 import { DisqusComments } from "@/components/DisqusComments";
+import { MarkdownContent } from "@/components/MarkdownContent";
 
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return blogPosts.map((p) => ({ slug: p.slug }));
+  return getAllBlogPosts().map((p) => ({ slug: p.slug }));
 }
 
 function siteUrl(): string | undefined {
@@ -23,8 +23,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
-  if (!post) return {};
+  const hit = getAnyBlogPostBySlug(slug);
+  if (!hit) return {};
+  const post = hit.meta;
 
   const canonical = `/blogs/${post.slug}`;
   const ogImage = `${canonical}/opengraph-image`;
@@ -67,11 +68,15 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
-  if (!post) notFound();
+  const hit = getAnyBlogPostBySlug(slug);
+  if (!hit) notFound();
+  const post = hit.meta;
 
-  const Post = postRegistry[post.slug];
-  if (!Post) notFound();
+  // If a writer names files like post_01.md, we still serve a nice canonical URL.
+  // Visiting the filename-based slug redirects to the canonical derived slug.
+  if (isMarkdownPost(hit) && hit.meta.fileSlug === slug && hit.meta.slug !== slug) {
+    redirect(`/blogs/${hit.meta.slug}`);
+  }
 
   const base = siteUrl();
   const absoluteUrl = base ? `${base}/blogs/${post.slug}` : `/blogs/${post.slug}`;
@@ -132,7 +137,9 @@ export default async function BlogPostPage({
 
           <hr className="my-7 border-surface-border" />
 
-          <Post />
+          {isMarkdownPost(hit) ? (
+            <MarkdownContent markdown={hit.markdown} />
+          ) : null}
 
           <hr className="my-7 border-surface-border" />
 

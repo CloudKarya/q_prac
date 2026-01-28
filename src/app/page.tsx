@@ -5,137 +5,263 @@ export default function HomePage() {
   return (
     <div>
       <section className="mx-auto max-w-6xl px-6 pt-10 pb-16">
+        {/* HERO */}
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <h1 className="lg:col-span-2 text-center text-5xl font-semibold tracking-tight sm:text-6xl">
-            Quantum As A Service
+          <h1 className="lg:col-span-2 text-center text-4xl font-semibold tracking-tight sm:text-4xl">
+            Quantum Readiness, Strategy, and Prototype-Backed Decisions
           </h1>
 
           {/* Left: copy */}
-          <div>
+          <div className="lg:col-span-2 w-full">
             <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-2 text-base text-foreground">
-              <span className="inline-block h-2 w-2 rounded-full bg-accent" />
-              Beta • Simulators today • Hardware connectors soon
+              <span className="inline-block h-3 w-2 rounded-full bg-accent" />
+              Strategy-led • Evidence-driven • Simulators today • Hardware connectors soon
             </div>
 
             <h2 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Quantum workloads,
-              <span className="block">as simple as an API call.</span>
+              Clarity first.
+              <span className="block">Experiments second.</span>
             </h2>
 
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-foreground/80">
-              QaaS helps developers experiment with quantum and hybrid workflows
-              without hype: run circuits, sampling, and optimization on
-              simulators now — and route to hardware when it makes sense.
+            <p className="mt-4 text-lg leading-relaxed text-foreground/80">
+              QuPracs helps enterprises separate signal from noise in quantum and quantum-inspired
+              computing—so leadership teams can make credible bets, run disciplined POCs, and build
+              readiness without hype, waste, or technical theater.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
-                href="/docs"
+                href="/consulting"
                 className="rounded-xl bg-accent px-5 py-3 text-sm font-medium text-accent-foreground shadow-sm hover:bg-accent/90"
               >
-                Run your first job
+                Talk to us (Consulting)
               </Link>
               <Link
                 href="/product"
-                className="rounded-xl border border-border px-5 py-3 text-sm font-medium text-foreground hover:bg-white/10"
+                className="rounded-xl bg-accent px-5 py-3 text-sm font-medium text-accent-foreground shadow-sm hover:bg-accent/90"
               >
-                How it works
+                Explore Prototyping (POCs)
               </Link>
             </div>
 
-            <div className="mt-8 grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-3">
-              <Stat label="Time to first run" value="< 5 min" />
-              <Stat label="Supported today" value="Simulators" />
-              <Stat label="Built for" value="Developers" />
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <Stat label="Primary outcome" value="Better decisions" />
+              <Stat label="Engagement style" value="Strategy + POC" />
+              <Stat label="Built for" value="Execs + architects" />
             </div>
 
             <p className="mt-6 text-sm text-foreground/70">
-              No “quantum magic.” Clear constraints, reproducible runs, and
-              docs-first onboarding.
+              We are comfortable recommending “not yet” when the evidence and economics don’t justify action.
             </p>
           </div>
+        </div>
 
-          {/* Right: code + mini panel */}
-          <div className="rounded-2xl border border-surface-border bg-surface p-5 shadow-sm text-surface-foreground">
-            <div className="flex items-center justify-between">
-              <div className="text-sm font-medium">Try it (example)</div>
-              <div className="text-xs text-surface-foreground/60">Python</div>
-            </div>
+        {/* Credibility strip */}
+        <div className="mt-14 rounded-2xl border border-surface-border bg-surface p-6 text-surface-foreground">
+          <div className="grid gap-6 md:grid-cols-3">
+            <Cred
+              title="Reproducible by default"
+              desc="Deterministic seeds, versioned backends, and logged configs for defensible experiments."
+            />
+            <Cred
+              title="Honest performance framing"
+              desc="We show when quantum helps, when it doesn’t, and what the real tradeoffs are."
+            />
+            <Cred
+              title="Built to evolve"
+              desc="Start with simulators and hybrid methods; connect hardware providers as maturity improves."
+            />
+          </div>
+        </div>
 
-            <pre className="mt-3 overflow-x-auto rounded-xl bg-surface p-4 text-[13px] leading-relaxed text-surface-foreground border border-surface-border">
-{`from qaas import Client
+        {/* Two tracks */}
+        <div className="mt-14">
+          <div className="text-2xl font-semibold tracking-tight text-foreground">
+            Two engagement tracks, one disciplined philosophy
+          </div>
+          <p className="mt-3 max-w-3xl text-lg leading-relaxed text-foreground/80">
+            Some clients need boardroom clarity. Others need experimental proof. Many need both.
+          </p>
 
-c = Client(api_key="...")
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-surface-border bg-surface p-6 text-surface-foreground shadow-sm">
+              <div className="text-sm font-medium text-surface-foreground/70">Track 1</div>
+              <div className="mt-1 text-xl font-semibold">Strategy & Quantum Readiness Consulting</div>
+              <p className="mt-3 text-sm leading-relaxed text-surface-foreground/70">
+                We advise leadership teams on where quantum may eventually matter, what to ignore for now,
+                and how to prepare responsibly.
+              </p>
 
-job = c.jobs.create(
-  backend="simulator",
-  task="circuit",
-  qubits=8,
-  shots=2000,
-  circuit="""
-    H 0
-    CX 0 1
-    MEASURE 0,1
-  """
-)
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                <MiniCard
+                  title="Typical outcomes"
+                  items={[
+                    "Use-case suitability & prioritization",
+                    "Readiness assessment & gaps",
+                    "Q-Day roadmap & staging",
+                    "Decision memos: yes / no / not yet",
+                  ]}
+                />
+                <MiniCard
+                  title="Good fit when"
+                  items={[
+                    "Quantum appears in strategy discussions",
+                    "You need clarity before investment",
+                    "You want credible “not yet” options",
+                  ]}
+                />
+              </div>
 
-print(job.id)
-print(job.results())`}
-            </pre>
-
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              <MiniCard
-                title="What you can run today"
-                items={[
-                  "Circuits (gates + measurements)",
-                  "Sampling experiments",
-                  "Optimization toy problems",
-                ]}
-              />
-              <MiniCard
-                title="What we won’t claim"
-                items={[
-                  "Not faster for everything",
-                  "No parallel universe compute",
-                  "No vague “advantage” promises",
-                ]}
-              />
-            </div>
-
-            <div className="mt-4 rounded-xl border border-neutral-200 bg-white p-4">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <div className="text-sm font-medium">Developer-first docs</div>
-                  <div className="mt-1 text-sm text-surface-foreground/70">
-                    Clear onboarding, honest limitations, runnable examples.
-                  </div>
-                </div>
+              <div className="mt-5">
                 <Link
-                  href="/docs"
-                  className="shrink-0 rounded-lg bg-accent px-3 py-2 text-xs font-medium text-accent-foreground hover:bg-accent/90"
+                  href="/consulting"
+                  className="inline-flex rounded-xl bg-accent px-5 py-3 text-sm font-medium text-accent-foreground shadow-sm hover:bg-accent/90"
                 >
-                  Open docs
+                  See consulting engagements
+                </Link>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-surface-border bg-surface p-6 text-surface-foreground shadow-sm">
+              <div className="text-sm font-medium text-surface-foreground/70">Track 2</div>
+              <div className="mt-1 text-xl font-semibold">Technical Prototyping & POC Sprints</div>
+              <p className="mt-3 text-sm leading-relaxed text-surface-foreground/70">
+                We run tight, evidence-driven POCs using today’s ecosystem—simulators, hardware access
+                where appropriate, and quantum-inspired solvers.
+              </p>
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                <MiniCard
+                  title="Typical outcomes"
+                  items={[
+                    "Feasibility and benchmark results",
+                    "Hybrid architecture options",
+                    "Evidence pack for leadership",
+                    "Proceed / pivot / defer guidance",
+                  ]}
+                />
+                <MiniCard
+                  title="Good fit when"
+                  items={[
+                    "You have a candidate use-case",
+                    "You need proof, not demos",
+                    "You want realistic constraints",
+                  ]}
+                />
+              </div>
+
+              <div className="mt-5">
+                <Link
+                  href="/product"
+                  className="inline-flex rounded-xl border border-border px-5 py-3 text-sm font-medium text-foreground hover:bg-white/10"
+                >
+                  Explore prototyping
                 </Link>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Social proof / credibility strip */}
-        <div className="mt-14 rounded-2xl border border-surface-border bg-surface p-6 text-surface-foreground">
-          <div className="grid gap-6 md:grid-cols-3">
-            <Cred
-              title="Reproducible by default"
-              desc="Deterministic seeds, versioned backends, and logged configs."
+        {/* Engagement loop */}
+        <div className="mt-16 rounded-2xl border border-surface-border bg-surface p-6 text-surface-foreground">
+          <div className="text-2xl font-semibold tracking-tight">A simple loop: decide, test, translate</div>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-surface-foreground/70">
+            The goal is not “quantum projects.” The goal is better decisions under uncertainty.
+          </p>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-3">
+            <StepCard
+              num="1"
+              title="Frame the decision"
+              desc="Clarify the objective, constraints, and what success means in measurable terms."
             />
-            <Cred
-              title="Honest performance framing"
-              desc="We show when quantum helps, when it doesn’t, and why."
+            <StepCard
+              num="2"
+              title="Run disciplined experiments"
+              desc="Prototype narrowly, benchmark honestly, and avoid toy problems that don’t translate."
             />
-            <Cred
-              title="Built to evolve"
-              desc="Start with simulators, plug in hardware providers as they mature."
+            <StepCard
+              num="3"
+              title="Translate into a roadmap"
+              desc="Convert results into what to do now, what to watch, what to stop, and what to defer."
             />
+          </div>
+        </div>
+
+        {/* We are / We are not */}
+        <div className="mt-16">
+          <div className="text-2xl font-semibold tracking-tight text-foreground">Credibility comes from restraint</div>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-surface-border bg-surface p-6 text-surface-foreground shadow-sm">
+              <div className="text-sm font-semibold">We are</div>
+              <ul className="mt-3 space-y-2 text-sm text-surface-foreground/70">
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-surface-foreground/40" />
+                  <span>Strategy-led advisors who understand technical realities</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-surface-foreground/40" />
+                  <span>Practitioners who prototype and benchmark, not just speculate</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-surface-foreground/40" />
+                  <span>Focused on economic and operational justification</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-surface-foreground/40" />
+                  <span>Comfortable recommending “not yet” when warranted</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="rounded-2xl border border-surface-border bg-surface p-6 text-surface-foreground shadow-sm">
+              <div className="text-sm font-semibold">We are not</div>
+              <ul className="mt-3 space-y-2 text-sm text-surface-foreground/70">
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-surface-foreground/40" />
+                  <span>A hardware vendor or black-box platform seller</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-surface-foreground/40" />
+                  <span>A research lab inventing new quantum algorithms</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-surface-foreground/40" />
+                  <span>A futurist shop selling timelines</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-surface-foreground/40" />
+                  <span>Incentivized to push quantum where it doesn’t belong</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA band */}
+        <div className="mt-16 rounded-2xl border border-surface-border bg-surface p-8 text-surface-foreground">
+          <div className="text-2xl font-semibold tracking-tight">
+            If quantum is showing up in your strategy conversations, it’s time for clarity.
+          </div>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-surface-foreground/70">
+            Start with a short readiness call. We’ll help you determine whether you need a roadmap, a POC,
+            or a disciplined “not yet.”
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href="/consulting"
+              className="rounded-xl bg-accent px-5 py-3 text-sm font-medium text-accent-foreground shadow-sm hover:bg-accent/90"
+            >
+              Schedule a consulting call
+            </Link>
+            <Link
+              href="/blogs"
+              className="rounded-xl border border-border px-5 py-3 text-sm font-medium text-foreground hover:bg-white/10"
+            >
+              Browse blogs
+            </Link>
           </div>
         </div>
       </section>
@@ -173,6 +299,20 @@ function Cred({ title, desc }: { title: string; desc: string }) {
     <div>
       <div className="text-sm font-semibold">{title}</div>
       <div className="mt-1 text-sm leading-relaxed text-surface-foreground/70">{desc}</div>
+    </div>
+  );
+}
+
+function StepCard({ num, title, desc }: { num: string; title: string; desc: string }) {
+  return (
+    <div className="rounded-2xl border border-surface-border bg-surface p-6 shadow-sm">
+      <div className="flex items-center gap-3">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full border border-surface-border text-sm font-semibold">
+          {num}
+        </div>
+        <div className="text-sm font-semibold">{title}</div>
+      </div>
+      <div className="mt-3 text-sm leading-relaxed text-surface-foreground/70">{desc}</div>
     </div>
   );
 }

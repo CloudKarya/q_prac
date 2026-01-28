@@ -2,15 +2,25 @@
 
 import { useEffect } from "react";
 
+type DisqusConfigContext = {
+  page: {
+    url: string;
+    identifier: string;
+    title: string;
+  };
+};
+
+type DisqusConfigFn = (this: DisqusConfigContext) => void;
+
 declare global {
   interface Window {
     DISQUS?: {
       reset?: (options: {
         reload: boolean;
-        config: () => void;
+        config: DisqusConfigFn;
       }) => void;
     };
-    disqus_config?: () => void;
+    disqus_config?: DisqusConfigFn;
   }
 }
 
@@ -28,7 +38,7 @@ export function DisqusComments({
   useEffect(() => {
     if (!shortname) return;
 
-    const config = function (this: any) {
+    const config: DisqusConfigFn = function () {
       this.page.url = url;
       this.page.identifier = identifier;
       this.page.title = title;
@@ -43,7 +53,7 @@ export function DisqusComments({
       return;
     }
 
-    window.disqus_config = config as any;
+    window.disqus_config = config;
 
     const scriptId = "disqus-embed-script";
     if (document.getElementById(scriptId)) return;

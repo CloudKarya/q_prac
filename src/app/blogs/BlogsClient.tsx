@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { BlogPost } from "@/content/blogPosts";
+import type { BlogPost } from "@/content/blogTypes";
 
 function formatDate(isoDate: string): string {
   const d = new Date(isoDate + "T00:00:00Z");

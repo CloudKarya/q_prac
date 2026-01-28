@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { blogPosts } from "@/content/blogPosts";
+import { getAllBlogPosts } from "@/content/allBlogPosts";
 import { BlogsClient } from "./BlogsClient";
 
 export const metadata: Metadata = {
@@ -34,5 +34,7 @@ export default async function BlogsPage({
   const params = await searchParams;
   const q = typeof params.q === "string" ? params.q : "";
 
-  return <BlogsClient posts={blogPosts} initialQuery={q} />;
+  const posts = getAllBlogPosts();
+
+  return <BlogsClient posts={posts} initialQuery={q} />;
 }

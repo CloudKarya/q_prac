@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
@@ -16,11 +16,13 @@ export default function AboutPage() {
         <article className="space-y-10">
           <section className="grid gap-6 md:grid-cols-[320px_1fr] md:items-center">
             <div className="flex justify-center md:justify-start">
-              <div className="h-72 w-72 max-w-full flex items-center justify-center">
-                <img
+              <div className="relative h-72 w-72 max-w-full">
+                <Image
                   src="/images/about/q_compute.png"
                   alt="Quantum computing"
-                  className="h-full w-full object-contain"
+                  fill
+                  sizes="(min-width: 768px) 288px, 80vw"
+                  className="object-contain"
                 />
               </div>
             </div>
@@ -85,11 +87,13 @@ export default function AboutPage() {
               </div>
 
               <div className="flex justify-center md:justify-end">
-                <div className="h-72 w-72 max-w-full flex items-center justify-center">
-                  <img
+                <div className="relative h-72 w-72 max-w-full">
+                  <Image
                     src="/images/about/q_comp.png"
                     alt=""
-                    className="h-full w-full object-contain"
+                    fill
+                    sizes="(min-width: 768px) 288px, 80vw"
+                    className="object-contain"
                   />
                 </div>
               </div>
@@ -104,11 +108,13 @@ export default function AboutPage() {
 
           <section className="grid gap-6 md:grid-cols-[320px_1fr] md:items-center">
             <div className="flex justify-center md:justify-start">
-              <div className="h-72 w-72 max-w-full flex items-center justify-center">
-                <img
+              <div className="relative h-72 w-72 max-w-full">
+                <Image
                   src="/images/about/not_scientist.png"
                   alt=""
-                  className="h-full w-full object-contain"
+                  fill
+                  sizes="(min-width: 768px) 288px, 80vw"
+                  className="object-contain"
                 />
               </div>
             </div>
@@ -165,11 +171,13 @@ export default function AboutPage() {
               </div>
 
               <div className="flex justify-center md:justify-end">
-                <div className="h-72 w-72 max-w-full flex items-center justify-center">
-                  <img
+                <div className="relative h-72 w-72 max-w-full">
+                  <Image
                     src="/images/about/whatwedo.png"
                     alt="What we do"
-                    className="h-full w-full object-contain"
+                    fill
+                    sizes="(min-width: 768px) 288px, 80vw"
+                    className="object-contain"
                   />
                 </div>
               </div>

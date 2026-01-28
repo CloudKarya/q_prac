@@ -1,7 +1,5 @@
 import { ImageResponse } from "next/og";
-import { getBlogPostBySlug } from "@/content/blogPosts";
-
-export const runtime = "edge";
+import { getAnyBlogPostBySlug } from "@/content/allBlogPosts";
 
 export const size = {
   width: 1200,
@@ -16,7 +14,7 @@ export default async function OpenGraphImage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = getAnyBlogPostBySlug(slug)?.meta;
 
   const title = post?.title ?? "Q-Prac Blog";
   const subtitle = post

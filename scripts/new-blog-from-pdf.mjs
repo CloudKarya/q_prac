@@ -5,7 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 function usage() {
-  console.log(`\nUsage:\n  node scripts/new-blog-from-pdf.mjs --pdf <path.pdf> --slug <slug> --title <title> [--date YYYY-MM-DD] [--tags "a,b,c"]\n\nNotes:\n  - Requires \'pdftotext\' to be installed (poppler).\n  - Creates a new TSX post file in src/content/posts/\n  - Inserts a post entry into src/content/blogPosts.ts between // posts:begin and // posts:end\n  - Adds the component to src/content/postRegistry.ts\n`);
+  console.log(`\nUsage:\n  node scripts/new-blog-from-pdf.mjs --pdf <path.pdf> --slug <slug> --title <title> [--date YYYY-MM-DD] [--tags "a,b,c"]\n\nNotes:\n  - Requires \'pdftotext\' to be installed (poppler).\n  - Creates a new Markdown post file in src/content/posts/<slug>.md\n  - The site loads posts directly from Markdown (no registry updates needed).\n`);
 }
 
 function parseArgs(argv) {
@@ -23,14 +23,6 @@ function parseArgs(argv) {
     }
   }
   return out;
-}
-
-function kebabToPascal(slug) {
-  return slug
-    .split(/[^a-zA-Z0-9]+/g)
-    .filter(Boolean)
-    .map((s) => s.slice(0, 1).toUpperCase() + s.slice(1))
-    .join("");
 }
 
 const args = parseArgs(process.argv);
@@ -52,7 +44,7 @@ if (!pdfPath || !slug || !title) {
 
 const repoRoot = process.cwd();
 const postsDir = path.join(repoRoot, "src", "content", "posts");
-const postFile = path.join(postsDir, `${slug}.tsx`);
+const postFile = path.join(postsDir, `${slug}.md`);
 
 if (fs.existsSync(postFile)) {
   console.error(`Post file already exists: ${postFile}`);
@@ -82,56 +74,14 @@ const readingTimeMinutes = Math.max(3, Math.round(extracted.split(/\s+/g).filter
 
 fs.mkdirSync(postsDir, { recursive: true });
 
-const postTsx = `import type { BlogPost } from "@/content/blogPosts";\n\nexport const meta: Pick<BlogPost, \"slug\" | \"title\" | \"description\"> = {\n  slug: ${JSON.stringify(slug)},\n  title: ${JSON.stringify(title)},\n  description: ${JSON.stringify(description || "Add a one sentence description.")},\n};\n\nconst SOURCE_TEXT = ${JSON.stringify(extracted)};\n\nexport default function Post() {\n  return (\n    <div className=\"space-y-6 text-[15px] leading-relaxed\">\n      <p>\n        TODO: Write a strong opening paragraph (who this is for + what it answers).\n      </p>\n\n      <section aria-labelledby=\"tldr\">\n        <h2 id=\"tldr\" className=\"text-xl font-semibold tracking-tight\">\n          TL;DR\n        </h2>\n        <ul className=\"mt-3 list-disc pl-5 text-surface-foreground/85\">\n          <li>TODO key point #1</li>\n          <li>TODO key point #2</li>\n          <li>TODO key point #3</li>\n        </ul>\n      </section>\n\n      <section aria-labelledby=\"draft\">\n        <h2 id=\"draft\" className=\"text-xl font-semibold tracking-tight\">\n          Draft (from PDF)\n        </h2>\n        <p className=\"mt-3 text-surface-foreground/85\">\n          Below is the raw extracted text. Convert it into clean sections (h2/h3)\n          for the final post.\n        </p>\n        <pre\n          className=\"mt-3 overflow-x-auto rounded-xl border border-surface-border bg-surface p-4 text-[12px] leading-relaxed text-surface-foreground/80\"\n          style={{ whiteSpace: \"pre-wrap\" }}\n        >\n          {SOURCE_TEXT}\n        </pre>\n      </section>\n    </div>\n  );\n}\n`;
+const safeDesc = description || "Add a one sentence description.";
+const safeSummary = (description || "").slice(0, 220) || "Add a 2–3 sentence summary.";
 
-fs.writeFileSync(postFile, postTsx, "utf8");
+const yamlTags = tags.length ? `\n  tags: [${tags.map((t) => JSON.stringify(t)).join(", ")}]` : "";
+
+const postMd = `---\nslug: ${slug}\ntitle: ${JSON.stringify(title)}\npublishedAt: ${date}${yamlTags}\ndescription: ${JSON.stringify(safeDesc)}\nsummary: ${JSON.stringify(safeSummary)}\n---\n\n# ${title}\n\nTODO: Write a strong opening paragraph (who this is for + what it answers).\n\n## TL;DR\n\n- TODO key point #1\n- TODO key point #2\n- TODO key point #3\n\n## Draft (from PDF)\n\nBelow is the raw extracted text. Convert it into clean sections (h2/h3) for the final post.\n\n\`\`\`text\n${extracted.replace(/\r\n/g, "\n").trim()}\n\`\`\`\n\n---\n\n*Estimated reading time: ~${readingTimeMinutes} min.*\n`;
+
+fs.writeFileSync(postFile, postMd, "utf8");
 console.log(`Created: ${path.relative(repoRoot, postFile)}`);
 
-// Update blogPosts.ts
-const blogPostsFile = path.join(repoRoot, "src", "content", "blogPosts.ts");
-const blogPostsSrc = fs.readFileSync(blogPostsFile, "utf8");
-
-const begin = "// posts:begin";
-const end = "// posts:end";
-const bi = blogPostsSrc.indexOf(begin);
-const ei = blogPostsSrc.indexOf(end);
-if (bi === -1 || ei === -1 || ei < bi) {
-  console.error("Could not find posts markers in src/content/blogPosts.ts");
-  process.exit(1);
-}
-
-const entry = `\n  {\n    slug: ${JSON.stringify(slug)},\n    title: ${JSON.stringify(title)},\n    description: ${JSON.stringify(description || "Add description." )},\n    summary: ${JSON.stringify((description || "").slice(0, 180) + (description && description.length > 180 ? "…" : "") || "Add a 2–3 sentence summary." )},\n    publishedAt: ${JSON.stringify(date)},\n    tags: ${JSON.stringify(tags, null, 2).replace(/\n/g, "\n    ")},\n    readingTimeMinutes: ${readingTimeMinutes},\n  },\n`;
-
-const updatedBlogPosts =
-  blogPostsSrc.slice(0, bi + begin.length) +
-  entry +
-  blogPostsSrc.slice(bi + begin.length);
-
-fs.writeFileSync(blogPostsFile, updatedBlogPosts, "utf8");
-console.log(`Updated: ${path.relative(repoRoot, blogPostsFile)}`);
-
-// Update postRegistry.ts
-const registryFile = path.join(repoRoot, "src", "content", "postRegistry.ts");
-let registrySrc = fs.readFileSync(registryFile, "utf8");
-
-const importId = `Post${kebabToPascal(slug)}`;
-const importLine = `import ${importId} from "@/content/posts/${slug}";\n`;
-
-if (!registrySrc.includes(importLine)) {
-  // Insert import after react type import (or at top)
-  const lines = registrySrc.split(/\n/);
-  const firstImportEnd = lines.findIndex((l) => l.startsWith("import ") && l.includes("react"));
-  const insertAt = firstImportEnd >= 0 ? firstImportEnd + 1 : 0;
-  lines.splice(insertAt, 0, importLine.trimEnd());
-  registrySrc = lines.join("\n");
-}
-
-const mapEntry = `  ${JSON.stringify(slug)}: ${importId},\n`;
-if (!registrySrc.includes(mapEntry)) {
-  registrySrc = registrySrc.replace(/export const postRegistry: Record<string, ComponentType> = {\n/, (m) => m + mapEntry);
-}
-
-fs.writeFileSync(registryFile, registrySrc, "utf8");
-console.log(`Updated: ${path.relative(repoRoot, registryFile)}`);
-
-console.log("\nNext: open the new post file and replace the Draft section with clean h2/h3 sections.");
+console.log("\nNext: open the new .md file and replace the Draft section with clean h2/h3 sections.");
