@@ -27,16 +27,15 @@ export default function HomePage() {
         </div>
 
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-14">
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            Strategy-led • Evidence-driven • Simulators today • Hardware soon
+          </h1>
+
           <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-6">
-              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-2 text-sm text-foreground">
-                <span className="inline-block h-3 w-2 rounded-full bg-accent" />
-                Strategy-led • Evidence-driven • Simulators today • Hardware connectors soon
-              </div>
-
-              <h1 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">
-                Elevate enterprise decisions with QuPracs
-              </h1>
+              <h2 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">
+                Evaluate Quantum decisions with QuPracs
+              </h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/85 sm:text-lg">
                 Quantum Readiness, Strategy, and prototype-backed decisions. We help teams separate signal
                 from noise, benchmark honestly, and translate outcomes into roadmaps leadership can trust.
