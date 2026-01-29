@@ -68,7 +68,7 @@ export default function HomePage() {
               <div className="relative overflow-hidden rounded-3xl border border-border bg-muted shadow-2xl">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src="/images/landing/hero-person.svg"
+                    src="/images/landing/qupracs_hero.jpeg"
                     alt="QuPracs hero visual"
                     fill
                     priority
