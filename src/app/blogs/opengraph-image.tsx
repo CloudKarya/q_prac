@@ -26,7 +26,7 @@ export default function OpenGraphImage() {
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div style={{ fontSize: 24, opacity: 0.95 }}>Q-Prac</div>
+          <div style={{ fontSize: 24, opacity: 0.95 }}>QuPracs</div>
           <div
             style={{
               fontSize: 18,
@@ -43,7 +43,7 @@ export default function OpenGraphImage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ fontSize: 78, fontWeight: 900, lineHeight: 1.05 }}>
-            Q-Prac Blog
+            QuPracs Blog
           </div>
           <div style={{ fontSize: 28, opacity: 0.92 }}>
             Practical quantum notes — what’s real today, what isn’t.

@@ -9,7 +9,7 @@ export function SiteHeader() {
           <div className="h-14 w-32 shrink-0 overflow-hidden flex items-center justify-center">
             <Image
               src="/images/logo/QuPracs.png"
-              alt="Q-Prac"
+              alt="QuPracs"
               width={128}
               height={72}
               priority
@@ -21,21 +21,21 @@ export function SiteHeader() {
         <nav className="hidden items-center gap-6 md:flex ml-auto">
           <Link
             className="text-base font-semibold text-foreground/80 hover:text-foreground"
+            href="/#services"
+          >
+            Services
+          </Link>
+          <Link
+            className="text-base font-semibold text-foreground/80 hover:text-foreground"
             href="/product"
           >
             Product
           </Link>
           <Link
             className="text-base font-semibold text-foreground/80 hover:text-foreground"
-            href="/consulting"
+            href="/learning"
           >
-            Consulting
-          </Link>
-          <Link
-            className="text-base font-semibold text-foreground/80 hover:text-foreground"
-            href="/blogs"
-          >
-            Blogs
+            Learning
           </Link>
           <Link
             className="text-base font-semibold text-foreground/80 hover:text-foreground"
@@ -45,15 +45,21 @@ export function SiteHeader() {
           </Link>
           <Link
             className="text-base font-semibold text-foreground/80 hover:text-foreground"
-            href="/pricing"
+            href="/blogs"
           >
-            Pricing
+            Blogs
+          </Link>
+          <Link
+            className="text-base font-semibold text-foreground/80 hover:text-foreground"
+            href="/jobs"
+          >
+            Jobs
           </Link>
           <Link
             className="text-base font-semibold text-foreground/80 hover:text-foreground"
             href="/about"
           >
-            About
+            About Us
           </Link>
         </nav>
       </div>

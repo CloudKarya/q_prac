@@ -18,7 +18,7 @@ export default function ProductPage() {
         <article className="mt-10 space-y-10">
           <section className="space-y-4">
             <p className="leading-relaxed text-foreground/80">
-              Q-Prac provides a practical platform for evaluating, prototyping, and
+              QuPracs provides a practical platform for evaluating, prototyping, and
               applying quantum and quantum-inspired approaches using today’s hardware,
               algorithms, and simulators.
             </p>
@@ -31,9 +31,9 @@ export default function ProductPage() {
 
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold tracking-tight">
-              What You Can Do with Q-Prac
+              What You Can Do with QuPracs
             </h2>
-            <p className="leading-relaxed text-foreground/80">With Q-Prac, teams can:</p>
+            <p className="leading-relaxed text-foreground/80">With QuPracs, teams can:</p>
             <ul className="list-disc space-y-2 pl-5 text-foreground/80">
               <li>Frame real business or scientific problems for quantum suitability</li>
               <li>Design and run small, well-scoped experiments</li>
@@ -50,7 +50,7 @@ export default function ProductPage() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold tracking-tight">How It’s Different</h2>
             <p className="leading-relaxed text-foreground/80">
-              Q-Prac is not a demo playground, a quantum marketplace, or a one-click
+              QuPracs is not a demo playground, a quantum marketplace, or a one-click
               optimizer.
             </p>
             <p className="leading-relaxed text-foreground/80">
@@ -62,7 +62,7 @@ export default function ProductPage() {
 
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold tracking-tight">What Exists Today</h2>
-            <p className="leading-relaxed text-foreground/80">Today, Q-Prac provides:</p>
+            <p className="leading-relaxed text-foreground/80">Today, QuPracs provides:</p>
             <ul className="list-disc space-y-2 pl-5 text-foreground/80">
               <li>Structured experimentation workflows</li>
               <li>Access to simulators and select quantum backends</li>
@@ -80,7 +80,7 @@ export default function ProductPage() {
 
           <section className="rounded-2xl border border-border bg-muted p-6">
             <p className="leading-relaxed text-foreground">
-              Q-Prac helps organizations engage with quantum computing honestly,
+              QuPracs helps organizations engage with quantum computing honestly,
               pragmatically, and with discipline — building capability now, while
               preparing for what comes next.
             </p>

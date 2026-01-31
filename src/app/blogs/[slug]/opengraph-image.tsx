@@ -16,9 +16,9 @@ export default async function OpenGraphImage({
   const { slug } = await params;
   const post = getAnyBlogPostBySlug(slug)?.meta;
 
-  const title = post?.title ?? "Q-Prac Blog";
+  const title = post?.title ?? "QuPracs Blog";
   const subtitle = post
-    ? "Q-Prac • Practical quantum notes"
+    ? "QuPracs • Practical quantum notes"
     : "Practical quantum notes";
 
   return new ImageResponse(
@@ -39,7 +39,7 @@ export default async function OpenGraphImage({
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div style={{ fontSize: 24, opacity: 0.95 }}>Q-Prac</div>
+          <div style={{ fontSize: 24, opacity: 0.95 }}>QuPracs</div>
           <div
             style={{
               fontSize: 18,
@@ -70,7 +70,7 @@ export default async function OpenGraphImage({
           }}
         >
           <div style={{ fontSize: 18, opacity: 0.9 }}>
-            q-prac • honest constraints • reproducible workflows
+            QuPracs • honest constraints • reproducible workflows
           </div>
           <div
             style={{

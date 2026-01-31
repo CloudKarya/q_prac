@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     canonical: "/blogs",
   },
   openGraph: {
-    title: "Q-Prac Blog",
+    title: "QuPracs Blog",
     description:
       "Practical notes on quantum workflows: what’s real today, what isn’t, and how to build disciplined optionality.",
     url: "/blogs",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Q-Prac Blog",
+    title: "QuPracs Blog",
     description:
       "Practical notes on quantum workflows: what’s real today, what isn’t, and how to build disciplined optionality.",
     images: ["/blogs/opengraph-image"],

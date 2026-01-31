@@ -31,7 +31,7 @@ export default function HomePage() {
             Strategy-led • Evidence-driven • Simulators today • Hardware soon
           </h1>
 
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
             <div className="lg:col-span-6">
               <h2 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">
                 Evaluate Quantum decisions with <span className="text-accent">Qu</span>Pracs
@@ -50,7 +50,7 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="/product"
-                  className="rounded-xl border border-border bg-transparent px-5 py-3 text-sm font-semibold text-foreground hover:bg-white/10"
+                  className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
                 >
                   See Services
                 </Link>
@@ -64,7 +64,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="lg:col-span-6">
+            <div className="lg:col-span-6 lg:mt-6">
               <div className="relative overflow-hidden rounded-3xl border border-border bg-muted shadow-2xl">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
@@ -84,7 +84,7 @@ export default function HomePage() {
       {/* KNOW-HOW STRIP */}
       <section className="bg-surface text-surface-foreground">
         <div className="mx-auto max-w-6xl px-6 py-14">
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
             <div className="lg:col-span-5">
               <div className="relative overflow-hidden rounded-3xl border border-surface-border bg-surface shadow-sm">
                 <div className="relative aspect-[5/4] w-full">
@@ -126,7 +126,7 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="/blogs"
-                  className="inline-flex items-center rounded-xl border border-surface-border px-5 py-3 text-sm font-semibold hover:bg-surface/60"
+                  className="inline-flex items-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
                 >
                   Browse Blogs
                 </Link>
@@ -137,7 +137,7 @@ export default function HomePage() {
       </section>
 
       {/* SERVICES */}
-      <section className="bg-surface text-surface-foreground">
+      <section id="services" className="bg-surface text-surface-foreground">
         <div className="mx-auto max-w-6xl px-6 pb-16">
           <div className="flex flex-col gap-2">
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Services</h2>
@@ -164,12 +164,12 @@ export default function HomePage() {
             </div>
             <ServiceCard
               num="02"
-              title="Strategy & Use-case Screening"
+              title="Strategy & Use-cases"
               desc="Prioritize opportunities based on economics, constraints, and what’s feasible today."
             />
             <ServiceCard
               num="03"
-              title="POC Sprints & Benchmarking"
+              title="POC Sprints"
               desc="Build narrow prototypes, benchmark honestly, and produce decision-grade evidence packs."
             />
             <ServiceCard
@@ -193,7 +193,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/contact"
-              className="hidden rounded-xl border border-surface-border px-4 py-2 text-sm font-semibold hover:bg-surface/60 md:inline-flex"
+              className="hidden rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90 md:inline-flex"
             >
               Talk to us
             </Link>
@@ -360,7 +360,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/consulting"
-                className="rounded-xl border border-border bg-transparent px-5 py-3 text-sm font-semibold text-foreground hover:bg-white/10"
+                className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
               >
                 See Consulting
               </Link>
@@ -383,10 +383,16 @@ function KpiPill({ value, label }: { value: string; label: string }) {
 
 function ServiceCard({ num, title, desc }: { num: string; title: string; desc: string }) {
   return (
-    <div className="rounded-3xl border border-surface-border bg-surface p-6 shadow-sm">
-      <div className="text-sm font-semibold text-surface-foreground/60">{num}</div>
-      <div className="mt-2 text-xl font-semibold tracking-tight">{title}</div>
-      <div className="mt-3 text-sm leading-relaxed text-surface-foreground/70">{desc}</div>
+    <div className="overflow-hidden rounded-3xl border border-surface-border bg-surface shadow-sm">
+      <div className="bg-background px-6 py-4">
+        <div className="text-xl font-semibold tracking-tight text-white">
+          <span className="mr-3 text-white/80">{num}</span>
+          {title}
+        </div>
+      </div>
+      <div className="p-6">
+        <div className="text-sm leading-relaxed text-surface-foreground/70">{desc}</div>
+      </div>
     </div>
   );
 }

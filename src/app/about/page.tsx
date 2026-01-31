@@ -51,7 +51,7 @@ export default function AboutPage() {
                 That is where we work.
               </p>
               <p className="leading-relaxed text-foreground/80">
-                We are <span className="font-semibold">Q-Prac</span> — Quantum
+                We are <span className="font-semibold">QuPracs</span> — Quantum
                 Practitioners, helping organizations engage with quantum computing
                 honestly, pragmatically, and with respect for both technical
                 reality and business outcomes.

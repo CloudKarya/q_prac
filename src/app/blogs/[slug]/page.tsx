@@ -87,13 +87,13 @@ export default async function BlogPostPage({
     headline: post.title,
     description: post.description,
     datePublished: post.publishedAt,
-    author: [{ "@type": "Organization", name: "Q-Prac" }],
+    author: [{ "@type": "Organization", name: "QuPracs" }],
     publisher: {
       "@type": "Organization",
-      name: "Q-Prac",
+      name: "QuPracs",
       logo: {
         "@type": "ImageObject",
-        url: base ? `${base}/images/logo/q-prac.png` : "/images/logo/q-prac.png",
+        url: base ? `${base}/images/logo/QuPracs.png` : "/images/logo/QuPracs.png",
       },
     },
     mainEntityOfPage: absoluteUrl,
