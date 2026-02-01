@@ -51,7 +51,7 @@ export function BlogsClient({
         </p>
       </header>
 
-      <div className="mx-auto mt-8 max-w-3xl">
+      <div className="mx-auto mt-8 max-w-4xl">
         <label htmlFor="blog-search" className="sr-only">
           Search blog posts
         </label>
