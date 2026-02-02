@@ -40,7 +40,7 @@ export function BlogsClient({
   }, [posts, query]);
 
   return (
-    <section className="mx-auto w-full max-w-6xl px-6 py-10">
+    <section className="mx-auto w-full max-w-6xl px-6 py-12">
       <header className="mx-auto max-w-3xl text-center">
         <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
           Blog

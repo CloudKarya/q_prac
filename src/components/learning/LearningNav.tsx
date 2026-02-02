@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useMemo, useState } from "react";
 
 type NavItem = {
   num: string;
@@ -44,73 +45,140 @@ function isActive(pathname: string, href: string): boolean {
 
 export function LearningNav() {
   const pathname = usePathname();
+  const [filter, setFilter] = useState<string>("");
+
+  const filteredNavItems = useMemo(() => {
+    const q = filter.trim().toLowerCase();
+    if (!q) return navItems;
+    return navItems.filter((it) => {
+      const hay = `${it.title} ${it.subtitle} ${it.num}`.toLowerCase();
+      return hay.includes(q);
+    });
+  }, [filter]);
 
   return (
-    <nav className="rounded-3xl border border-surface-border bg-surface p-4 text-surface-foreground shadow-sm">
-      <div className="flex items-center justify-between gap-4">
-        <div>
-          <div className="text-sm font-semibold tracking-wide text-surface-foreground/60">
-            Learning
-          </div>
-          <div className="text-lg font-semibold tracking-tight">Quantum readiness path</div>
+    <nav className="rounded-2xl border border-surface-border bg-surface p-4 shadow-sm">
+      <div className="px-1">
+        <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">
+          Learning
         </div>
-        <Link
-          href="/learning"
-          className={
-            "text-sm font-semibold hover:underline " +
-            (pathname === "/learning" ? "text-surface-foreground" : "text-surface-foreground/80")
-          }
-        >
-          Overview
-        </Link>
+        <div className="mt-1 text-base font-semibold tracking-tight">Documentation</div>
       </div>
 
-      <div className="mt-4 space-y-2">
-        {navItems.map((item) => {
-          const active = isActive(pathname, item.href);
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={
-                "block rounded-2xl border px-4 py-3 transition-colors " +
-                (active
-                  ? "border-accent bg-accent/20"
-                  : "border-surface-border hover:bg-surface/60")
-              }
-              aria-current={active ? "page" : undefined}
-            >
-              <div className="flex items-start gap-3">
-                <div
-                  className={
-                    "mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold " +
-                    (active
-                      ? "bg-accent text-accent-foreground"
-                      : "border border-surface-border bg-surface text-surface-foreground/70")
-                  }
-                >
-                  {item.num}
-                </div>
-                <div className="min-w-0">
-                  <div className="text-sm font-semibold leading-snug">{item.title}</div>
-                  <div className="mt-1 text-xs leading-relaxed text-surface-foreground/65">
-                    {item.subtitle}
+      <div className="mt-4 px-1">
+        <label className="block">
+          <span className="sr-only">Filter</span>
+          <input
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            placeholder="Filter"
+            className="h-10 w-full rounded-xl border border-surface-border bg-surface px-3 text-sm outline-none focus:border-background"
+          />
+        </label>
+      </div>
+
+      <div className="mt-5">
+        <div className="px-1 text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">
+          Overview
+        </div>
+        <div className="mt-2">
+          <Link
+            href="/learning"
+            aria-current={pathname === "/learning" ? "page" : undefined}
+            className={
+              "block rounded-xl px-3 py-2 text-sm font-semibold transition " +
+              (pathname === "/learning"
+                ? "border-l-4 border-background bg-background/10 text-surface-foreground"
+                : "text-surface-foreground/80 hover:bg-black/5 dark:hover:bg-white/5")
+            }
+          >
+            Getting started
+          </Link>
+        </div>
+      </div>
+
+      <details open className="mt-5">
+        <summary className="cursor-pointer list-none px-1">
+          <div className="flex items-center justify-between">
+            <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">
+              Guides
+            </div>
+            <span className="text-xs text-surface-foreground/60">▾</span>
+          </div>
+        </summary>
+
+        <div className="mt-2 space-y-1">
+          {filteredNavItems.map((item) => {
+            const active = isActive(pathname, item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={
+                  "group block rounded-xl px-3 py-2 transition " +
+                  (active
+                    ? "border-l-4 border-background bg-background/10"
+                    : "hover:bg-black/5 dark:hover:bg-white/5")
+                }
+              >
+                <div className="flex items-start gap-3">
+                  <div
+                    className={
+                      "mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[11px] font-semibold " +
+                      (active
+                        ? "bg-background text-white"
+                        : "border border-surface-border bg-surface text-surface-foreground/70")
+                    }
+                  >
+                    {item.num}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-sm font-semibold leading-snug text-surface-foreground">
+                      {item.title}
+                    </div>
+                    <div className="mt-0.5 text-xs leading-relaxed text-surface-foreground/65">
+                      {item.subtitle}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+              </Link>
+            );
+          })}
 
-      <div className="mt-5 border-t border-surface-border pt-4">
-        <Link
-          href="/learning"
-          className="text-sm font-semibold text-surface-foreground/80 hover:text-surface-foreground hover:underline"
-        >
-          ← Back to Learning Overview
-        </Link>
-      </div>
+          {filteredNavItems.length === 0 ? (
+            <div className="rounded-xl px-3 py-2 text-sm text-surface-foreground/70">
+              No matches.
+            </div>
+          ) : null}
+        </div>
+      </details>
+
+      <details open className="mt-5">
+        <summary className="cursor-pointer list-none px-1">
+          <div className="flex items-center justify-between">
+            <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">
+              Resources
+            </div>
+            <span className="text-xs text-surface-foreground/60">▾</span>
+          </div>
+        </summary>
+
+        <div className="mt-2 space-y-1">
+          <Link
+            href="/tutorials"
+            className="block rounded-xl px-3 py-2 text-sm font-semibold text-surface-foreground/80 hover:bg-black/5 dark:hover:bg-white/5"
+          >
+            Tutorials
+          </Link>
+          <Link
+            href="/blogs"
+            className="block rounded-xl px-3 py-2 text-sm font-semibold text-surface-foreground/80 hover:bg-black/5 dark:hover:bg-white/5"
+          >
+            Blogs
+          </Link>
+        </div>
+      </details>
     </nav>
   );
 }

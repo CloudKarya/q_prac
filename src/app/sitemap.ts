@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllBlogPosts } from "@/content/allBlogPosts";
+import { getAllJobs } from "@/content/jobs/jobs";
 
 function siteUrl(): string {
   const url = process.env.NEXT_PUBLIC_SITE_URL;
@@ -34,5 +35,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...blogRoutes];
+  const jobRoutes: MetadataRoute.Sitemap = getAllJobs().map((j) => ({
+    url: `${base}/jobs/${j.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.4,
+  }));
+
+  return [...staticRoutes, ...blogRoutes, ...jobRoutes];
 }

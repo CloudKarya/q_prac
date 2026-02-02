@@ -102,7 +102,7 @@ export default async function BlogPostPage({
   };
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 py-10">
+    <main className="mx-auto w-full max-w-6xl px-6 py-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -118,7 +118,7 @@ export default async function BlogPostPage({
           </Link>
         </div>
 
-        <article className="rounded-2xl border border-surface-border bg-surface p-7 text-surface-foreground shadow-sm">
+        <article className="rounded-[28px] border border-surface-border bg-surface p-7 text-surface-foreground shadow-sm">
           <header>
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
               {post.title}
