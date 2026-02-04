@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const PRIMARY = "qupracs.cloudkarya.com";
+const PRIMARY = "www.qupracs.com";
 
 const nextConfig: NextConfig = {
   async redirects() {

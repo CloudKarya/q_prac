@@ -4,7 +4,9 @@ import { getAllJobs } from "@/content/jobs/jobs";
 
 function siteUrl(): string {
   const url = process.env.NEXT_PUBLIC_SITE_URL;
-  return (url ? url : "http://localhost:3000").replace(/\/$/, "");
+  const fallback =
+    process.env.NODE_ENV === "production" ? "https://www.qupracs.com" : "http://localhost:3000";
+  return (url ? url : fallback).replace(/\/$/, "");
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {

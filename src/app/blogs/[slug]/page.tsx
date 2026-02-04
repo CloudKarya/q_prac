@@ -13,8 +13,10 @@ export async function generateStaticParams() {
 
 function siteUrl(): string | undefined {
   const url = process.env.NEXT_PUBLIC_SITE_URL;
-  if (!url) return undefined;
-  return url.replace(/\/$/, "");
+  const fallback = process.env.NODE_ENV === "production" ? "https://www.qupracs.com" : undefined;
+  const resolved = url ?? fallback;
+  if (!resolved) return undefined;
+  return resolved.replace(/\/$/, "");
 }
 
 export async function generateMetadata({

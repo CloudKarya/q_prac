@@ -29,8 +29,12 @@ export function GoogleAnalytics({ measurementId }: { measurementId?: string }) {
     const pagePath = search ? `${pathname}${search}` : pathname;
 
     // Next route transitions won't re-run the initial gtag config, so we trigger it.
-    window.gtag?.("config", measurementId, {
-      page_path: pagePath,
+    requestAnimationFrame(() => {
+      window.gtag?.("config", measurementId, {
+        page_path: pagePath,
+        page_title: document.title,
+        page_location: window.location.href,
+      });
     });
   }, [measurementId, pathname]);
 
@@ -50,6 +54,8 @@ export function GoogleAnalytics({ measurementId }: { measurementId?: string }) {
           gtag('js', new Date());
           gtag('config', '${measurementId}', {
             page_path: window.location.pathname + window.location.search,
+            page_title: document.title,
+            page_location: window.location.href,
           });
         `}
       </Script>
