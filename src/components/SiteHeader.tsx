@@ -21,7 +21,7 @@ export function SiteHeader() {
         <nav className="hidden items-center gap-6 md:flex ml-auto">
           <Link
             className="text-base font-semibold text-foreground/80 hover:text-foreground"
-            href="/#services"
+            href="/services"
           >
             Services
           </Link>

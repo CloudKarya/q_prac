@@ -15,6 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${base}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: `${base}/services`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/services/quantum-readiness`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/services/strategy-use-cases`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/services/poc-sprints`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/services/architecture-integration`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/product`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/consulting`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/learning`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
