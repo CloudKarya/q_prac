@@ -56,7 +56,7 @@ export default function StrategyUseCasesPage() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="mt-6 grid gap-6">
         <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
           <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">Outcomes</h2>
           <p className="mt-2 text-sm text-surface-foreground/70">What you get at the end of the engagement.</p>

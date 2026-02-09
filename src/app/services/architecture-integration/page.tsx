@@ -52,7 +52,7 @@ export default function ArchitectureIntegrationPage() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="mt-6 grid gap-6">
         <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
           <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">Outcomes</h2>
           <p className="mt-2 text-sm text-surface-foreground/70">What you get at the end of the engagement.</p>
@@ -218,34 +218,42 @@ export default function ArchitectureIntegrationPage() {
       </div>
 
       <section className="mt-6 rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
+        <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">When this service is the right fit</h2>
+        <p className="mt-2 text-sm text-surface-foreground/70">
+          Architecture decisions should be defensible, reversible, and aligned to operational reality.
+        </p>
+        <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
+          <li>POCs have shown promising signals</li>
+          <li>
+            Architecture decisions need to be{" "}
+            <span className="font-semibold text-surface-foreground">defensible and reversible</span>
+          </li>
+          <li>You want to prepare without prematurely committing</li>
+          <li>Integration risk matters as much as technical performance</li>
+        </ul>
+        <p className="mt-5 text-sm text-surface-foreground/75">
+          Good architecture keeps options open longer—and closes the wrong ones early.
+        </p>
+      </section>
+
+      <section className="mt-6 rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className="text-xs font-semibold tracking-wide text-surface-foreground/60">When it’s the right fit</div>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-              <li>POCs have shown promising signals</li>
-              <li>Architecture decisions need to be <span className="font-semibold text-surface-foreground">defensible and reversible</span></li>
-              <li>You want to prepare without prematurely committing</li>
-              <li>Integration risk matters as much as technical performance</li>
-            </ul>
-            <p className="mt-5 text-sm text-surface-foreground/75">
-              Good architecture keeps options open longer—and closes the wrong ones early.
-            </p>
-          </div>
-
-          <div className="shrink-0">
             <div className="text-xs font-semibold tracking-wide text-surface-foreground/60">Next step</div>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-surface-foreground">
               Planning to integrate experimental capabilities responsibly?
             </h2>
-            <div className="mt-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
-              >
-                Talk to us about architecture
-              </Link>
-            </div>
+            <p className="mt-2 text-sm text-surface-foreground/70">
+              We’ll map integration options and tradeoffs—then recommend what to build, defer, or avoid.
+            </p>
           </div>
+
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
+          >
+            Talk to us about architecture
+          </Link>
         </div>
       </section>
     </div>

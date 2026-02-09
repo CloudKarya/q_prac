@@ -48,7 +48,7 @@ export default function PocSprintsPage() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="mt-6 grid gap-6">
         <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
           <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">Outcomes</h2>
           <p className="mt-2 text-sm text-surface-foreground/70">What you get at the end of the sprint.</p>
@@ -93,7 +93,7 @@ export default function PocSprintsPage() {
         </section>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="mt-6 grid gap-6">
         <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
           <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">What we build</h2>
           <p className="mt-2 text-sm text-surface-foreground/70">Scope varies by use-case, always feasible today.</p>
@@ -182,34 +182,38 @@ export default function PocSprintsPage() {
       </div>
 
       <section className="mt-6 rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
+        <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">When it’s the right fit</h2>
+        <p className="mt-2 text-sm text-surface-foreground/70">Signals that a sprint will produce decision-grade clarity.</p>
+        <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
+          <li>A use-case has passed strategic screening</li>
+          <li>Leadership wants evidence before committing further investment</li>
+          <li>You need clarity, not optimism</li>
+          <li>You want to avoid scaling the wrong approach</li>
+        </ul>
+        <p className="mt-5 text-sm text-surface-foreground/75">
+          Our POCs are designed to help you decide{" "}
+          <span className="font-semibold text-surface-foreground">whether to continue</span>, not to justify continuing.
+        </p>
+      </section>
+
+      <section className="mt-6 rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className="text-xs font-semibold tracking-wide text-surface-foreground/60">When it’s the right fit</div>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-              <li>A use-case has passed strategic screening</li>
-              <li>Leadership wants evidence before committing further investment</li>
-              <li>You need clarity, not optimism</li>
-              <li>You want to avoid scaling the wrong approach</li>
-            </ul>
-            <p className="mt-5 text-sm text-surface-foreground/75">
-              Our POCs are designed to help you decide <span className="font-semibold text-surface-foreground">whether to continue</span>, not to justify continuing.
-            </p>
-          </div>
-
-          <div className="shrink-0">
-            <div className="text-xs font-semibold tracking-wide text-surface-foreground/60">CTA</div>
+            <div className="text-xs font-semibold tracking-wide text-surface-foreground/60">Next step</div>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-surface-foreground">
               Ready to test a use-case with discipline and honesty?
             </h2>
-            <div className="mt-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
-              >
-                Talk to us about a POC sprint
-              </Link>
-            </div>
+            <p className="mt-2 text-sm text-surface-foreground/70">
+              We’ll run a narrow sprint to reduce uncertainty—then recommend proceed, pivot, defer, or stop.
+            </p>
           </div>
+
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
+          >
+            Talk to us about a POC sprint
+          </Link>
         </div>
       </section>
     </div>
