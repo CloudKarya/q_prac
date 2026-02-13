@@ -8,3 +8,7 @@ npm run dev
 # NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 # NEXT_PUBLIC_DISQUS_SHORTNAME=your-shortname
 
+# Contact form → Google Sheets (via Apps Script webhook)
+# CONTACT_SHEETS_WEBHOOK_URL=https://script.google.com/macros/s/<DEPLOYMENT_ID>/exec
+# CONTACT_SHEETS_SECRET=<long-random-string>
+

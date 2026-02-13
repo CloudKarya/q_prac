@@ -18,20 +18,91 @@ export default function ProductPage() {
             Quantum Practice, Not Quantum Promises
           </h1>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-surface-foreground/75 sm:text-base">
-            A practitioner-led platform for responsible quantum experimentation and decision-making.
+            A practitioner-led workflow for responsible quantum experimentation and decision-making — baseline-first,
+            measurable, and hype-resistant.
           </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href="/tutorials"
+              className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
+            >
+              View Tutorials demos
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center rounded-xl border border-surface-border bg-surface px-5 py-3 text-sm font-semibold text-surface-foreground hover:bg-surface/60"
+            >
+              Talk to us
+            </Link>
+          </div>
         </header>
 
         <div className="mt-10 grid gap-6">
           <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
             <p className="text-sm leading-relaxed text-surface-foreground/80 sm:text-base">
-              QuPracs provides a practical platform for evaluating, prototyping, and applying quantum and quantum-inspired
-              approaches using today’s hardware, algorithms, and simulators.
+              QuPracs turns quantum evaluation into a repeatable practice: start from a real question, define a baseline,
+              run a tight experiment, and capture evidence you can defend.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80 sm:text-base">
-              It is designed for teams who want to experiment responsibly, interpret results correctly, and make informed
-              technical and business decisions—without hype, black-box claims, or speculative assumptions.
+              It’s built for teams who want to interpret results correctly (noise, variance, constraints) and make informed
+              technical and business decisions — without black-box claims or speculative assumptions.
             </p>
+          </section>
+
+          <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
+            <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">Start with demos</h2>
+            <p className="mt-2 text-sm text-surface-foreground/70">
+              If you’re evaluating platforms, start with the runnable tutorials. They’re designed to be small and honest:
+              what works today, what fails, and what persists across cells.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <Link
+                href="/tutorials"
+                className="rounded-full border border-surface-border bg-surface px-3 py-1 text-xs font-semibold text-surface-foreground hover:bg-surface/60"
+              >
+                Playground
+              </Link>
+              <Link
+                href="/tutorials/ibm"
+                className="rounded-full border border-surface-border bg-surface px-3 py-1 text-xs font-semibold text-surface-foreground hover:bg-surface/60"
+              >
+                IBM
+              </Link>
+              <Link
+                href="/tutorials/dwave"
+                className="rounded-full border border-surface-border bg-surface px-3 py-1 text-xs font-semibold text-surface-foreground hover:bg-surface/60"
+              >
+                D-Wave
+              </Link>
+              <Link
+                href="/tutorials/ionq"
+                className="rounded-full border border-surface-border bg-surface px-3 py-1 text-xs font-semibold text-surface-foreground hover:bg-surface/60"
+              >
+                IonQ
+              </Link>
+              <Link
+                href="/tutorials/quantinuum"
+                className="rounded-full border border-surface-border bg-surface px-3 py-1 text-xs font-semibold text-surface-foreground hover:bg-surface/60"
+              >
+                Quantinuum
+              </Link>
+              <Link
+                href="/tutorials/braket"
+                className="rounded-full border border-surface-border bg-surface px-3 py-1 text-xs font-semibold text-surface-foreground hover:bg-surface/60"
+              >
+                Braket
+              </Link>
+              <Link
+                href="/tutorials/azure"
+                className="rounded-full border border-surface-border bg-surface px-3 py-1 text-xs font-semibold text-surface-foreground hover:bg-surface/60"
+              >
+                Azure
+              </Link>
+            </div>
+            <div className="mt-4 text-xs text-surface-foreground/60">
+              Tip: many platforms use account credentials rather than simple “API keys”. Use BYOK only if you trust the
+              runner you’re connected to.
+            </div>
           </section>
 
           <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
@@ -52,7 +123,7 @@ export default function ProductPage() {
           <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
             <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">How It’s Different</h2>
             <p className="mt-2 text-sm text-surface-foreground/75 sm:text-base">
-              QuPracs is not a demo playground, a quantum marketplace, or a one-click optimizer.
+              QuPracs is not a one-click optimizer. It’s a decision workflow.
             </p>
             <p className="mt-3 text-sm text-surface-foreground/75 sm:text-base">
               The platform is built around practitioner judgment: structured workflows, explicit assumptions, and transparent
@@ -62,15 +133,15 @@ export default function ProductPage() {
 
           <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
             <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">What Exists Today</h2>
-            <p className="mt-2 text-sm text-surface-foreground/70">Today, QuPracs provides:</p>
+            <p className="mt-2 text-sm text-surface-foreground/70">Today, QuPracs includes:</p>
             <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-              <li>Structured experimentation workflows</li>
-              <li>Access to simulators and select quantum backends</li>
-              <li>Hands-on practitioner guidance</li>
+              <li>Interactive, notebook-style Tutorials (with per-platform starters)</li>
+              <li>Session-based execution (cells share state so you can build up experiments)</li>
+              <li>Optional BYOK key entry for platform credentials (opt-in injection as env vars)</li>
               <li>Clear translation from experiments to architectural and business decisions</li>
             </ul>
             <p className="mt-4 text-sm text-surface-foreground/75 sm:text-base">
-              The platform evolves deliberately, in step with hardware maturity and real user needs.
+              Platform SDK availability depends on the runner environment you connect to.
             </p>
           </section>
 
@@ -89,16 +160,24 @@ export default function ProductPage() {
                   Want to evaluate a use-case responsibly?
                 </h2>
                 <p className="mt-2 text-sm text-surface-foreground/70">
-                  We help teams move from questions to measurable experiments—then to defensible decisions.
+                  Start with Tutorials to see suitable demos, then talk to us if you want a baseline-first evaluation plan.
                 </p>
               </div>
 
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
-              >
-                Talk to us
-              </Link>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/tutorials"
+                  className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
+                >
+                  See Tutorials demos
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-xl border border-surface-border bg-surface px-5 py-3 text-sm font-semibold text-surface-foreground hover:bg-surface/60"
+                >
+                  Talk to us
+                </Link>
+              </div>
             </div>
           </section>
         </div>
