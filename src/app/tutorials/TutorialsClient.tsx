@@ -53,6 +53,19 @@ type CellResult = {
   error: RunnerErrorMessage | null;
 };
 
+type NotebookCell = {
+  id: string;
+  code: string;
+  result: CellResult | null;
+};
+
+function newCellId(): string {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
+    return crypto.randomUUID();
+  }
+  return `cell_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+}
+
 async function createSession(baseUrl: string): Promise<CreateSessionResponse> {
   const res = await fetch(`/api/qprac/session`, {
     method: "POST",
@@ -178,41 +191,11 @@ function pngDataUrlFromBase64(dataBase64: string) {
   return `data:image/png;base64,${dataBase64}`;
 }
 
-type TutorialCell = {
-  id: string;
-  title: string;
-  description: string;
-  code: string;
-};
-
-const CELLS: TutorialCell[] = [
-  {
-    id: "hello-env",
-    title: "Cell 1 — hello + environment",
-    description:
-      "Warm-up: prove the session is executing Python and see the version.",
-    code: "import sys\nprint('python:', sys.version)\n",
-  },
-  {
-    id: "persist-1",
-    title: "Cell 2 — persistence (set a variable)",
-    description:
-      "Set x inside the session. It should persist across later cells.",
-    code: "x = 42\nprint('x set')\n",
-  },
-  {
-    id: "persist-2",
-    title: "Cell 3 — confirm persistence",
-    description: "Read x back in a different cell (same session).",
-    code: "print('x is', x)\n",
-  },
-  {
-    id: "error",
-    title: "Cell 4 — show an error",
-    description:
-      "Errors come back as structured JSON (ename/evalue/traceback).",
-    code: "raise ValueError('demo error')\n",
-  },
+const INITIAL_CODES: string[] = [
+  "import sys\nprint('python:', sys.version)\n",
+  "x = 42\nprint('x set')\n",
+  "print('x is', x)\n",
+  "raise ValueError('demo error')\n",
 ];
 
 export function TutorialsClient() {
@@ -249,7 +232,9 @@ export function TutorialsClient() {
   >({ state: "idle" });
 
   const [runningCellId, setRunningCellId] = useState<string | null>(null);
-  const [results, setResults] = useState<Record<string, CellResult | null>>({});
+  const [cells, setCells] = useState<NotebookCell[]>(() =>
+    INITIAL_CODES.map((code) => ({ id: newCellId(), code, result: null }))
+  );
 
   const canRunCells = Boolean(wsUrl) && status.state === "ready";
 
@@ -270,7 +255,7 @@ export function TutorialsClient() {
       setSessionId(sess.session_id);
       setWsUrl(sess.ws_url);
       setStatus({ state: "ready" });
-      setResults({});
+      setCells((prev) => prev.map((c) => ({ ...c, result: null })));
     } catch (e) {
       setStatus({
         state: "error",
@@ -282,47 +267,70 @@ export function TutorialsClient() {
   function onStopSession() {
     setSessionId(null);
     setWsUrl(null);
-    setResults({});
+    setCells((prev) => prev.map((c) => ({ ...c, result: null })));
     setRunningCellId(null);
     setStatus({ state: "idle" });
   }
 
   function onResetOutputs() {
-    setResults({});
+    setCells((prev) => prev.map((c) => ({ ...c, result: null })));
     setRunningCellId(null);
   }
 
-  async function runCell(cell: TutorialCell) {
+  async function runCell(cellId: string) {
     if (!wsUrl) return;
 
-    setRunningCellId(cell.id);
-    setResults((prev) => ({ ...prev, [cell.id]: null }));
+    const code = cells.find((c) => c.id === cellId)?.code ?? "";
+    setRunningCellId(cellId);
+    setCells((prev) => prev.map((c) => (c.id === cellId ? { ...c, result: null } : c)));
 
     try {
-      const out = await runCellOverWebSocket(wsUrl, cell.code);
-      setResults((prev) => ({ ...prev, [cell.id]: out }));
+      const out = await runCellOverWebSocket(wsUrl, code);
+      setCells((prev) => prev.map((c) => (c.id === cellId ? { ...c, result: out } : c)));
     } catch (e) {
       const message = e instanceof Error ? e.message : String(e);
-      setResults((prev) => ({
-        ...prev,
-        [cell.id]: {
+      setCells((prev) =>
+        prev.map((c) =>
+          c.id === cellId
+            ? {
+                ...c,
+                result: {
           stdout: "",
           stderr: message,
           images: [],
           ok: false,
           error: null,
-        },
-      }));
+                },
+              }
+            : c
+        )
+      );
     } finally {
       setRunningCellId(null);
     }
   }
 
-  async function runAll() {
-    if (!wsUrl) return;
-    for (const cell of CELLS) {
-      await runCell(cell);
-    }
+  function addCodeCell() {
+    setCells((prev) => [...prev, { id: newCellId(), code: "", result: null }]);
+  }
+
+  function deleteCell(cellId: string) {
+    setCells((prev) => prev.filter((c) => c.id !== cellId));
+    setRunningCellId((cur) => (cur === cellId ? null : cur));
+  }
+
+  function moveCell(cellId: string, direction: "up" | "down") {
+    setCells((prev) => {
+      const idx = prev.findIndex((c) => c.id === cellId);
+      if (idx === -1) return prev;
+      const nextIdx = direction === "up" ? idx - 1 : idx + 1;
+      if (nextIdx < 0 || nextIdx >= prev.length) return prev;
+      const copy = [...prev];
+      const tmp = copy[idx];
+      copy[idx] = copy[nextIdx];
+      copy[nextIdx] = tmp;
+      return copy;
+    });
   }
 
   return (
@@ -475,131 +483,126 @@ export function TutorialsClient() {
           </aside>
 
           <div className="rounded-2xl border border-border bg-muted p-6">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="text-sm font-semibold">Tutorial cells</div>
-              <button
-                type="button"
-                onClick={runAll}
-                disabled={!canRunCells || runningCellId !== null}
-                className="inline-flex items-center justify-center rounded-xl border border-border px-4 py-2 text-sm font-medium hover:bg-white/10 disabled:opacity-60"
-              >
-                Run all cells
-              </button>
-            </div>
-
-            <div className="mt-6 space-y-4">
-              {CELLS.map((cell) => {
-                const result = results[cell.id];
+            <div className="space-y-4">
+              {cells.map((cell, idx) => {
                 const isRunning = runningCellId === cell.id;
+                const result = cell.result;
 
                 return (
-                  <div
-                    key={cell.id}
-                    className="rounded-2xl border border-border bg-background/10 p-5"
-                  >
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <div className="text-sm font-semibold">{cell.title}</div>
-                        <div className="mt-1 text-sm text-foreground/80">
-                          {cell.description}
-                        </div>
+                  <div key={cell.id} className="rounded-2xl border border-border bg-background/10 p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="flex flex-col items-center gap-2 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => runCell(cell.id)}
+                          disabled={!canRunCells || runningCellId !== null}
+                          className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface text-sm font-semibold text-surface-foreground hover:bg-surface/90 disabled:opacity-60"
+                          aria-label={isRunning ? "Running cell" : "Run cell"}
+                          title={isRunning ? "Running…" : "Run"}
+                        >
+                          {isRunning ? "…" : "▶"}
+                        </button>
+                        <div className="text-xs font-semibold text-foreground/70">{idx + 1}</div>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => runCell(cell)}
-                        disabled={!canRunCells || runningCellId !== null}
-                        className="inline-flex items-center justify-center rounded-xl bg-surface px-4 py-2 text-sm font-semibold text-surface-foreground hover:bg-surface/90 disabled:opacity-60"
-                      >
-                        {isRunning ? "Running…" : "Run"}
-                      </button>
-                    </div>
-
-                    <pre className="mt-4 overflow-x-auto rounded-xl border border-border bg-surface p-4 text-xs text-surface-foreground">
-                      {cell.code}
-                    </pre>
-
-                    {result ? (
-                      <div className="mt-4 space-y-3">
-                        <div className="flex items-center justify-between">
-                          <div className="text-xs font-semibold text-foreground/70">
-                            Result
-                          </div>
-                          <div
-                            className={
-                              "text-xs font-semibold " +
-                              (result.ok
-                                ? "text-foreground/80"
-                                : "text-foreground")
-                            }
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-end gap-2">
+                          <button
+                            type="button"
+                            onClick={() => moveCell(cell.id, "up")}
+                            disabled={idx === 0 || runningCellId !== null}
+                            className="rounded-lg border border-border px-2 py-1 text-xs font-semibold hover:bg-white/10 disabled:opacity-50"
+                            aria-label="Move cell up"
+                            title="Move up"
                           >
-                            {result.ok ? "ok" : "error"}
-                          </div>
+                            ↑
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => moveCell(cell.id, "down")}
+                            disabled={idx === cells.length - 1 || runningCellId !== null}
+                            className="rounded-lg border border-border px-2 py-1 text-xs font-semibold hover:bg-white/10 disabled:opacity-50"
+                            aria-label="Move cell down"
+                            title="Move down"
+                          >
+                            ↓
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => deleteCell(cell.id)}
+                            disabled={runningCellId !== null}
+                            className="rounded-lg border border-border px-2 py-1 text-xs font-semibold hover:bg-white/10 disabled:opacity-50"
+                            aria-label="Delete cell"
+                            title="Delete"
+                          >
+                            🗑
+                          </button>
                         </div>
 
-                        {result.stdout ? (
-                          <div>
-                            <div className="text-xs font-semibold text-foreground/70">
-                              stdout
-                            </div>
-                            <pre className="mt-1 overflow-x-auto rounded-xl border border-border bg-surface p-4 text-xs text-surface-foreground">
-                              {result.stdout}
-                            </pre>
-                          </div>
-                        ) : null}
+                        <textarea
+                          value={cell.code}
+                          onChange={(e) => {
+                            const v = e.target.value;
+                            setCells((prev) => prev.map((c) => (c.id === cell.id ? { ...c, code: v } : c)));
+                          }}
+                          placeholder="Start coding or generate with AI."
+                          spellCheck={false}
+                          className="mt-2 min-h-24 w-full resize-y rounded-xl border border-surface-border bg-surface p-4 font-mono text-xs text-surface-foreground outline-none focus:border-background"
+                        />
 
-                        {result.stderr ? (
-                          <div>
-                            <div className="text-xs font-semibold text-foreground/70">
-                              stderr
-                            </div>
-                            <pre className="mt-1 overflow-x-auto rounded-xl border border-border bg-surface p-4 text-xs text-surface-foreground">
-                              {result.stderr}
-                            </pre>
-                          </div>
-                        ) : null}
+                        {result ? (
+                          <div className="mt-3 space-y-3">
+                            {(result.stdout || result.stderr) && (
+                              <pre className="overflow-x-auto rounded-xl border border-border bg-muted p-4 text-xs text-foreground">
+                                {result.stdout}
+                                {result.stderr ? (result.stdout ? "\n" : "") + result.stderr : ""}
+                              </pre>
+                            )}
 
-                        {result.error ? (
-                          <div>
-                            <div className="text-xs font-semibold text-foreground/70">
-                              structured error
-                            </div>
-                            <pre className="mt-1 overflow-x-auto rounded-xl border border-border bg-surface p-4 text-xs text-surface-foreground">
-                              {JSON.stringify(result.error, null, 2)}
-                            </pre>
-                          </div>
-                        ) : null}
+                            {result.error ? (
+                              <pre className="overflow-x-auto rounded-xl border border-border bg-muted p-4 text-xs text-foreground">
+                                {JSON.stringify(result.error, null, 2)}
+                              </pre>
+                            ) : null}
 
-                        {result.images.length ? (
-                          <div>
-                            <div className="text-xs font-semibold text-foreground/70">
-                              images
-                            </div>
-                            <div className="mt-2 grid gap-3 sm:grid-cols-2">
-                              {result.images.map((img, idx) => (
-                                <div
-                                  key={`${cell.id}-img-${idx}`}
-                                  className="rounded-2xl border border-border bg-surface p-3"
-                                >
-                                  <Image
-                                    src={pngDataUrlFromBase64(img.dataBase64)}
-                                    alt={`cell output ${idx + 1}`}
-                                    width={1200}
-                                    height={800}
-                                    sizes="(min-width: 640px) 50vw, 100vw"
-                                    className="h-auto w-full rounded-xl"
-                                    unoptimized
-                                  />
-                                </div>
-                              ))}
-                            </div>
+                            {result.images.length ? (
+                              <div className="grid gap-3 sm:grid-cols-2">
+                                {result.images.map((img, imgIdx) => (
+                                  <div
+                                    key={`${cell.id}-img-${imgIdx}`}
+                                    className="rounded-2xl border border-surface-border bg-surface p-3"
+                                  >
+                                    <Image
+                                      src={pngDataUrlFromBase64(img.dataBase64)}
+                                      alt={`cell output ${imgIdx + 1}`}
+                                      width={1200}
+                                      height={800}
+                                      sizes="(min-width: 640px) 50vw, 100vw"
+                                      className="h-auto w-full rounded-xl"
+                                      unoptimized
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            ) : null}
                           </div>
                         ) : null}
                       </div>
-                    ) : null}
+                    </div>
                   </div>
                 );
               })}
+
+              <div className="flex justify-center pt-2">
+                <button
+                  type="button"
+                  onClick={addCodeCell}
+                  disabled={runningCellId !== null}
+                  className="inline-flex items-center justify-center rounded-full border border-border bg-muted px-6 py-2 text-sm font-semibold hover:bg-white/10 disabled:opacity-60"
+                >
+                  + Code
+                </button>
+              </div>
             </div>
           </div>
         </section>
