@@ -27,8 +27,8 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-foreground" href="/consulting">
-                  Consulting
+                <Link className="hover:text-foreground" href="/services">
+                  Services
                 </Link>
               </li>
               <li>

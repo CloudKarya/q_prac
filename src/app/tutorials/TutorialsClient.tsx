@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 const DEFAULT_BASE_URL = "https://qprac-runner-1076575453845.us-central1.run.app";
@@ -191,38 +192,163 @@ function pngDataUrlFromBase64(dataBase64: string) {
   return `data:image/png;base64,${dataBase64}`;
 }
 
-const INITIAL_CODES: string[] = [
-  "import sys\nprint('python:', sys.version)\n",
-  "x = 42\nprint('x set')\n",
-  "print('x is', x)\n",
-  "raise ValueError('demo error')\n",
-];
+type TutorialsPreset =
+  | "playground"
+  | "ibm"
+  | "dwave"
+  | "ionq"
+  | "quantinuum"
+  | "braket"
+  | "azure";
 
-export function TutorialsClient() {
+type ByokProvider = {
+  id: string;
+  label: string;
+  envVar: string;
+  placeholder?: string;
+};
+
+type PresetConfig = {
+  byokProviders: ByokProvider[];
+  initialCodes: string[];
+};
+
+const PRESETS: Record<TutorialsPreset, PresetConfig> = {
+  playground: {
+    byokProviders: [
+      { id: "ibm", label: "IBM Quantum", envVar: "IBM_QUANTUM_TOKEN" },
+      { id: "dwave", label: "D-Wave Leap", envVar: "DWAVE_API_TOKEN" },
+      { id: "ionq", label: "IonQ", envVar: "IONQ_API_KEY" },
+      { id: "quantinuum", label: "Quantinuum", envVar: "QUANTINUUM_API_KEY" },
+    ],
+    initialCodes: [
+      "import sys\nprint('python:', sys.version)\n",
+      "x = 42\nprint('x set')\n",
+      "print('x is', x)\n",
+      "raise ValueError('demo error')\n",
+    ],
+  },
+  ibm: {
+    byokProviders: [{ id: "ibm", label: "IBM Quantum token", envVar: "IBM_QUANTUM_TOKEN" }],
+    initialCodes: [
+      "import os, sys\nprint('python:', sys.version)\nprint('IBM token present:', bool(os.getenv('IBM_QUANTUM_TOKEN')))\n",
+      "try:\n  from qiskit_ibm_runtime import QiskitRuntimeService\n  print('qiskit-ibm-runtime available')\nexcept Exception as e:\n  print('qiskit-ibm-runtime not available:', e)\n",
+      "print('Next: create a QiskitRuntimeService(...) and run a tiny circuit.')\n",
+    ],
+  },
+  dwave: {
+    byokProviders: [{ id: "dwave", label: "D-Wave Leap token", envVar: "DWAVE_API_TOKEN" }],
+    initialCodes: [
+      "import os, sys\nprint('python:', sys.version)\nprint('D-Wave token present:', bool(os.getenv('DWAVE_API_TOKEN')))\n",
+      "try:\n  import dwave\n  print('dwave module available')\nexcept Exception as e:\n  print('dwave modules not available:', e)\n",
+      "print('Next: use Ocean SDK (dwave-system) to sample a small BQM/QUBO.')\n",
+    ],
+  },
+  ionq: {
+    byokProviders: [{ id: "ionq", label: "IonQ API key", envVar: "IONQ_API_KEY" }],
+    initialCodes: [
+      "import os, sys\nprint('python:', sys.version)\nprint('IonQ key present:', bool(os.getenv('IONQ_API_KEY')))\n",
+      "try:\n  import qiskit\n  print('qiskit available')\nexcept Exception as e:\n  print('qiskit not available:', e)\n",
+      "print('Next: choose a client (qiskit-ionq or cirq-ionq) and run a 1–2 qubit circuit.')\n",
+    ],
+  },
+  quantinuum: {
+    byokProviders: [{ id: "quantinuum", label: "Quantinuum API key", envVar: "QUANTINUUM_API_KEY" }],
+    initialCodes: [
+      "import os, sys\nprint('python:', sys.version)\nprint('Quantinuum key present:', bool(os.getenv('QUANTINUUM_API_KEY')))\n",
+      "try:\n  import pytket\n  print('pytket available')\nexcept Exception as e:\n  print('pytket not available:', e)\n",
+      "print('Next: use pytket + quantinuum extension to run a small circuit.')\n",
+    ],
+  },
+  braket: {
+    byokProviders: [
+      { id: "aws_access_key_id", label: "AWS Access Key ID", envVar: "AWS_ACCESS_KEY_ID" },
+      { id: "aws_secret_access_key", label: "AWS Secret Access Key", envVar: "AWS_SECRET_ACCESS_KEY" },
+      { id: "aws_session_token", label: "AWS Session Token (optional)", envVar: "AWS_SESSION_TOKEN" },
+      { id: "aws_region", label: "AWS Region", envVar: "AWS_DEFAULT_REGION", placeholder: "us-east-1" },
+    ],
+    initialCodes: [
+      "import os, sys\nprint('python:', sys.version)\nprint('AWS_ACCESS_KEY_ID set:', bool(os.getenv('AWS_ACCESS_KEY_ID')))\nprint('AWS_DEFAULT_REGION:', os.getenv('AWS_DEFAULT_REGION'))\n",
+      "try:\n  import braket\n  print('braket sdk available')\nexcept Exception as e:\n  print('braket sdk not available:', e)\n",
+      "print('Next: use braket.circuits and AwsDevice to run a small circuit or local simulator.')\n",
+    ],
+  },
+  azure: {
+    byokProviders: [
+      { id: "azure_tenant_id", label: "Azure Tenant ID", envVar: "AZURE_TENANT_ID" },
+      { id: "azure_client_id", label: "Azure Client ID", envVar: "AZURE_CLIENT_ID" },
+      { id: "azure_client_secret", label: "Azure Client Secret", envVar: "AZURE_CLIENT_SECRET" },
+      { id: "azure_subscription_id", label: "Azure Subscription ID", envVar: "AZURE_SUBSCRIPTION_ID" },
+      { id: "azure_resource_group", label: "Azure Resource Group", envVar: "AZURE_RESOURCE_GROUP" },
+      { id: "azure_workspace", label: "Azure Quantum Workspace", envVar: "AZURE_QUANTUM_WORKSPACE" },
+      { id: "azure_location", label: "Azure Location", envVar: "AZURE_QUANTUM_LOCATION", placeholder: "westus" },
+    ],
+    initialCodes: [
+      "import os, sys\nprint('python:', sys.version)\nprint('AZURE_TENANT_ID set:', bool(os.getenv('AZURE_TENANT_ID')))\nprint('AZURE_SUBSCRIPTION_ID set:', bool(os.getenv('AZURE_SUBSCRIPTION_ID')))\n",
+      "try:\n  import azure.quantum\n  print('azure-quantum available')\nexcept Exception as e:\n  print('azure-quantum not available:', e)\n",
+      "print('Next: create an AzureQuantumWorkspace and submit a small job (provider-dependent).')\n",
+    ],
+  },
+};
+
+function toBase64Utf8(input: string) {
+  const bytes = new TextEncoder().encode(input);
+  let binary = "";
+  for (const b of bytes) binary += String.fromCharCode(b);
+  return btoa(binary);
+}
+
+export function TutorialsClient({ preset = "playground" }: { preset?: TutorialsPreset }) {
   const defaultBaseUrl =
     process.env.NEXT_PUBLIC_QPRAC_RUNNER_BASE_URL ?? DEFAULT_BASE_URL;
+
+  const presetConfig = PRESETS[preset];
+
+  const tutorialLinks: Array<{ label: string; href: string; preset: TutorialsPreset }> = [
+    { label: "Playground", href: "/tutorials", preset: "playground" },
+    { label: "IBM", href: "/tutorials/ibm", preset: "ibm" },
+    { label: "D-Wave", href: "/tutorials/dwave", preset: "dwave" },
+    { label: "IonQ", href: "/tutorials/ionq", preset: "ionq" },
+    { label: "Quantinuum", href: "/tutorials/quantinuum", preset: "quantinuum" },
+    { label: "Braket", href: "/tutorials/braket", preset: "braket" },
+    { label: "Azure", href: "/tutorials/azure", preset: "azure" },
+  ];
 
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [wsUrl, setWsUrl] = useState<string | null>(null);
   const [baseUrl, setBaseUrl] = useState<string>(defaultBaseUrl);
 
-  const [byokKeys, setByokKeys] = useState<{
-    qupracs: string;
-    nwip: string;
-    ibm: string;
-  }>(() => {
-    if (typeof window === "undefined") {
-      return { qupracs: "", nwip: "", ibm: "" };
+  const [byokValues, setByokValues] = useState<Record<string, string>>(() => {
+    if (typeof window === "undefined") return {};
+
+    const raw = window.localStorage.getItem("qprac.byok.v1");
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw) as unknown;
+        if (parsed && typeof parsed === "object") {
+          return parsed as Record<string, string>;
+        }
+      } catch {
+        // ignore
+      }
     }
 
-    return {
-      qupracs: window.localStorage.getItem("byok.qupracs") ?? "",
-      nwip: window.localStorage.getItem("byok.nwip") ?? "",
-      ibm: window.localStorage.getItem("byok.ibm") ?? "",
-    };
+    const legacyIbm = window.localStorage.getItem("byok.ibm") ?? "";
+    const legacyNwip = window.localStorage.getItem("byok.nwip") ?? "";
+    const legacyQupracs = window.localStorage.getItem("byok.qupracs") ?? "";
+
+    const migrated: Record<string, string> = {};
+    if (legacyIbm) migrated.ibm = legacyIbm;
+    if (legacyNwip) migrated.nwip = legacyNwip;
+    if (legacyQupracs) migrated.qupracs = legacyQupracs;
+    return migrated;
   });
 
   const [showKeys, setShowKeys] = useState<boolean>(false);
+  const [useKeysForExecution, setUseKeysForExecution] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem("qprac.byok.use") === "true";
+  });
 
   const [status, setStatus] = useState<
     | { state: "idle" }
@@ -233,7 +359,7 @@ export function TutorialsClient() {
 
   const [runningCellId, setRunningCellId] = useState<string | null>(null);
   const [cells, setCells] = useState<NotebookCell[]>(() =>
-    INITIAL_CODES.map((code) => ({ id: newCellId(), code, result: null }))
+    presetConfig.initialCodes.map((code) => ({ id: newCellId(), code, result: null }))
   );
 
   const canRunCells = Boolean(wsUrl) && status.state === "ready";
@@ -277,15 +403,41 @@ export function TutorialsClient() {
     setRunningCellId(null);
   }
 
+  function buildInjectedCode(userCode: string) {
+    if (!useKeysForExecution) return userCode;
+
+    const envMap: Record<string, string> = {};
+    for (const provider of presetConfig.byokProviders) {
+      const v = (byokValues[provider.id] ?? "").trim();
+      if (v) envMap[provider.envVar] = v;
+    }
+
+    if (Object.keys(envMap).length === 0) return userCode;
+
+    const payload = toBase64Utf8(JSON.stringify(envMap));
+    const injected =
+      "# --- qprac injected: BYOK env ---\n" +
+      "import base64 as __b64, json as __json, os as __os\n" +
+      `__byok = __json.loads(__b64.b64decode('${payload}').decode('utf-8'))\n` +
+      "for __k, __v in __byok.items():\n" +
+      "  if __v:\n" +
+      "    __os.environ[__k] = __v\n" +
+      "del __k, __v, __byok, __b64, __json, __os\n" +
+      "# --- end injected ---\n\n";
+
+    return injected + userCode;
+  }
+
   async function runCell(cellId: string) {
     if (!wsUrl) return;
 
     const code = cells.find((c) => c.id === cellId)?.code ?? "";
+    const finalCode = buildInjectedCode(code);
     setRunningCellId(cellId);
     setCells((prev) => prev.map((c) => (c.id === cellId ? { ...c, result: null } : c)));
 
     try {
-      const out = await runCellOverWebSocket(wsUrl, code);
+      const out = await runCellOverWebSocket(wsUrl, finalCode);
       setCells((prev) => prev.map((c) => (c.id === cellId ? { ...c, result: out } : c)));
     } catch (e) {
       const message = e instanceof Error ? e.message : String(e);
@@ -335,22 +487,28 @@ export function TutorialsClient() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-6xl px-6 py-14">
-        <header className="space-y-4">
-          <p className="text-sm font-semibold tracking-wide text-foreground/70">
-            Tutorials
-          </p>
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-            Hello Quantum
-          </h1>
-          <p className="max-w-3xl text-lg leading-relaxed text-foreground/80">
-            This is a minimal, notebook-like tutorial that talks to{" "}
-            <span className="font-semibold">qprac-runner</span>: create a session,
-            run a few “cells”, and observe that variables persist across them.
-          </p>
-        </header>
+      <div className="mx-auto max-w-6xl px-6 py-6">
+        <div className="flex flex-wrap items-center gap-2 pb-4">
+          <span className="text-xs font-semibold text-foreground/70">Tutorials:</span>
+          {tutorialLinks.map((item) => {
+            const isActive = item.preset === preset;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={
+                  isActive
+                    ? "rounded-full border border-border bg-yellow-300 px-3 py-1 text-xs font-semibold text-black"
+                    : "rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold text-surface-foreground hover:bg-surface/90"
+                }
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
 
-        <section className="mt-10 grid gap-6 lg:grid-cols-[360px_1fr]">
+        <section className="mt-2 grid gap-6 lg:grid-cols-[360px_1fr]">
           <aside className="space-y-6">
             <div className="rounded-2xl border border-border bg-muted p-6">
               <div className="flex flex-wrap items-center justify-between gap-3">
@@ -419,65 +577,56 @@ export function TutorialsClient() {
               </div>
 
               <p className="mt-2 text-sm leading-relaxed text-foreground/80">
-                Bring your own keys for quantum platforms. Keys are stored locally in your browser and aren’t sent
-                anywhere by this page.
+                Bring your own keys for quantum platforms. Keys are stored locally in your browser.
               </p>
 
+              <label className="mt-3 flex items-center gap-2 text-xs font-semibold text-foreground/70">
+                <input
+                  type="checkbox"
+                  checked={useKeysForExecution}
+                  onChange={(e) => {
+                    const next = e.target.checked;
+                    setUseKeysForExecution(next);
+                    if (typeof window !== "undefined") {
+                      window.localStorage.setItem("qprac.byok.use", String(next));
+                    }
+                  }}
+                  className="h-4 w-4"
+                />
+                Use keys for execution (inject as env vars)
+              </label>
+
               <div className="mt-4 space-y-4">
-                <label className="block">
-                  <div className="text-xs font-semibold text-foreground/70">QuPracs (us)</div>
-                  <input
-                    type={showKeys ? "text" : "password"}
-                    value={byokKeys.qupracs}
-                    onChange={(e) => {
-                      const v = e.target.value;
-                      setByokKeys((prev) => ({ ...prev, qupracs: v }));
-                      if (typeof window !== "undefined") window.localStorage.setItem("byok.qupracs", v);
-                    }}
-                    placeholder="Paste key…"
-                    autoComplete="off"
-                    spellCheck={false}
-                    className="mt-1 w-full rounded-xl border border-surface-border bg-surface px-3 py-2 font-mono text-xs text-surface-foreground outline-none focus:border-background"
-                  />
-                </label>
-
-                <label className="block">
-                  <div className="text-xs font-semibold text-foreground/70">NWIP</div>
-                  <input
-                    type={showKeys ? "text" : "password"}
-                    value={byokKeys.nwip}
-                    onChange={(e) => {
-                      const v = e.target.value;
-                      setByokKeys((prev) => ({ ...prev, nwip: v }));
-                      if (typeof window !== "undefined") window.localStorage.setItem("byok.nwip", v);
-                    }}
-                    placeholder="Paste key…"
-                    autoComplete="off"
-                    spellCheck={false}
-                    className="mt-1 w-full rounded-xl border border-surface-border bg-surface px-3 py-2 font-mono text-xs text-surface-foreground outline-none focus:border-background"
-                  />
-                </label>
-
-                <label className="block">
-                  <div className="text-xs font-semibold text-foreground/70">IBM</div>
-                  <input
-                    type={showKeys ? "text" : "password"}
-                    value={byokKeys.ibm}
-                    onChange={(e) => {
-                      const v = e.target.value;
-                      setByokKeys((prev) => ({ ...prev, ibm: v }));
-                      if (typeof window !== "undefined") window.localStorage.setItem("byok.ibm", v);
-                    }}
-                    placeholder="Paste key…"
-                    autoComplete="off"
-                    spellCheck={false}
-                    className="mt-1 w-full rounded-xl border border-surface-border bg-surface px-3 py-2 font-mono text-xs text-surface-foreground outline-none focus:border-background"
-                  />
-                </label>
+                {presetConfig.byokProviders.map((p) => (
+                  <label key={p.id} className="block">
+                    <div className="text-xs font-semibold text-foreground/70">{p.label}</div>
+                    <input
+                      type={showKeys ? "text" : "password"}
+                      value={byokValues[p.id] ?? ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setByokValues((prev) => {
+                          const next = { ...prev, [p.id]: v };
+                          if (typeof window !== "undefined") {
+                            window.localStorage.setItem("qprac.byok.v1", JSON.stringify(next));
+                          }
+                          return next;
+                        });
+                      }}
+                      placeholder={p.placeholder ?? "Paste key…"}
+                      autoComplete="off"
+                      spellCheck={false}
+                      className="mt-1 w-full rounded-xl border border-surface-border bg-surface px-3 py-2 font-mono text-xs text-surface-foreground outline-none focus:border-background"
+                    />
+                    <div className="mt-1 text-[11px] text-foreground/60">
+                      Used as env var <span className="font-mono">{p.envVar}</span>
+                    </div>
+                  </label>
+                ))}
               </div>
 
               <div className="mt-4 text-xs text-foreground/70">
-                Note: these keys aren’t used by the Hello Quantum cells yet.
+                If enabled, keys are sent to your runner inside the code you execute.
               </div>
             </div>
           </aside>
@@ -490,105 +639,105 @@ export function TutorialsClient() {
 
                 return (
                   <div key={cell.id} className="rounded-2xl border border-border bg-background/10 p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="flex flex-col items-center gap-2 pt-1">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
                         <button
                           type="button"
                           onClick={() => runCell(cell.id)}
                           disabled={!canRunCells || runningCellId !== null}
-                          className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface text-sm font-semibold text-surface-foreground hover:bg-surface/90 disabled:opacity-60"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-surface text-xs font-semibold text-surface-foreground hover:bg-surface/90 disabled:opacity-60"
                           aria-label={isRunning ? "Running cell" : "Run cell"}
                           title={isRunning ? "Running…" : "Run"}
                         >
                           {isRunning ? "…" : "▶"}
                         </button>
-                        <div className="text-xs font-semibold text-foreground/70">{idx + 1}</div>
+                        <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-surface-border bg-surface font-mono text-xs font-semibold text-surface-foreground">
+                          {String(idx + 1).padStart(2, "0")}
+                        </div>
                       </div>
 
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center justify-end gap-2">
-                          <button
-                            type="button"
-                            onClick={() => moveCell(cell.id, "up")}
-                            disabled={idx === 0 || runningCellId !== null}
-                            className="rounded-lg border border-border px-2 py-1 text-xs font-semibold hover:bg-white/10 disabled:opacity-50"
-                            aria-label="Move cell up"
-                            title="Move up"
-                          >
-                            ↑
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => moveCell(cell.id, "down")}
-                            disabled={idx === cells.length - 1 || runningCellId !== null}
-                            className="rounded-lg border border-border px-2 py-1 text-xs font-semibold hover:bg-white/10 disabled:opacity-50"
-                            aria-label="Move cell down"
-                            title="Move down"
-                          >
-                            ↓
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => deleteCell(cell.id)}
-                            disabled={runningCellId !== null}
-                            className="rounded-lg border border-border px-2 py-1 text-xs font-semibold hover:bg-white/10 disabled:opacity-50"
-                            aria-label="Delete cell"
-                            title="Delete"
-                          >
-                            🗑
-                          </button>
-                        </div>
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          type="button"
+                          onClick={() => moveCell(cell.id, "up")}
+                          disabled={idx === 0 || runningCellId !== null}
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-surface-border bg-surface text-xs font-semibold text-surface-foreground hover:bg-surface/90 disabled:opacity-50"
+                          aria-label="Move cell up"
+                          title="Move up"
+                        >
+                          ↑
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => moveCell(cell.id, "down")}
+                          disabled={idx === cells.length - 1 || runningCellId !== null}
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-surface-border bg-surface text-xs font-semibold text-surface-foreground hover:bg-surface/90 disabled:opacity-50"
+                          aria-label="Move cell down"
+                          title="Move down"
+                        >
+                          ↓
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => deleteCell(cell.id)}
+                          disabled={runningCellId !== null}
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-surface-border bg-surface text-xs font-semibold text-surface-foreground hover:bg-surface/90 disabled:opacity-50"
+                          aria-label="Delete cell"
+                          title="Delete"
+                        >
+                          🗑
+                        </button>
+                      </div>
+                    </div>
 
-                        <textarea
-                          value={cell.code}
-                          onChange={(e) => {
-                            const v = e.target.value;
-                            setCells((prev) => prev.map((c) => (c.id === cell.id ? { ...c, code: v } : c)));
-                          }}
-                          placeholder="Start coding or generate with AI."
-                          spellCheck={false}
-                          className="mt-2 min-h-24 w-full resize-y rounded-xl border border-surface-border bg-surface p-4 font-mono text-xs text-surface-foreground outline-none focus:border-background"
-                        />
+                    <textarea
+                      value={cell.code}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setCells((prev) => prev.map((c) => (c.id === cell.id ? { ...c, code: v } : c)));
+                      }}
+                      placeholder="Start coding or generate with AI."
+                      spellCheck={false}
+                      className="mt-3 min-h-24 w-full resize-y rounded-xl border border-surface-border bg-surface p-4 font-mono text-xs text-surface-foreground outline-none focus:border-background"
+                    />
 
-                        {result ? (
-                          <div className="mt-3 space-y-3">
-                            {(result.stdout || result.stderr) && (
-                              <pre className="overflow-x-auto rounded-xl border border-border bg-muted p-4 text-xs text-foreground">
-                                {result.stdout}
-                                {result.stderr ? (result.stdout ? "\n" : "") + result.stderr : ""}
-                              </pre>
-                            )}
+                    {result ? (
+                      <div className="mt-3 space-y-3">
+                        {(result.stdout || result.stderr) && (
+                          <pre className="overflow-x-auto rounded-xl border border-border bg-muted p-4 text-xs text-foreground">
+                            {result.stdout}
+                            {result.stderr ? (result.stdout ? "\n" : "") + result.stderr : ""}
+                          </pre>
+                        )}
 
-                            {result.error ? (
-                              <pre className="overflow-x-auto rounded-xl border border-border bg-muted p-4 text-xs text-foreground">
-                                {JSON.stringify(result.error, null, 2)}
-                              </pre>
-                            ) : null}
+                        {result.error ? (
+                          <pre className="overflow-x-auto rounded-xl border border-border bg-muted p-4 text-xs text-foreground">
+                            {JSON.stringify(result.error, null, 2)}
+                          </pre>
+                        ) : null}
 
-                            {result.images.length ? (
-                              <div className="grid gap-3 sm:grid-cols-2">
-                                {result.images.map((img, imgIdx) => (
-                                  <div
-                                    key={`${cell.id}-img-${imgIdx}`}
-                                    className="rounded-2xl border border-surface-border bg-surface p-3"
-                                  >
-                                    <Image
-                                      src={pngDataUrlFromBase64(img.dataBase64)}
-                                      alt={`cell output ${imgIdx + 1}`}
-                                      width={1200}
-                                      height={800}
-                                      sizes="(min-width: 640px) 50vw, 100vw"
-                                      className="h-auto w-full rounded-xl"
-                                      unoptimized
-                                    />
-                                  </div>
-                                ))}
+                        {result.images.length ? (
+                          <div className="grid gap-3 sm:grid-cols-2">
+                            {result.images.map((img, imgIdx) => (
+                              <div
+                                key={`${cell.id}-img-${imgIdx}`}
+                                className="rounded-2xl border border-surface-border bg-surface p-3"
+                              >
+                                <Image
+                                  src={pngDataUrlFromBase64(img.dataBase64)}
+                                  alt={`cell output ${imgIdx + 1}`}
+                                  width={1200}
+                                  height={800}
+                                  sizes="(min-width: 640px) 50vw, 100vw"
+                                  className="h-auto w-full rounded-xl"
+                                  unoptimized
+                                />
                               </div>
-                            ) : null}
+                            ))}
                           </div>
                         ) : null}
                       </div>
-                    </div>
+                    ) : null}
                   </div>
                 );
               })}

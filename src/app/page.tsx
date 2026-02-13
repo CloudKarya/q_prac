@@ -43,13 +43,13 @@ export default function HomePage() {
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link
-                  href="/consulting"
+                  href="/services"
                   className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
                 >
                   Get Started
                 </Link>
                 <Link
-                  href="/product"
+                  href="/services"
                   className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
                 >
                   See Services
@@ -90,7 +90,7 @@ export default function HomePage() {
                 <div className="relative aspect-[5/4] w-full">
                   <Image
                     src="/images/about/q_decide.png"
-                    alt="Decision-ready consulting"
+                    alt="Decision-ready services"
                     fill
                     className="object-cover"
                   />
@@ -119,10 +119,10 @@ export default function HomePage() {
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  href="/consulting"
+                  href="/services"
                   className="inline-flex items-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
                 >
-                  Learn more about Consulting
+                  Learn more about Services
                 </Link>
                 <Link
                   href="/blogs"
@@ -142,7 +142,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-2">
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Services</h2>
             <p className="max-w-3xl text-base leading-relaxed text-surface-foreground/70 sm:text-lg">
-              Practical consulting and prototype sprints built around measurable outcomes.
+              Practical services and prototype sprints built around measurable outcomes.
             </p>
           </div>
 
@@ -231,7 +231,7 @@ export default function HomePage() {
 
           <div className="mx-auto mt-10 max-w-3xl divide-y divide-surface-border rounded-3xl border border-surface-border bg-surface">
             <FaqItem
-              q="How can consulting benefit our business?"
+              q="How can your services benefit our business?"
               a="We bring decision-grade clarity: what to do now, what to defer, and how to run experiments that translate to real constraints."
             />
             <FaqItem
@@ -246,22 +246,6 @@ export default function HomePage() {
               q="How long does a prototype sprint take?"
               a="Typically 4–6 weeks to get defensible evidence, depending on data access, baseline complexity, and integration constraints."
             />
-          </div>
-        </div>
-      </section>
-
-      {/* TEAM */}
-      <section className="bg-surface text-surface-foreground">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl">Meet our team</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-base leading-relaxed text-surface-foreground/70 sm:text-lg">
-            A small, senior team that mixes strategy, engineering, and practical experimentation.
-          </p>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <TeamCard img="/images/landing/team-1.svg" name="Venkatesh T." role="Founder / Strategy" />
-            <TeamCard img="/images/landing/team-2.svg" name="Team Member" role="Quantum Engineer" />
-            <TeamCard img="/images/landing/team-3.svg" name="Team Member" role="Solutions Architect" />
           </div>
         </div>
       </section>
@@ -359,10 +343,10 @@ export default function HomePage() {
                 Contact us
               </Link>
               <Link
-                href="/consulting"
+                href="/services"
                 className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
               >
-                See Consulting
+                See Services
               </Link>
             </div>
           </div>
@@ -441,20 +425,6 @@ function FaqItem({ q, a }: { q: string; a: string }) {
       </summary>
       <p className="mt-3 text-sm leading-relaxed text-surface-foreground/70">{a}</p>
     </details>
-  );
-}
-
-function TeamCard({ img, name, role }: { img: string; name: string; role: string }) {
-  return (
-    <div className="overflow-hidden rounded-3xl border border-surface-border bg-surface shadow-sm">
-      <div className="relative aspect-square w-full">
-        <Image src={img} alt={name} fill className="object-cover" />
-      </div>
-      <div className="p-5">
-        <div className="text-base font-semibold">{name}</div>
-        <div className="mt-1 text-sm text-surface-foreground/70">{role}</div>
-      </div>
-    </div>
   );
 }
 

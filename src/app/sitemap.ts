@@ -21,7 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/services/poc-sprints`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/services/architecture-integration`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/product`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${base}/consulting`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/learning`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${base}/learning/quantum-101`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/learning/executive-view`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },

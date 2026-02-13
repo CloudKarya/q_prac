@@ -27,7 +27,7 @@ export default function QDayPage() {
 
       <div className="mt-10 flex flex-wrap gap-3">
         <Link
-          href="/consulting"
+          href="/services"
           className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
         >
           Talk to us

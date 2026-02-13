@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Practical consulting and prototype sprints built around measurable outcomes and decision-grade evidence.",
+    "Practical services and prototype sprints built around measurable outcomes and decision-grade evidence.",
 };
 
 type ServiceCard = {
