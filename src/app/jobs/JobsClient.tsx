@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { Job } from "@/content/jobs/jobTypes";
 import { mailtoForJob } from "@/content/jobs/jobs";
 
@@ -45,7 +45,7 @@ export default function JobsClient({ jobs }: Props) {
   const [focus, setFocus] = useState<string>("All");
 
   const [selectedSlug, setSelectedSlug] = useState<string | null>(() => jobs[0]?.slug ?? null);
-  const [activeTab, setActiveTab] = useState<"overview" | "application">("overview");
+  const [activeTabBySlug, setActiveTabBySlug] = useState<Record<string, "overview" | "application">>({});
 
   const trackOrder = useMemo(
     () => [
@@ -136,21 +136,9 @@ export default function JobsClient({ jobs }: Props) {
     return filtered[0];
   }, [filtered, selectedSlug]);
 
-  useEffect(() => {
-    if (!selectedJob) {
-      if (selectedSlug !== null) setSelectedSlug(null);
-      return;
-    }
-
-    if (selectedSlug !== selectedJob.slug) {
-      setSelectedSlug(selectedJob.slug);
-      setActiveTab("overview");
-    }
-  }, [selectedJob, selectedSlug]);
-
-  useEffect(() => {
-    setActiveTab("overview");
-  }, [selectedJob?.slug]);
+  const activeTab: "overview" | "application" = selectedJob
+    ? (activeTabBySlug[selectedJob.slug] ?? "overview")
+    : "overview";
 
   function isSelected(job: Job) {
     return selectedJob?.slug === job.slug;
@@ -224,7 +212,7 @@ export default function JobsClient({ jobs }: Props) {
                                 type="button"
                                 onClick={() => {
                                   setSelectedSlug(job.slug);
-                                  setActiveTab("overview");
+                                  setActiveTabBySlug((prev) => ({ ...prev, [job.slug]: "overview" }));
                                 }}
                                 className={
                                   "w-full rounded-2xl border p-4 text-left shadow-sm transition " +
@@ -297,7 +285,10 @@ export default function JobsClient({ jobs }: Props) {
                 <div className="mt-6 flex items-center gap-10 border-b border-surface-border">
                   <button
                     type="button"
-                    onClick={() => setActiveTab("overview")}
+                    onClick={() => {
+                      if (!selectedJob) return;
+                      setActiveTabBySlug((prev) => ({ ...prev, [selectedJob.slug]: "overview" }));
+                    }}
                     className={
                       "relative -mb-px py-4 text-sm font-semibold " +
                       (activeTab === "overview"
@@ -312,7 +303,10 @@ export default function JobsClient({ jobs }: Props) {
                   </button>
                   <button
                     type="button"
-                    onClick={() => setActiveTab("application")}
+                    onClick={() => {
+                      if (!selectedJob) return;
+                      setActiveTabBySlug((prev) => ({ ...prev, [selectedJob.slug]: "application" }));
+                    }}
                     className={
                       "relative -mb-px py-4 text-sm font-semibold " +
                       (activeTab === "application"
