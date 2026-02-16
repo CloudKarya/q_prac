@@ -1,6 +1,6 @@
 ---
 slug: how-to-tell-if-a-business-problem-is-a-candidate-for-quantum
-publishedAt: "2026-01-29"
+publishedAt: "2026-02-12"
 description: A practical 8-question screening framework to decide whether a business problem is worth exploring with quantum or hybrid methods.
 tags:
   - Strategy

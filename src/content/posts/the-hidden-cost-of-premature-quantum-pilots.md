@@ -1,3 +1,10 @@
+---
+slug: the-hidden-cost-of-premature-quantum-pilots
+publishedAt: "2026-02-09"
+aliases:
+	- post_03
+---
+
 # The Hidden Cost of Premature Quantum Pilots
 
 Enterprise quantum pilots fail for reasons that have very little to do with physics.

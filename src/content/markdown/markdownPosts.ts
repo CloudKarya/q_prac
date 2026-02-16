@@ -107,9 +107,13 @@ function loadMarkdownPostFromFileSlug(fileSlug: string): MarkdownBlogPost | unde
   const summary = String(data.summary || "").trim();
 
   const stat = fs.statSync(filePath);
-  const publishedAt = String(
-    data.date || data.publishedAt || "",
-  ).trim();
+  const publishedAtFromFrontmatter = String(data.date || data.publishedAt || "").trim();
+
+  if (!publishedAtFromFrontmatter && process.env.NODE_ENV !== "production") {
+    // Avoid silent surprises from filesystem timestamps (e.g. copied files, old mtimes).
+    // Writers should add `publishedAt: "YYYY-MM-DD"` in frontmatter.
+    console.warn(`[blog] Missing publishedAt/date frontmatter for ${path.basename(filePath)}; falling back to file mtime.`);
+  }
 
   const aliasesRaw = data.aliases;
   const aliases = Array.isArray(aliasesRaw)
@@ -147,7 +151,7 @@ function loadMarkdownPostFromFileSlug(fileSlug: string): MarkdownBlogPost | unde
     title,
     description: finalDescription,
     summary: finalSummary,
-    publishedAt: publishedAt || isoDateOnly(stat.mtime),
+    publishedAt: publishedAtFromFrontmatter || isoDateOnly(stat.mtime),
     tags,
     readingTimeMinutes: estimateReadingTimeMinutes(fullTextPlain),
   };

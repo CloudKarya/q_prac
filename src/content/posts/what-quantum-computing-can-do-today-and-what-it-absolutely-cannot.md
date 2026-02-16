@@ -1,5 +1,6 @@
 ---
 slug: what-quantum-computing-can-do-today-and-what-it-absolutely-cannot
+publishedAt: "2026-02-05"
 aliases:
 	- post_01
 ---
