@@ -45,7 +45,7 @@ export default function RootLayout({
         </div>
 
         <GoogleAnalytics
-          measurementId={process.env.NEXT_PUBLIC_GA_ID ?? "G-QPQZDXZCM5"}
+          measurementId={process.env.NEXT_PUBLIC_GA_ID ?? "G-Z76NPTMD2Q"}
         />
       </body>
     </html>
