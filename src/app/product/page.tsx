@@ -30,7 +30,7 @@ export default function ProductPage() {
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-xl border border-surface-border bg-surface px-5 py-3 text-sm font-semibold text-surface-foreground hover:bg-surface/60"
+              className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
             >
               Talk to us
             </Link>
@@ -173,7 +173,7 @@ export default function ProductPage() {
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center rounded-xl border border-surface-border bg-surface px-5 py-3 text-sm font-semibold text-surface-foreground hover:bg-surface/60"
+                  className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
                 >
                   Talk to us
                 </Link>

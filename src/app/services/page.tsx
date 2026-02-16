@@ -83,11 +83,6 @@ export default function ServicesPage() {
           </Link>
         ))}
       </div>
-
-      <div className="mt-10 rounded-2xl border border-surface-border bg-surface/60 p-5 text-sm text-surface-foreground/70">
-        You can paste final content into each service page later. I left the structure ready for
-        headings, bullets, and calls-to-action.
-      </div>
     </div>
   );
 }

@@ -498,7 +498,7 @@ export function TutorialsClient({ preset = "playground" }: { preset?: TutorialsP
                 href={item.href}
                 className={
                   isActive
-                    ? "rounded-full border border-border bg-yellow-300 px-3 py-1 text-xs font-semibold text-black"
+                    ? "rounded-full border border-transparent bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground"
                     : "rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold text-surface-foreground hover:bg-surface/90"
                 }
               >

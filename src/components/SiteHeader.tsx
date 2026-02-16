@@ -18,7 +18,7 @@ export function SiteHeader() {
       "inline-flex items-center rounded-xl px-3 py-2 text-base font-semibold transition-colors";
 
     if (isActive(href)) {
-      return `${base} bg-yellow-300 text-black hover:bg-yellow-300/90`;
+      return `${base} bg-accent text-accent-foreground hover:bg-accent/90`;
     }
 
     return `${base} text-foreground/80 hover:bg-muted/50 hover:text-foreground`;

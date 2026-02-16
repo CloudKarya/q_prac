@@ -60,7 +60,7 @@ export function BlogsClient({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search posts (e.g., simulators, governance, hybrid)…"
-          className="w-full rounded-2xl border border-border bg-muted px-5 py-3 text-sm text-foreground placeholder:text-foreground/60 outline-none focus:border-foreground/40"
+          className="w-full rounded-2xl border border-surface-border bg-surface px-5 py-3 text-sm text-surface-foreground placeholder:text-surface-foreground/60 outline-none focus:border-background focus:ring-2 focus:ring-accent/40"
           inputMode="search"
           autoComplete="off"
         />

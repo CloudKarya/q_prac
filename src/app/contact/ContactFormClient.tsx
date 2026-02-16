@@ -128,16 +128,16 @@ export function ContactFormClient() {
   }
 
   const inputClass =
-    "mt-2 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent/40";
+    "mt-1 w-full rounded-xl border border-surface-border bg-surface px-3 py-2 text-sm text-surface-foreground placeholder:text-surface-foreground/60 outline-none focus:border-background focus:ring-2 focus:ring-accent/40";
 
-  const labelClass = "text-sm font-semibold text-surface-foreground";
+  const labelClass = "text-xs font-semibold text-foreground/70";
 
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className={labelClass}>
-            Name <span className="text-surface-foreground/60">(required)</span>
+            Name <span className="text-foreground/60">(required)</span>
             <input
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
@@ -149,7 +149,7 @@ export function ContactFormClient() {
         </div>
         <div>
           <label className={labelClass}>
-            Work email <span className="text-surface-foreground/60">(required)</span>
+            Work email <span className="text-foreground/60">(required)</span>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -196,12 +196,12 @@ export function ContactFormClient() {
               onChange={(e) => setInterest(e.target.value as ContactInterest)}
               className={inputClass}
             >
-              <option value="general">General</option>
-              <option value="readiness">Quantum readiness</option>
-              <option value="poc">POC sprint</option>
-              <option value="integration">Architecture / integration</option>
-              <option value="training">Training / enablement</option>
-              <option value="partnership">Partnership</option>
+              <option value="general" className="bg-surface text-surface-foreground">General</option>
+              <option value="readiness" className="bg-surface text-surface-foreground">Quantum readiness</option>
+              <option value="poc" className="bg-surface text-surface-foreground">POC sprint</option>
+              <option value="integration" className="bg-surface text-surface-foreground">Architecture / integration</option>
+              <option value="training" className="bg-surface text-surface-foreground">Training / enablement</option>
+              <option value="partnership" className="bg-surface text-surface-foreground">Partnership</option>
             </select>
           </label>
         </div>
@@ -220,7 +220,7 @@ export function ContactFormClient() {
 
       <div>
         <label className={labelClass}>
-          Message <span className="text-surface-foreground/60">(required)</span>
+          Message <span className="text-foreground/60">(required)</span>
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -239,7 +239,7 @@ export function ContactFormClient() {
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="text-xs text-surface-foreground/60">
+        <div className="text-xs text-foreground/70">
           By submitting, you agree to be contacted about this request.
         </div>
         <button
@@ -255,8 +255,8 @@ export function ContactFormClient() {
         <div
           className={
             status.type === "success"
-              ? "rounded-2xl border border-surface-border bg-muted p-4 text-sm text-surface-foreground"
-              : "rounded-2xl border border-surface-border bg-muted p-4 text-sm text-red-200"
+              ? "rounded-2xl border border-border bg-background/20 p-4 text-sm text-foreground"
+              : "rounded-2xl border border-border bg-background/20 p-4 text-sm text-red-200"
           }
         >
           {status.message}

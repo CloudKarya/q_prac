@@ -197,7 +197,7 @@ export default async function JobDetailPage({ params, searchParams }: Props) {
                     </a>
                     <Link
                       href="/learning"
-                      className="inline-flex h-11 items-center justify-center rounded-xl border border-surface-border bg-surface px-5 text-sm font-semibold text-surface-foreground hover:bg-surface/60"
+                      className="inline-flex h-11 items-center justify-center rounded-xl bg-accent px-5 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
                     >
                       Prepare via Learning
                     </Link>
