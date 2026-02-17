@@ -40,7 +40,7 @@ export function SiteHeader() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex ml-auto">
+        <nav className="hidden items-center gap-4 md:flex ml-auto">
           <Link
             className={navLinkClass("/services")}
             href="/services"
@@ -52,6 +52,12 @@ export function SiteHeader() {
             href="/product"
           >
             Product
+          </Link>
+          <Link
+            className={navLinkClass("/case-studies")}
+            href="/case-studies"
+          >
+            Case Studies
           </Link>
           <Link
             className={navLinkClass("/learning")}
