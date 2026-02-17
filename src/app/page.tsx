@@ -34,33 +34,26 @@ export default function HomePage() {
           <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
             <div className="lg:col-span-6">
               <h2 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">
-                Evaluate Quantum decisions with <span className="text-accent">Qu</span>Pracs
+                Quantum readiness for enterprise leaders and architects
               </h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/85 sm:text-lg">
-                Quantum Readiness, Strategy, and prototype-backed decisions. We help teams separate signal
-                from noise, benchmark pragmaticly, and translate outcomes into roadmaps leadership can trust.
+                Quantum readiness, strategy, and prototype-backed recommendations. We help enterprises separate signal
+                from noise, benchmark against strong baselines, and turn results into roadmaps leadership can defend.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link
-                  href="/services"
+                  href="/contact"
                   className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
                 >
-                  Get Started
+                  Talk to us
                 </Link>
                 <Link
                   href="/services"
-                  className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
+                  className="rounded-xl border border-border bg-surface px-5 py-3 text-sm font-semibold text-surface-foreground shadow-sm hover:bg-muted"
                 >
                   See Services
                 </Link>
-              </div>
-
-              <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <KpiPill value="500+" label="Hours prototyped" />
-                <KpiPill value="20+" label="Use-cases screened" />
-                <KpiPill value="4-6" label="Weeks to evidence" />
-                <KpiPill value="0" label="Hype-driven demos" />
               </div>
             </div>
 
@@ -77,6 +70,13 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <KpiPill value="500+" label="Prototype hours (simulators + baselines)" />
+                <KpiPill value="20+" label="Use cases screened (decision memos)" />
+            <KpiPill value="4-6" label="Weeks to evidence pack" />
+            <KpiPill value="0" label="Hype-driven demos" />
           </div>
         </div>
       </section>
@@ -97,7 +97,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="absolute left-5 top-5 rounded-full border border-surface-border bg-surface px-3 py-2 text-xs font-semibold">
-                  500+ hours prototyped
+                  500+ prototype hours
                 </div>
                 <div className="absolute left-5 bottom-5 rounded-full border border-surface-border bg-surface px-3 py-2 text-xs font-semibold">
                   Decision memos, not decks
@@ -164,13 +164,13 @@ export default function HomePage() {
             </div>
             <ServiceCard
               num="02"
-              title="Strategy & Use-cases"
+              title="Strategy & Use Cases"
               desc="Prioritize opportunities based on economics, constraints, and what’s feasible today."
             />
             <ServiceCard
               num="03"
               title="POC Sprints"
-              desc="Build narrow prototypes, benchmark pragmaticly, and produce decision-grade evidence packs."
+              desc="Build narrow prototypes, benchmark pragmatically, and produce decision-grade evidence packs."
             />
             <ServiceCard
               num="04"
@@ -253,26 +253,23 @@ export default function HomePage() {
       {/* TESTIMONIALS */}
       <section className="bg-surface text-surface-foreground">
         <div className="mx-auto max-w-6xl px-6 pb-16">
-          <h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl">Voices of success</h2>
+          <h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl">Sample outcomes</h2>
           <p className="mx-auto mt-3 max-w-2xl text-center text-base leading-relaxed text-surface-foreground/70 sm:text-lg">
-            Replace these placeholders with real client quotes when ready.
+            Typical deliverables and results from our engagements.
           </p>
 
           <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <TestimonialCard
-              quote="Working with this team brought clarity fast. The prototype and benchmarks made the decision obvious."
-              name="Client Name"
-              title="VP Engineering"
+            <OutcomeCard
+              title="Decision memo + use-case screening"
+              body="A short, executive-safe memo: baseline assumptions, constraints, expected value, and a clear recommendation (yes / no / not yet)."
             />
-            <TestimonialCard
-              quote="They were transparent about tradeoffs and baselines. Exactly the discipline we needed."
-              name="Client Name"
-              title="Director of Strategy"
+            <OutcomeCard
+              title="Evidence pack (4–6 weeks)"
+              body="Prototype-backed results that stand up to scrutiny: baselines, benchmarking methodology, sensitivity analysis, and what it means for your roadmap."
             />
-            <TestimonialCard
-              quote="No hype—just evidence, constraints, and a realistic roadmap we could execute."
-              name="Client Name"
-              title="Chief Architect"
+            <OutcomeCard
+              title="Architecture + integration path"
+              body="A practical target architecture for hybrid workflows, with integration touchpoints, operational constraints, and a staged delivery plan."
             />
           </div>
         </div>
@@ -428,33 +425,11 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-function Stars() {
-  return (
-    <div className="flex gap-1" aria-label="5 stars">
-      {Array.from({ length: 5 }).map((_, idx) => (
-        <span key={idx} className="text-accent">★</span>
-      ))}
-    </div>
-  );
-}
-
-function TestimonialCard({
-  quote,
-  name,
-  title,
-}: {
-  quote: string;
-  name: string;
-  title: string;
-}) {
+function OutcomeCard({ title, body }: { title: string; body: string }) {
   return (
     <div className="rounded-3xl border border-surface-border bg-surface p-6 shadow-sm">
-      <Stars />
-      <p className="mt-4 text-sm leading-relaxed text-surface-foreground/70">“{quote}”</p>
-      <div className="mt-6">
-        <div className="text-sm font-semibold">{name}</div>
-        <div className="text-xs text-surface-foreground/60">{title}</div>
-      </div>
+      <div className="text-lg font-semibold tracking-tight">{title}</div>
+      <div className="mt-3 text-sm leading-relaxed text-surface-foreground/70">{body}</div>
     </div>
   );
 }

@@ -97,7 +97,7 @@ export default function QuantumReadinessPage() {
             <div className="rounded-2xl border border-surface-border bg-surface/60 p-5">
               <div className="text-sm font-semibold text-surface-foreground">2) Process & Portfolio Discipline</div>
               <ul className="mt-3 list-disc space-y-2 pl-5">
-                <li>How use-cases are proposed, screened, funded, and stopped</li>
+                <li>How use cases are proposed, screened, funded, and stopped</li>
                 <li>How success is measured (and by whom)</li>
                 <li>How learning is captured and reused</li>
               </ul>
@@ -177,7 +177,7 @@ export default function QuantumReadinessPage() {
             <div className="rounded-2xl border border-surface-border bg-surface/60 p-5">
               <div className="text-sm font-semibold text-surface-foreground">What we need from you</div>
               <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-                <li>A short list of 2–4 candidate domains/use-case areas (even if vague)</li>
+                <li>A short list of 2–4 candidate domains/use case areas (even if vague)</li>
                 <li>Current architecture overview (high-level is fine)</li>
                 <li>Names of 5–8 stakeholders for interviews</li>
                 <li>Any existing innovation / R&amp;D governance documents (if any)</li>
@@ -200,7 +200,7 @@ export default function QuantumReadinessPage() {
                   fund, and stop work)
                 </li>
                 <li>
-                  <span className="font-semibold text-surface-foreground">Use-case intake template</span> (so future ideas
+                  <span className="font-semibold text-surface-foreground">Use case intake template</span> (so future ideas
                   are screened consistently)
                 </li>
               </ul>

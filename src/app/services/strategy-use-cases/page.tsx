@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Strategy & Use-cases",
+  title: "Strategy & Use Cases",
 };
 
 function InfoPill({ label, value }: { label: string; value: string }) {
@@ -20,7 +20,7 @@ export default function StrategyUseCasesPage() {
       <div className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
         <div className="text-xs font-semibold tracking-wide text-surface-foreground/60">Service 02</div>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight text-surface-foreground sm:text-4xl">
-          Strategy &amp; Use-Case Prioritization
+          Strategy &amp; Use Case Prioritization
         </h1>
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-surface-foreground/70 sm:text-base">
           <span className="font-semibold text-surface-foreground">Focus on what matters.</span> Defer what doesn’t.
@@ -42,7 +42,7 @@ export default function StrategyUseCasesPage() {
           <InfoPill label="Typical duration" value="2–3 weeks" />
           <InfoPill
             label="Primary output"
-            value="Shortlisted use-cases + rationale + next-step decisions"
+            value="Shortlisted use cases + rationale + next-step decisions"
           />
         </div>
 
@@ -63,7 +63,7 @@ export default function StrategyUseCasesPage() {
           <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
             <li>
               <span className="font-semibold text-surface-foreground">A small, credible shortlist</span> of priority
-              use-cases (often fewer than expected)
+              use cases (often fewer than expected)
             </li>
             <li>
               <span className="font-semibold text-surface-foreground">Explicit “not suitable” and “not yet” decisions</span>
@@ -182,7 +182,7 @@ export default function StrategyUseCasesPage() {
               <div className="text-sm font-semibold text-surface-foreground">Deliverables (explicit)</div>
               <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
                 <li>
-                  <span className="font-semibold text-surface-foreground">Use-Case Shortlist</span> (with ranking and
+                  <span className="font-semibold text-surface-foreground">Use Case Shortlist</span> (with ranking and
                   rationale)
                 </li>
                 <li>
@@ -221,7 +221,7 @@ export default function StrategyUseCasesPage() {
               Need help prioritizing what to pursue—and what to avoid?
             </h2>
             <p className="mt-2 text-sm text-surface-foreground/70">
-              Our goal is not to find quantum use-cases—it is to prevent organizations from being wrong at scale.
+              Our goal is not to find quantum use cases—it is to prevent organizations from being wrong at scale.
             </p>
           </div>
 

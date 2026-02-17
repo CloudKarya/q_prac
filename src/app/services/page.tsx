@@ -24,7 +24,7 @@ const services: ServiceCard[] = [
   },
   {
     num: "02",
-    title: "Strategy & Use-cases",
+    title: "Strategy & Use Cases",
     description:
       "Prioritize opportunities based on economics, constraints, and what’s feasible today.",
     href: "/services/strategy-use-cases",
@@ -33,7 +33,7 @@ const services: ServiceCard[] = [
     num: "03",
     title: "POC Sprints",
     description:
-      "Build narrow prototypes, benchmark pragmaticly, and produce decision-grade evidence packs.",
+      "Build narrow prototypes, benchmark pragmatically, and produce decision-grade evidence packs.",
     href: "/services/poc-sprints",
   },
   {

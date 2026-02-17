@@ -96,7 +96,7 @@ export default function PocSprintsPage() {
       <div className="mt-6 grid gap-6">
         <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
           <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">What we build</h2>
-          <p className="mt-2 text-sm text-surface-foreground/70">Scope varies by use-case, always feasible today.</p>
+          <p className="mt-2 text-sm text-surface-foreground/70">Scope varies by use case, always feasible today.</p>
 
           <div className="mt-5 rounded-2xl border border-surface-border bg-surface/60 p-5">
             <ul className="list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
@@ -147,7 +147,7 @@ export default function PocSprintsPage() {
           </div>
 
           <p className="mt-4 text-sm text-surface-foreground/70">
-            For simpler use-cases, we compress this to 4 weeks.
+            For simpler use cases, we compress this to 4 weeks.
           </p>
         </section>
       </div>
@@ -158,7 +158,7 @@ export default function PocSprintsPage() {
           <p className="mt-2 text-sm text-surface-foreground/70">What we need from you to run a clean sprint.</p>
           <div className="mt-5 rounded-2xl border border-surface-border bg-surface/60 p-5">
             <ul className="list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-              <li>A <span className="font-semibold text-surface-foreground">screened and prioritized use-case</span> (typically from Service 02)</li>
+              <li>A <span className="font-semibold text-surface-foreground">screened and prioritized use case</span> (typically from Service 02)</li>
               <li>Access to representative datasets (or realistic proxies)</li>
               <li>Agreement on evaluation metrics and decision thresholds</li>
               <li>Stakeholders for mid-sprint and final reviews</li>
@@ -185,7 +185,7 @@ export default function PocSprintsPage() {
         <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">When it’s the right fit</h2>
         <p className="mt-2 text-sm text-surface-foreground/70">Signals that a sprint will produce decision-grade clarity.</p>
         <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-          <li>A use-case has passed strategic screening</li>
+          <li>A use case has passed strategic screening</li>
           <li>Leadership wants evidence before committing further investment</li>
           <li>You need clarity, not optimism</li>
           <li>You want to avoid scaling the wrong approach</li>
@@ -201,7 +201,7 @@ export default function PocSprintsPage() {
           <div>
             <div className="text-xs font-semibold tracking-wide text-surface-foreground/60">Next step</div>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-surface-foreground">
-              Ready to test a use-case with discipline and pragmaticy?
+              Ready to test a use case with discipline and pragmatism?
             </h2>
             <p className="mt-2 text-sm text-surface-foreground/70">
               We’ll run a narrow sprint to reduce uncertainty—then recommend proceed, pivot, defer, or stop.

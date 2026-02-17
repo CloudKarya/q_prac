@@ -88,7 +88,7 @@ export function SiteFooter() {
 
         <div className="mt-10 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="text-xs text-foreground/60">
-            Copyright {new Date().getFullYear()} QuPracs, from CloudKarya, Inc.
+            © {new Date().getFullYear()} QuPracs. An initiative of CloudKarya, Inc.
           </div>
           <div className="flex items-center gap-2 text-xs text-foreground/60">
             <Link className="hover:text-foreground" href="/privacy">
