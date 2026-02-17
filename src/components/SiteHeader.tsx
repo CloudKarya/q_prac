@@ -40,7 +40,7 @@ export function SiteHeader() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-4 md:flex ml-auto">
+        <nav className="hidden items-center gap-3 md:flex ml-auto">
           <Link
             className={navLinkClass("/services")}
             href="/services"
