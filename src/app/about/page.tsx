@@ -53,7 +53,7 @@ export default function AboutPage() {
                 <p className="text-sm leading-relaxed text-surface-foreground/80 sm:text-base">That is where we work.</p>
                 <p className="text-sm leading-relaxed text-surface-foreground/80 sm:text-base">
                   We are <span className="font-semibold text-surface-foreground">QuPracs</span> — Quantum Practitioners,
-                  helping organizations engage with quantum computing honestly, pragmatically, and with respect for both
+                  helping organizations engage with quantum computing pragmaticly, pragmatically, and with respect for both
                   technical reality and business outcomes.
                 </p>
               </div>
@@ -140,7 +140,7 @@ export default function AboutPage() {
                 <h2 className="text-xl font-semibold tracking-tight text-surface-foreground sm:text-2xl">What We Do</h2>
                 <p className="text-sm leading-relaxed text-surface-foreground/80 sm:text-base">
                   We help organizations evaluate, prototype, and apply quantum and quantum-inspired approaches in ways that
-                  are technically honest, economically justified, and aligned with real operational needs. Our work is
+                  are technically pragmatic, economically justified, and aligned with real operational needs. Our work is
                   grounded in today’s hardware, algorithms, and tooling — not in speculative assumptions about future
                   breakthroughs.
                 </p>

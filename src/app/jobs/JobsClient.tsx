@@ -9,6 +9,10 @@ type Props = {
   jobs: Job[];
 };
 
+function isOpenApplication(job: Job): boolean {
+  return job.slug.startsWith("open-application") || job.title.toLowerCase().includes("open application");
+}
+
 function Select({
   label,
   value,
@@ -45,7 +49,6 @@ export default function JobsClient({ jobs }: Props) {
   const [focus, setFocus] = useState<string>("All");
 
   const [selectedSlug, setSelectedSlug] = useState<string | null>(() => jobs[0]?.slug ?? null);
-  const [activeTabBySlug, setActiveTabBySlug] = useState<Record<string, "overview" | "application">>({});
 
   const trackOrder = useMemo(
     () => [
@@ -105,27 +108,23 @@ export default function JobsClient({ jobs }: Props) {
     });
   }, [jobs, track, employmentType, location, focus]);
 
-  const grouped = useMemo(() => {
-    const byTrack = new Map<string, Job[]>();
-    for (const job of filtered) {
-      const list = byTrack.get(job.track) ?? [];
-      list.push(job);
-      byTrack.set(job.track, list);
-    }
+  const coreRoles = useMemo(() => {
+    return [...filtered]
+      .filter((j) => j.employmentType !== "Internship" && !isOpenApplication(j))
+      .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
+  }, [filtered]);
 
-    const entries = Array.from(byTrack.entries());
-    entries.sort(([a], [b]) => {
-      const ia = trackOrder.indexOf(a);
-      const ib = trackOrder.indexOf(b);
-      if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
-      return a.localeCompare(b);
-    });
+  const internshipRoles = useMemo(() => {
+    return [...filtered]
+      .filter((j) => j.employmentType === "Internship" && !isOpenApplication(j))
+      .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
+  }, [filtered]);
 
-    return entries.map(([trackName, list]) => ({
-      track: trackName,
-      jobs: [...list].sort((a, b) => a.order - b.order || a.title.localeCompare(b.title)),
-    }));
-  }, [filtered, trackOrder]);
+  const openApplicationRoles = useMemo(() => {
+    return [...filtered]
+      .filter((j) => isOpenApplication(j))
+      .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
+  }, [filtered]);
 
   const selectedJob = useMemo(() => {
     if (!filtered.length) return null;
@@ -135,10 +134,6 @@ export default function JobsClient({ jobs }: Props) {
     }
     return filtered[0];
   }, [filtered, selectedSlug]);
-
-  const activeTab: "overview" | "application" = selectedJob
-    ? (activeTabBySlug[selectedJob.slug] ?? "overview")
-    : "overview";
 
   function isSelected(job: Job) {
     return selectedJob?.slug === job.slug;
@@ -152,6 +147,19 @@ export default function JobsClient({ jobs }: Props) {
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-surface-foreground/75 sm:text-base">
           Join us to build decision-first quantum practice—baseline-first, measurable, hype-resistant.
         </p>
+
+        <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex-1 rounded-2xl border border-surface-border bg-background/5 px-5 py-4 text-sm text-surface-foreground/80">
+            <span className="font-semibold">Hiring focus (Q1 2026):</span> Delivery PM + Sales Manager + a small intern cohort.
+          </div>
+
+          <Link
+            href="/hiring-process"
+            className="inline-flex h-11 items-center justify-center rounded-xl bg-accent px-5 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
+          >
+            Our hiring process
+          </Link>
+        </div>
       </header>
 
       <section className="mt-10">
@@ -188,56 +196,60 @@ export default function JobsClient({ jobs }: Props) {
               </div>
 
               <div className="mt-7">
-                <div className="text-sm font-semibold text-surface-foreground/75">Tracks</div>
+                <div className="text-sm font-semibold text-surface-foreground/75">Open roles</div>
 
-                {grouped.length === 0 ? (
+                {filtered.length === 0 ? (
                   <div className="mt-4 rounded-2xl border border-surface-border bg-surface p-5 text-sm text-surface-foreground/70">
                     No roles match those filters.
                   </div>
                 ) : (
                   <div className="mt-4 space-y-6">
-                    {grouped.map(({ track: trackName, jobs: trackJobs }) => (
-                      <div key={trackName}>
-                        <div className="flex items-center justify-between gap-3">
-                          <h3 className="text-sm font-semibold tracking-tight text-surface-foreground">{trackName}</h3>
-                          <div className="text-xs font-semibold text-surface-foreground/60">{trackJobs.length}</div>
-                        </div>
+                    {(
+                      [
+                        { label: "Core roles", jobs: coreRoles },
+                        { label: "Internships", jobs: internshipRoles },
+                        { label: "Open application", jobs: openApplicationRoles },
+                      ] as const
+                    )
+                      .filter((section) => section.jobs.length)
+                      .map((section) => (
+                        <div key={section.label}>
+                          <div className="flex items-center justify-between gap-3">
+                            <h3 className="text-sm font-semibold tracking-tight text-surface-foreground">{section.label}</h3>
+                            <div className="text-xs font-semibold text-surface-foreground/60">{section.jobs.length}</div>
+                          </div>
 
-                        <div className="mt-3 space-y-2">
-                          {trackJobs.map((job) => {
-                            const selected = isSelected(job);
-                            return (
-                              <button
-                                key={job.slug}
-                                type="button"
-                                onClick={() => {
-                                  setSelectedSlug(job.slug);
-                                  setActiveTabBySlug((prev) => ({ ...prev, [job.slug]: "overview" }));
-                                }}
-                                className={
-                                  "w-full rounded-2xl border p-4 text-left shadow-sm transition " +
-                                  (selected
-                                    ? "border-background bg-surface"
-                                    : "border-surface-border bg-surface hover:bg-surface/60")
-                                }
-                                aria-current={selected ? "true" : undefined}
-                              >
-                                <div className={"text-sm font-semibold " + (selected ? "text-background" : "text-background")}
+                          <div className="mt-3 space-y-2">
+                            {section.jobs.map((job) => {
+                              const selected = isSelected(job);
+                              return (
+                                <button
+                                  key={job.slug}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedSlug(job.slug);
+                                  }}
+                                  className={
+                                    "w-full rounded-2xl border p-4 text-left shadow-sm transition " +
+                                    (selected
+                                      ? "border-background bg-surface"
+                                      : "border-surface-border bg-surface hover:bg-surface/60")
+                                  }
+                                  aria-current={selected ? "true" : undefined}
                                 >
-                                  {job.title}
-                                </div>
-                                <div className="mt-2 text-xs text-surface-foreground/75">
-                                  {job.team} • {job.employmentType} • {job.locationType}
-                                </div>
-                                <div className="mt-1 text-xs text-surface-foreground/65">
-                                  {job.locations.join("; ")}
-                                </div>
-                              </button>
-                            );
-                          })}
+                                  <div className="text-sm font-semibold text-background">{job.title}</div>
+                                  <div className="mt-2 text-xs text-surface-foreground/75">
+                                    {job.team} • {job.employmentType} • {job.locationType}
+                                  </div>
+                                  <div className="mt-1 text-xs text-surface-foreground/65">
+                                    {job.locations.join("; ")}
+                                  </div>
+                                </button>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                 )}
               </div>
@@ -249,24 +261,41 @@ export default function JobsClient({ jobs }: Props) {
               <div className="text-sm text-surface-foreground/70">Select a role to view details.</div>
             ) : (
               <div>
-                <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">
-                      {selectedJob.track}
-                    </div>
-                    <h2 className="mt-2 text-2xl font-semibold tracking-tight text-surface-foreground sm:text-3xl">
-                      {selectedJob.title}
-                    </h2>
-                    <div className="mt-3 text-sm text-surface-foreground/75">
-                      {selectedJob.team} • {selectedJob.locations.join("; ")} • {selectedJob.employmentType} •{" "}
-                      {selectedJob.locationType}
-                    </div>
-                    {selectedJob.compensation ? (
-                      <div className="mt-2 text-sm text-surface-foreground/65">{selectedJob.compensation}</div>
-                    ) : null}
+                <header>
+                  <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">
+                    {selectedJob.track}
                   </div>
+                  <h2 className="mt-2 text-2xl font-semibold tracking-tight text-surface-foreground sm:text-3xl">
+                    {selectedJob.title}
+                  </h2>
+                  <div className="mt-3 text-sm text-surface-foreground/75">
+                    {selectedJob.team} • {selectedJob.locations.join("; ")} • {selectedJob.employmentType} •{" "}
+                    {selectedJob.locationType}
+                  </div>
+                  {selectedJob.compensation ? (
+                    <div className="mt-2 text-sm text-surface-foreground/65">{selectedJob.compensation}</div>
+                  ) : null}
 
-                  <div className="flex shrink-0 flex-wrap gap-3">
+                  {selectedJob.credibilityBullets ? (
+                    <div className="mt-5 rounded-2xl border border-surface-border bg-background/5 p-5">
+                      <ul className="list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+                        <li>
+                          <span className="font-semibold">Outcome in 90 days:</span>{" "}
+                          {selectedJob.credibilityBullets.outcome90Days}
+                        </li>
+                        <li>
+                          <span className="font-semibold">Skills / background:</span>{" "}
+                          {selectedJob.credibilityBullets.skills}
+                        </li>
+                        <li>
+                          <span className="font-semibold">Nice-to-have:</span>{" "}
+                          {selectedJob.credibilityBullets.niceToHave}
+                        </li>
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  <div className="mt-5 flex flex-wrap gap-3">
                     <a
                       href={mailtoForJob(selectedJob)}
                       className="inline-flex h-11 items-center justify-center rounded-xl bg-accent px-5 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
@@ -282,135 +311,55 @@ export default function JobsClient({ jobs }: Props) {
                   </div>
                 </header>
 
-                <div className="mt-6 flex items-center gap-10 border-b border-surface-border">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (!selectedJob) return;
-                      setActiveTabBySlug((prev) => ({ ...prev, [selectedJob.slug]: "overview" }));
-                    }}
-                    className={
-                      "relative -mb-px py-4 text-sm font-semibold " +
-                      (activeTab === "overview"
-                        ? "text-surface-foreground"
-                        : "text-surface-foreground/70 hover:text-surface-foreground")
-                    }
-                  >
-                    Overview
-                    {activeTab === "overview" ? (
-                      <span className="absolute inset-x-0 bottom-0 h-0.5 bg-background" />
-                    ) : null}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (!selectedJob) return;
-                      setActiveTabBySlug((prev) => ({ ...prev, [selectedJob.slug]: "application" }));
-                    }}
-                    className={
-                      "relative -mb-px py-4 text-sm font-semibold " +
-                      (activeTab === "application"
-                        ? "text-surface-foreground"
-                        : "text-surface-foreground/70 hover:text-surface-foreground")
-                    }
-                  >
-                    Application
-                    {activeTab === "application" ? (
-                      <span className="absolute inset-x-0 bottom-0 h-0.5 bg-background" />
-                    ) : null}
-                  </button>
-                </div>
+                <div className="mt-6 space-y-8">
+                  <div className="space-y-3 text-sm leading-relaxed text-surface-foreground/80">
+                    {selectedJob.overview.map((p) => (
+                      <p key={p}>{p}</p>
+                    ))}
+                  </div>
 
-                {activeTab === "overview" ? (
-                  <div className="mt-6 space-y-8">
-                    <div className="space-y-3 text-sm leading-relaxed text-surface-foreground/80">
-                      {selectedJob.overview.map((p) => (
-                        <p key={p}>{p}</p>
+                  <div>
+                    <h3 className="text-base font-semibold">The Role</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-surface-foreground/75">{selectedJob.summary}</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base font-semibold">Responsibilities</h3>
+                    <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
+                      {selectedJob.responsibilities.map((x) => (
+                        <li key={x}>{x}</li>
                       ))}
-                    </div>
-
-                    <div>
-                      <h3 className="text-base font-semibold">The Role</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-surface-foreground/75">{selectedJob.summary}</p>
-                    </div>
-
-                    <div>
-                      <h3 className="text-base font-semibold">Responsibilities</h3>
-                      <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-                        {selectedJob.responsibilities.map((x) => (
-                          <li key={x}>{x}</li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h3 className="text-base font-semibold">Requirements</h3>
-                      <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-                        {selectedJob.requirements.map((x) => (
-                          <li key={x}>{x}</li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {selectedJob.niceToHave?.length ? (
-                      <div>
-                        <h3 className="text-base font-semibold">Nice to have</h3>
-                        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-                          {selectedJob.niceToHave.map((x) => (
-                            <li key={x}>{x}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
-
-                    <div className="rounded-2xl border border-surface-border bg-surface p-6 shadow-sm">
-                      <h3 className="text-base font-semibold">About QuPracs</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-surface-foreground/75">
-                        We work in domains where hype is loud and uncertainty is real. Our job is to help teams make
-                        responsible decisions—and to prototype only when it teaches something measurable.
-                      </p>
-                    </div>
+                    </ul>
                   </div>
-                ) : null}
 
-                {activeTab === "application" ? (
-                  <div className="mt-6 space-y-8">
-                    <div className="rounded-2xl border border-surface-border bg-surface p-6 shadow-sm">
-                      <h3 className="text-base font-semibold">How to apply</h3>
-                      <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-                        {selectedJob.application.instructions.map((x) => (
-                          <li key={x}>{x}</li>
-                        ))}
-                      </ul>
-
-                      <h4 className="mt-6 text-sm font-semibold text-surface-foreground">Please include</h4>
-                      <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
-                        {selectedJob.application.askFor.map((x) => (
-                          <li key={x}>{x}</li>
-                        ))}
-                      </ul>
-
-                      <div className="mt-6 flex flex-wrap gap-3">
-                        <a
-                          href={mailtoForJob(selectedJob)}
-                          className="inline-flex h-11 items-center justify-center rounded-xl bg-accent px-5 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
-                        >
-                          Apply via email
-                        </a>
-                        <Link
-                          href="/learning"
-                          className="inline-flex h-11 items-center justify-center rounded-xl bg-accent px-5 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
-                        >
-                          Prepare via Learning
-                        </Link>
-                      </div>
-
-                      <div className="mt-4 text-xs text-surface-foreground/60">
-                        We aim for a fair process: baseline-first tasks, clear rubrics, and honest feedback loops.
-                      </div>
-                    </div>
+                  <div>
+                    <h3 className="text-base font-semibold">Requirements</h3>
+                    <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
+                      {selectedJob.requirements.map((x) => (
+                        <li key={x}>{x}</li>
+                      ))}
+                    </ul>
                   </div>
-                ) : null}
+
+                  {selectedJob.niceToHave?.length ? (
+                    <div>
+                      <h3 className="text-base font-semibold">Nice to have</h3>
+                      <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
+                        {selectedJob.niceToHave.map((x) => (
+                          <li key={x}>{x}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  <div className="rounded-2xl border border-surface-border bg-surface p-6 shadow-sm">
+                    <h3 className="text-base font-semibold">About QuPracs</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-surface-foreground/75">
+                      We work in domains where hype is loud and uncertainty is real. Our job is to help teams make
+                      responsible decisions—and to prototype only when it teaches something measurable.
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
           </section>

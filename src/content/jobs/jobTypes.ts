@@ -28,6 +28,11 @@ export type Job = {
   focusTags?: Array<"Quantum Readiness" | "Prototyping" | "Platform" | "Content" | "Evaluation">;
   compensation?: string;
   summary: string;
+  credibilityBullets?: {
+    outcome90Days: string;
+    skills: string;
+    niceToHave: string;
+  };
   overview: string[];
   responsibilities: string[];
   requirements: string[];

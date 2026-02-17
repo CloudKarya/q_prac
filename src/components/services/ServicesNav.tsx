@@ -22,7 +22,7 @@ const navItems = [
   {
     href: "/services/poc-sprints",
     title: "POC Sprints",
-    description: "Prototype narrowly and benchmark honestly.",
+    description: "Prototype narrowly and benchmark pragmaticly.",
   },
   {
     href: "/services/architecture-integration",

@@ -33,7 +33,7 @@ const services: ServiceCard[] = [
     num: "03",
     title: "POC Sprints",
     description:
-      "Build narrow prototypes, benchmark honestly, and produce decision-grade evidence packs.",
+      "Build narrow prototypes, benchmark pragmaticly, and produce decision-grade evidence packs.",
     href: "/services/poc-sprints",
   },
   {

@@ -216,6 +216,6 @@ Large, vague quantum programs without explicit hypotheses, baseline comparisons,
 
 ## Closing
 
-The most credible quantum posture today is neither hype nor dismissal. It is **disciplined optionality**: learn fast, measure honestly, and build governance that protects credibility.
+The most credible quantum posture today is neither hype nor dismissal. It is **disciplined optionality**: learn fast, measure pragmaticly, and build governance that protects credibility.
 
 Next companion post: *How to Tell If a Business Problem Is Even a Candidate for Quantum.*

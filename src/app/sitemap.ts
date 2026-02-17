@@ -33,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/jobs`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
+    { url: `${base}/hiring-process`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
     { url: `${base}/blogs`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
   ];
 

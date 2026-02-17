@@ -28,7 +28,7 @@ export default function PocSprintsPage() {
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-surface-foreground/70 sm:text-base">
           Proof-of-concepts should <span className="font-semibold">reduce uncertainty</span>, not create new confusion.
           QuPracs runs <span className="font-semibold">narrow, time-boxed POC sprints</span> designed to answer
-          <span className="font-semibold"> specific decision questions</span>—using honest benchmarking against classical
+          <span className="font-semibold"> specific decision questions</span>—using pragmatic benchmarking against classical
           and quantum-inspired baselines.
         </p>
 
@@ -201,7 +201,7 @@ export default function PocSprintsPage() {
           <div>
             <div className="text-xs font-semibold tracking-wide text-surface-foreground/60">Next step</div>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-surface-foreground">
-              Ready to test a use-case with discipline and honesty?
+              Ready to test a use-case with discipline and pragmaticy?
             </h2>
             <p className="mt-2 text-sm text-surface-foreground/70">
               We’ll run a narrow sprint to reduce uncertainty—then recommend proceed, pivot, defer, or stop.

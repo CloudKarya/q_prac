@@ -70,7 +70,7 @@ export default async function OpenGraphImage({
           }}
         >
           <div style={{ fontSize: 18, opacity: 0.9 }}>
-            QuPracs • honest constraints • reproducible workflows
+            QuPracs • pragmatic constraints • reproducible workflows
           </div>
           <div
             style={{

@@ -52,7 +52,7 @@ export default function ProductPage() {
           <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
             <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">Start with demos</h2>
             <p className="mt-2 text-sm text-surface-foreground/70">
-              If you’re evaluating platforms, start with the runnable tutorials. They’re designed to be small and honest:
+              If you’re evaluating platforms, start with the runnable tutorials. They’re designed to be small and pragmatic:
               what works today, what fails, and what persists across cells.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
@@ -147,7 +147,7 @@ export default function ProductPage() {
 
           <section className="rounded-[28px] border border-surface-border bg-background/5 p-7">
             <p className="text-sm leading-relaxed text-surface-foreground/80 sm:text-base">
-              QuPracs helps organizations engage with quantum computing honestly, pragmatically, and with discipline—building
+              QuPracs helps organizations engage with quantum computing pragmaticly, pragmatically, and with discipline—building
               capability now, while preparing for what comes next.
             </p>
           </section>

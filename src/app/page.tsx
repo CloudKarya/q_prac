@@ -38,7 +38,7 @@ export default function HomePage() {
               </h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/85 sm:text-lg">
                 Quantum Readiness, Strategy, and prototype-backed decisions. We help teams separate signal
-                from noise, benchmark honestly, and translate outcomes into roadmaps leadership can trust.
+                from noise, benchmark pragmaticly, and translate outcomes into roadmaps leadership can trust.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -170,7 +170,7 @@ export default function HomePage() {
             <ServiceCard
               num="03"
               title="POC Sprints"
-              desc="Build narrow prototypes, benchmark honestly, and produce decision-grade evidence packs."
+              desc="Build narrow prototypes, benchmark pragmaticly, and produce decision-grade evidence packs."
             />
             <ServiceCard
               num="04"
