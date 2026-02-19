@@ -142,7 +142,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-2">
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Services</h2>
             <p className="max-w-3xl text-base leading-relaxed text-surface-foreground/70 sm:text-lg">
-              Practical services and prototype sprints built around measurable outcomes.
+              Decision-grade services and prototype sprints built around baselines, benchmarking, and evidence packs.
             </p>
           </div>
 
@@ -204,19 +204,19 @@ export default function HomePage() {
               img="/images/landing/case-1.svg"
               title="Supply chain optimization under constraints"
               desc="Benchmarked quantum-inspired solvers vs baselines; produced a clear pursue/pivot memo."
-              href="/contact"
+              href="/case-studies/supply-chain-visibility-control"
             />
             <CaseStudyCard
               img="/images/landing/case-2.svg"
               title="Portfolio scheduling and scenario planning"
               desc="Defined success metrics, built a prototype, and translated learnings into a staged roadmap."
-              href="/contact"
+              href="/case-studies/portfolio-scheduling-scenario-planning"
             />
             <CaseStudyCard
               img="/images/landing/case-3.svg"
               title="Risk-aware decision support"
               desc="Aligned stakeholders on decision criteria; validated performance and integration realities."
-              href="/contact"
+              href="/case-studies/risk-aware-decision-support"
             />
           </div>
         </div>
@@ -383,12 +383,16 @@ function CaseStudyCard({
   title,
   desc,
   href,
+  ctaLabel,
 }: {
   img: string;
   title: string;
   desc: string;
   href: string;
+  ctaLabel?: string;
 }) {
+  const label = ctaLabel ?? (href.startsWith("/case-studies") ? "Read the case study →" : "Discuss a similar case →");
+
   return (
     <div className="overflow-hidden rounded-3xl border border-surface-border bg-surface shadow-sm">
       <div className="relative aspect-[3/2] w-full">
@@ -402,7 +406,7 @@ function CaseStudyCard({
             href={href}
             className="inline-flex items-center rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent/90"
           >
-            Read the case study →
+            {label}
           </Link>
         </div>
       </div>
