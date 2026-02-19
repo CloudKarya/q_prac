@@ -72,11 +72,16 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            <KpiPill value="500+" label="Prototype hours (simulators + baselines)" />
-                <KpiPill value="20+" label="Use cases screened (decision memos)" />
-            <KpiPill value="4-6" label="Weeks to evidence pack" />
-            <KpiPill value="0" label="Hype-driven demos" />
+          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
+            <KpiPill
+              value="500+ hours"
+              label="Hours across simulators + baselines (internal + client work, to date) — benchmarked, documented, repeatable."
+            />
+            <KpiPill
+              value="20+ use cases"
+              label="Use cases screened (decision memos, to date) — scored for feasibility, value, and data reality."
+            />
+            <KpiPill value="4–6 weeks" label="Weeks to evidence pack — baselines, benchmarks, and a defendable recommendation." />
           </div>
         </div>
       </section>
@@ -97,7 +102,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="absolute left-5 top-5 rounded-full border border-surface-border bg-surface px-3 py-2 text-xs font-semibold">
-                  500+ prototype hours
+                  500+ hours (simulators + baselines, internal + client work, to date)
                 </div>
                 <div className="absolute left-5 bottom-5 rounded-full border border-surface-border bg-surface px-3 py-2 text-xs font-semibold">
                   Decision memos, not decks
@@ -151,6 +156,7 @@ export default function HomePage() {
               num="01"
               title="Quantum Readiness"
               desc="Assess people, process, and platform readiness; define a staged roadmap and governance."
+              href="/services/quantum-readiness"
             />
             <div className="relative overflow-hidden rounded-3xl border border-surface-border bg-surface shadow-sm md:row-span-2">
               <div className="relative h-full min-h-[340px] md:min-h-[540px]">
@@ -166,16 +172,19 @@ export default function HomePage() {
               num="02"
               title="Strategy & Use Cases"
               desc="Prioritize opportunities based on economics, constraints, and what’s feasible today."
+              href="/services/strategy-use-cases"
             />
             <ServiceCard
               num="03"
               title="POC Sprints"
               desc="Build narrow prototypes, benchmark pragmatically, and produce decision-grade evidence packs."
+              href="/services/poc-sprints"
             />
             <ServiceCard
               num="04"
               title="Architecture & Integration"
               desc="Design hybrid pipelines and integration paths that work with your existing stack."
+              href="/services/architecture-integration"
             />
           </div>
         </div>
@@ -362,17 +371,35 @@ function KpiPill({ value, label }: { value: string; label: string }) {
   );
 }
 
-function ServiceCard({ num, title, desc }: { num: string; title: string; desc: string }) {
+function ServiceCard({
+  num,
+  title,
+  desc,
+  href,
+}: {
+  num: string;
+  title: string;
+  desc: string;
+  href: string;
+}) {
   return (
-    <div className="overflow-hidden rounded-3xl border border-surface-border bg-surface shadow-sm">
+    <div className="overflow-hidden rounded-3xl border border-surface-border bg-surface shadow-sm transition-shadow hover:shadow-md">
       <div className="bg-background px-6 py-4">
-        <div className="text-xl font-semibold tracking-tight text-white">
+        <Link href={href} className="block text-xl font-semibold tracking-tight text-white focus:outline-none">
           <span className="mr-3 text-white/80">{num}</span>
           {title}
-        </div>
+        </Link>
       </div>
       <div className="p-6">
         <div className="text-sm leading-relaxed text-surface-foreground/70">{desc}</div>
+        <div className="mt-4">
+          <Link
+            href={href}
+            className="inline-flex items-center text-sm font-semibold text-accent hover:underline"
+          >
+            Learn more →
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -31,11 +31,6 @@ export function SiteFooter() {
                   Services
                 </Link>
               </li>
-              <li>
-                <Link className="hover:text-foreground" href="/pricing">
-                  Pricing
-                </Link>
-              </li>
             </ul>
           </div>
 
