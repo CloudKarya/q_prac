@@ -141,9 +141,90 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* HOW WE ENGAGE */}
+      <section className="bg-background text-foreground">
+        <div className="mx-auto max-w-6xl px-6 py-12">
+          <div className="flex flex-col gap-2">
+            <p className="text-sm font-semibold tracking-wide text-foreground/60">How we engage</p>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              Two-track: Consulting + Technical
+            </h2>
+            <p className="max-w-3xl text-base leading-relaxed text-foreground/75">
+              A clear path from strategy to working evidence — with an optional developer enablement layer.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 lg:grid-cols-4">
+            <div className="rounded-2xl border border-border bg-muted px-5 py-4">
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-xs font-semibold text-foreground/70">Consulting</div>
+                <div className="text-xs text-foreground/60">1</div>
+              </div>
+              <div className="mt-2 text-base font-semibold">
+                <Link href="/services/strategy-use-cases" className="hover:underline">
+                  Strategy & Use-cases
+                </Link>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+                Screen and prioritize opportunities with decision memos and success metrics you can defend.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-muted px-5 py-4">
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-xs font-semibold text-foreground/70">Technical</div>
+                <div className="text-xs text-foreground/60">2</div>
+              </div>
+              <div className="mt-2 text-base font-semibold">
+                <Link href="/services/poc-sprints" className="hover:underline">
+                  POC Sprints
+                </Link>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+                Build narrow prototypes, benchmark against baselines, and package results as evidence.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-muted px-5 py-4">
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-xs font-semibold text-foreground/70">Technical</div>
+                <div className="text-xs text-foreground/60">3</div>
+              </div>
+              <div className="mt-2 text-base font-semibold">
+                <Link href="/services/architecture-integration" className="hover:underline">
+                  Architecture & Integration
+                </Link>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+                Design hybrid workflows, interfaces, and integration paths that fit your stack.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-muted px-5 py-4">
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-xs font-semibold text-foreground/70">Optional</div>
+                <div className="text-xs text-foreground/60">4</div>
+              </div>
+              <div className="mt-2 text-base font-semibold">
+                <Link href="/tutorials" className="hover:underline">
+                  Tutorials
+                </Link>
+                <span className="text-foreground/60"> / </span>
+                <Link href="/product" className="hover:underline">
+                  Platform
+                </Link>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+                Enable teams with reference workflows, templates, and repeatable execution.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SERVICES */}
       <section id="services" className="bg-surface text-surface-foreground">
-        <div className="mx-auto max-w-6xl px-6 pb-16">
+        <div className="mx-auto max-w-6xl px-6 pt-12 pb-16">
           <div className="flex flex-col gap-2">
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Services</h2>
             <p className="max-w-3xl text-base leading-relaxed text-surface-foreground/70 sm:text-lg">
