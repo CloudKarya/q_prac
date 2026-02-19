@@ -50,6 +50,44 @@ export default function ProductPage() {
           </section>
 
           <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
+            <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">
+              How the platform supports consulting engagements
+            </h2>
+            <p className="mt-2 text-sm text-surface-foreground/70">
+              When we run a baseline-first engagement, the platform keeps experiments auditable and makes outcomes easy to
+              communicate to engineering and leadership.
+            </p>
+            <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-surface-foreground/75">
+              <li>
+                <span className="font-semibold text-surface-foreground">Evidence packs:</span> assumptions, baselines,
+                results, and “proceed / pivot / defer” recommendations captured in a repeatable format.
+              </li>
+              <li>
+                <span className="font-semibold text-surface-foreground">Baseline harness:</span> consistent benchmarking
+                across classical, hybrid, and quantum approaches — so improvements are real, not accidental.
+              </li>
+              <li>
+                <span className="font-semibold text-surface-foreground">Repeatable experiments:</span> shared state,
+                versioned steps, and comparable runs so teams can reproduce findings and continue after handoff.
+              </li>
+            </ul>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link
+                href="/services"
+                className="inline-flex items-center justify-center rounded-xl border border-surface-border bg-surface px-4 py-2 text-sm font-semibold text-surface-foreground shadow-sm hover:bg-background/5"
+              >
+                See how we engage
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
+              >
+                Discuss an evidence pack
+              </Link>
+            </div>
+          </section>
+
+          <section className="rounded-[28px] border border-surface-border bg-surface p-7 shadow-sm">
             <h2 className="text-xl font-semibold tracking-tight text-surface-foreground">Start with demos</h2>
             <p className="mt-2 text-sm text-surface-foreground/70">
               If you’re evaluating platforms, start with the runnable tutorials. They’re designed to be small and pragmatic:
@@ -147,8 +185,8 @@ export default function ProductPage() {
 
           <section className="rounded-[28px] border border-surface-border bg-background/5 p-7">
             <p className="text-sm leading-relaxed text-surface-foreground/80 sm:text-base">
-              QuPracs helps organizations engage with quantum computing pragmaticly, pragmatically, and with discipline—building
-              capability now, while preparing for what comes next.
+              QuPracs helps organizations engage with quantum computing pragmatically and with discipline — building capability
+              now, while preparing for what comes next.
             </p>
           </section>
 
