@@ -6,6 +6,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 This app logs sign-in events to Firestore via `firebase-admin` (see `events.signIn` in NextAuth).
 
+Important: the target GCP/Firebase project must have **Cloud Firestore in Native mode** enabled. Projects using **Firestore in Datastore mode** do not support the Cloud Firestore API and will fail writes.
+
 Set one of the following credential options:
 
 1) Service account env vars:
@@ -17,6 +19,19 @@ Set one of the following credential options:
 2) Application default credentials (ADC):
 
 - Set `GOOGLE_APPLICATION_CREDENTIALS` to a service account JSON file path, or use a runtime with default credentials (e.g., GCP).
+
+### Firestore healthcheck (write/read)
+
+There is a protected endpoint that performs a tiny Firestore write + read to validate credentials/connectivity:
+
+- Set `FIRESTORE_HEALTHCHECK_SECRET` (a random string)
+- Call `GET /api/health/firestore` with either:
+	- Header: `x-health-secret: <secret>`
+	- Or query: `?secret=<secret>`
+
+Example:
+
+`curl -H "x-health-secret: $FIRESTORE_HEALTHCHECK_SECRET" http://localhost:3000/api/health/firestore`
 
 First, run the development server:
 

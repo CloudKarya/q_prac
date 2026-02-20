@@ -21,16 +21,20 @@ export async function logSignInActivity(activity: AuthSignInActivity) {
 
   const db = getAdminFirestore();
 
-  await db.collection("authActivity").add({
+  // Firestore rejects `undefined` values. Only include fields that are defined.
+  const doc: Record<string, unknown> = {
     eventType: "sign_in",
-    provider: activity.provider,
-    providerAccountId: activity.providerAccountId,
-    email,
-    emailDomain,
-    emailHash,
-    name: activity.name ?? undefined,
-    isNewUser: activity.isNewUser ?? undefined,
     createdAt: FieldValue.serverTimestamp(),
     env: process.env.VERCEL_ENV ?? process.env.NODE_ENV,
-  });
+  };
+
+  if (activity.provider) doc.provider = activity.provider;
+  if (activity.providerAccountId) doc.providerAccountId = activity.providerAccountId;
+  if (email) doc.email = email;
+  if (emailDomain) doc.emailDomain = emailDomain;
+  if (emailHash) doc.emailHash = emailHash;
+  if (activity.name) doc.name = activity.name;
+  if (typeof activity.isNewUser === "boolean") doc.isNewUser = activity.isNewUser;
+
+  await db.collection("authActivity").add(doc);
 }

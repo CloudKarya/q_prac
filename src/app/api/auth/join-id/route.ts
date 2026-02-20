@@ -38,28 +38,56 @@ export async function POST(req: Request) {
   const emailDomain = email.includes("@") ? email.split("@")[1] : undefined;
   const emailHash = sha256Hex(email);
 
-  const db = getAdminFirestore();
+  try {
+    const db = getAdminFirestore();
 
-  const docId = `${joinId}_${emailHash}`;
-  const ref = db.collection("authJoinLinks").doc(docId);
+    const docId = `${joinId}_${emailHash}`;
+    const ref = db.collection("authJoinLinks").doc(docId);
 
-  const existing = await ref.get();
-  const firstSeenAt = existing.exists
-    ? existing.get("firstSeenAt")
-    : FieldValue.serverTimestamp();
+    const existing = await ref.get();
+    const firstSeenAt = existing.exists
+      ? existing.get("firstSeenAt")
+      : FieldValue.serverTimestamp();
 
-  await ref.set(
-    {
+    const payload: Record<string, unknown> = {
       joinId,
       emailHash,
-      emailDomain,
       source: typeof body?.source === "string" ? body.source : "client",
       firstSeenAt,
       lastSeenAt: FieldValue.serverTimestamp(),
       env: process.env.VERCEL_ENV ?? process.env.NODE_ENV,
-    },
-    { merge: true }
-  );
+    };
+
+    if (emailDomain) payload.emailDomain = emailDomain;
+
+    await ref.set(payload, { merge: true });
+  } catch (error) {
+    const message = (error as Error)?.message ?? String(error);
+
+    if (
+      message.includes("Firestore API is not available") ||
+      message.includes("Datastore Mode")
+    ) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "firestore_datastore_mode",
+          message:
+            "This GCP project is using 'Firestore in Datastore Mode', which does not support the Cloud Firestore API. Create/use a different project with Firestore in Native mode, then update FIREBASE_PROJECT_ID/FIREBASE_CLIENT_EMAIL/FIREBASE_PRIVATE_KEY.",
+        },
+        { status: 400 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "firestore_write_failed",
+        message,
+      },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }
