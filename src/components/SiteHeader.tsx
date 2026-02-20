@@ -4,10 +4,40 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { getOrCreateJoinId } from "@/lib/joinId";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status !== "authenticated") return;
+    if (!session?.user?.email) return;
+
+    const joinId = getOrCreateJoinId();
+    if (!joinId) return;
+
+    const markerKey = `qprac_join_linked_${joinId}_${session.user.email}`;
+    if (typeof window !== "undefined" && window.sessionStorage.getItem(markerKey)) {
+      return;
+    }
+
+    void fetch("/api/auth/join-id", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ joinId, source: "session" }),
+    })
+      .then((res) => {
+        if (!res.ok) return;
+        window.sessionStorage.setItem(markerKey, "1");
+      })
+      .catch(() => {
+        // Ignore; logging should never break UX.
+      });
+  }, [session?.user?.email, status]);
 
   const callbackUrl = pathname ?? "/";
   const signInHref = `/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`;

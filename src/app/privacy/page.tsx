@@ -4,198 +4,306 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <div className="rounded-[28px] border border-surface-border bg-surface p-8 shadow-sm">
-        <h1 className="text-3xl font-semibold tracking-tight text-surface-foreground">Privacy Policy</h1>
-        <p className="mt-2 text-sm text-surface-foreground/70">Last updated: February 20, 2026</p>
+    <main className="mx-auto w-full max-w-6xl px-6 py-12">
+      <div className="rounded-[28px] border border-surface-border bg-surface px-6 py-10 text-surface-foreground shadow-sm sm:px-10">
+        <header>
+          <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">Privacy Policy</div>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-5xl">Privacy Policy</h1>
+          <p className="mt-4 text-sm leading-relaxed text-surface-foreground/75 sm:text-base">
+            Last updated: February 20, 2026
+          </p>
+          <p className="mt-4 text-sm leading-relaxed text-surface-foreground/75 sm:text-base">
+            This Privacy Policy explains how <strong>QuPracs</strong> (a service of <strong>CloudKarya, Inc.</strong>) collects, uses, shares,
+            and protects information when you visit <strong>qupracs.com</strong>, contact us, or sign in to use gated features (for example,
+            Tutorials).
+          </p>
+        </header>
 
-        <div className="prose mt-8 max-w-none text-surface-foreground/80 prose-headings:tracking-tight prose-headings:text-surface-foreground prose-strong:text-surface-foreground prose-a:text-brand">
-          <p>
-            This Privacy Policy explains how QuPracs (a CloudKarya, Inc. service) collects, uses,
-            shares, and protects information when you visit <strong>qupracs.com</strong>, contact
-            us, or sign in to use gated features (for example, Tutorials).
-          </p>
+        <section className="mt-10 space-y-10">
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">1) Who We Are</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              <strong>QuPracs</strong> is operated by <strong>CloudKarya, Inc.</strong> For the purposes of applicable data protection laws,
+              <strong> CloudKarya, Inc.</strong> is the “controller” (or equivalent term) for personal information processed through this
+              website.
+            </p>
+          </section>
 
-          <h2>Who We Are</h2>
-          <p>
-            For the purposes of applicable data protection laws, CloudKarya, Inc. is the
-            “controller” (or equivalent term) for personal information processed through this
-            website.
-          </p>
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">2) Information We Collect</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              We collect information in the following categories:
+            </p>
 
-          <h2>Information We Collect</h2>
-          <ul>
-            <li>
-              <strong>Information you provide:</strong> If you contact us or submit a form, we may
-              collect the information you provide (for example, your name, email address, company,
-              and message).
-            </li>
-            <li>
-              <strong>Usage and device information:</strong> We may collect information about how
-              the site is used (for example, pages viewed, page referrers, approximate location,
-              device/browser information, and interactions) through cookies or similar
-              technologies.
-            </li>
-            <li>
-              <strong>Account and sign-in information:</strong> If you sign in, we receive limited
-              information from the identity provider you choose (for example, Google or LinkedIn).
-              This may include your name, email address, profile image, and a provider identifier,
-              depending on what the provider shares and what you approve.
-            </li>
-            <li>
-              <strong>Tutorials and learning activity:</strong> When you use Tutorials or other
-              interactive features, we may collect information about the actions you take (for
-              example, tutorial starts/completions, session creation, and related operational
-              telemetry needed to provide the feature).
-            </li>
-          </ul>
+            <h3 className="mt-5 text-sm font-semibold tracking-tight text-surface-foreground">A. Information you provide</h3>
+            <p className="mt-2 text-sm leading-relaxed text-surface-foreground/80">
+              When you contact us, submit a form, or otherwise communicate with us, we may collect:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>Name</li>
+              <li>Email address</li>
+              <li>Company, role, or other professional details (if provided)</li>
+              <li>The content of your message and any information you choose to share</li>
+            </ul>
 
-          <h2>How We Use Information</h2>
-          <ul>
-            <li>
-              <strong>Provide and operate the site:</strong> deliver pages, route requests, prevent
-              abuse, and maintain availability.
-            </li>
-            <li>
-              <strong>Authenticate users:</strong> enable sign-in and access to gated areas like
-              Tutorials.
-            </li>
-            <li>
-              <strong>Improve content and product experience:</strong> understand what content is
-              useful (for example, blogs and case studies) and what experiences work well.
-            </li>
-            <li>
-              <strong>Communicate with you:</strong> respond to inquiries, provide requested
-              information, and support.
-            </li>
-            <li>
-              <strong>Security:</strong> detect and prevent fraud, abuse, and security incidents.
-            </li>
-          </ul>
+            <h3 className="mt-6 text-sm font-semibold tracking-tight text-surface-foreground">B. Usage and device information</h3>
+            <p className="mt-2 text-sm leading-relaxed text-surface-foreground/80">
+              When you browse the site, we (and our service providers) may collect:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>Pages viewed, navigation paths, and interactions</li>
+              <li>Referring pages/sources</li>
+              <li>Approximate location (generally derived from IP address)</li>
+              <li>Device/browser type, operating system, and similar technical details</li>
+              <li>Performance and diagnostic signals (for reliability and security)</li>
+            </ul>
+            <p className="mt-4 text-sm leading-relaxed text-surface-foreground/80">
+              This information may be collected via cookies or similar technologies (see <strong>Cookies and Analytics</strong>).
+            </p>
 
-          <h2>Legal Bases (EEA/UK)</h2>
-          <p>
-            If you are in the European Economic Area (EEA) or the United Kingdom, we rely on one or
-            more of the following legal bases to process personal information:
-          </p>
-          <ul>
-            <li>
-              <strong>Consent</strong> (for example, for certain analytics cookies where required).
-            </li>
-            <li>
-              <strong>Contract</strong> (to provide features you request, such as authenticated
-              Tutorials).
-            </li>
-            <li>
-              <strong>Legitimate interests</strong> (to operate, secure, and improve the website),
-              balanced against your rights.
-            </li>
-            <li>
-              <strong>Legal obligations</strong> (where we must comply with law).
-            </li>
-          </ul>
+            <h3 className="mt-6 text-sm font-semibold tracking-tight text-surface-foreground">C. Account and sign-in information</h3>
+            <p className="mt-2 text-sm leading-relaxed text-surface-foreground/80">
+              If you sign in, authentication is handled through <strong>NextAuth</strong>. Depending on the identity provider you use (for
+              example, Google or LinkedIn) and what you authorize, we may receive:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>Name</li>
+              <li>Email address</li>
+              <li>Profile image</li>
+              <li>Provider identifier (for example, a unique user ID)</li>
+            </ul>
 
-          <h2>Cookies and Analytics</h2>
-          <p>
-            We use cookies and similar technologies for essential site functionality, security, and
-            analytics. Analytics helps us understand usage patterns (for example, which pages are
-            read and how content performs).
-          </p>
-          <p>
-            We may use Google Analytics (GA4) or similar tools that set cookies and collect
-            information such as pages viewed, device/browser type, and approximate location derived
-            from IP address. You can manage cookies via your browser settings and, where applicable,
-            through any cookie controls we provide.
-          </p>
-          <p>
-            UK and EU rules may treat certain analytics cookies as “non-essential”. Where required
-            by applicable law (including the UK Privacy and Electronic Communications Regulations
-            (PECR) and EU ePrivacy rules), we will seek consent before placing non-essential cookies.
-          </p>
-          <p>
-            Google also provides an opt-out browser add-on for Google Analytics. You can learn more
-            in Google’s documentation.
-          </p>
+            <h3 className="mt-6 text-sm font-semibold tracking-tight text-surface-foreground">D. Tutorials and interactive feature activity</h3>
+            <p className="mt-2 text-sm leading-relaxed text-surface-foreground/80">
+              When you use Tutorials or other interactive features, we may collect activity and operational telemetry needed to provide and
+              secure the feature, such as:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>Tutorial starts/completions</li>
+              <li>Session creation and related feature events</li>
+              <li>Technical logs required for performance, troubleshooting, and abuse prevention</li>
+            </ul>
+          </section>
 
-          <h2>Authentication (Google / LinkedIn)</h2>
-          <p>
-            If you choose to sign in using Google or LinkedIn, authentication is handled through
-            those providers. We use the information they provide to create and maintain your
-            session, help prevent abuse, and enable gated features. Your use of those providers is
-            also governed by their privacy policies.
-          </p>
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">3) How We Use Information</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">We use information to:</p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>
+                <strong>Provide and operate the site</strong> (deliver pages, route requests, maintain availability)
+              </li>
+              <li>
+                <strong>Authenticate users</strong> and manage sessions for gated features (via NextAuth)
+              </li>
+              <li>
+                <strong>Improve content and product experience</strong> (understand what content is useful and how the site performs)
+              </li>
+              <li>
+                <strong>Communicate with you</strong> (respond to inquiries and provide requested information)
+              </li>
+              <li>
+                <strong>Security and abuse prevention</strong> (detect and prevent fraud, abuse, or security incidents)
+              </li>
+              <li>
+                <strong>Compliance</strong> (meet legal obligations and enforce our terms)
+              </li>
+            </ul>
+          </section>
 
-          <h2>Sharing</h2>
-          <p>
-            We do not sell your personal information. We may share information with:
-          </p>
-          <ul>
-            <li>
-              <strong>Service providers</strong> that help us operate the site and deliver services
-              (for example, hosting, analytics, authentication, error monitoring).
-            </li>
-            <li>
-              <strong>Legal and safety</strong> recipients when required by law or to protect rights,
-              safety, and security.
-            </li>
-          </ul>
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">4) Legal Bases (EEA/UK)</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              If you are in the European Economic Area (EEA) or the United Kingdom, we rely on one or more of the following legal bases:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>
+                <strong>Consent</strong> (for certain analytics cookies where required)
+              </li>
+              <li>
+                <strong>Contract</strong> (to provide features you request, such as authenticated Tutorials)
+              </li>
+              <li>
+                <strong>Legitimate interests</strong> (to operate, secure, and improve the site), balanced against your rights
+              </li>
+              <li>
+                <strong>Legal obligations</strong> (where we must comply with law)
+              </li>
+            </ul>
+          </section>
 
-          <h2>International Transfers</h2>
-          <p>
-            We may process and store information in countries other than where you live (including
-            the United States) through our service providers. Where required, we use appropriate
-            safeguards for cross-border transfers, such as the European Commission’s Standard
-            Contractual Clauses and the UK International Data Transfer Agreement (IDTA) or UK
-            Addendum.
-          </p>
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">5) Cookies and Analytics (GA4)</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              We use cookies and similar technologies for:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>
+                <strong>Essential site functionality</strong> and security
+              </li>
+              <li>
+                <strong>Analytics</strong> to understand usage patterns and improve the site
+              </li>
+            </ul>
+            <p className="mt-4 text-sm leading-relaxed text-surface-foreground/80">
+              We use <strong>Google Analytics (GA4)</strong> or similar tools that may collect information such as:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>Pages viewed and interactions</li>
+              <li>Device/browser type</li>
+              <li>Approximate location derived from IP address</li>
+            </ul>
 
-          <h2>Your Rights (EEA/UK)</h2>
-          <p>
-            Depending on your location and applicable law, you may have rights to:
-          </p>
-          <ul>
-            <li>Request access to personal information we hold about you.</li>
-            <li>Request correction of inaccurate information.</li>
-            <li>Request deletion of your information.</li>
-            <li>Object to or restrict certain processing.</li>
-            <li>Request portability of your information.</li>
-            <li>Withdraw consent at any time (where processing is based on consent).</li>
-          </ul>
-          <p>
-            You also have the right to lodge a complaint with your local supervisory authority. In
-            the UK, this is the Information Commissioner’s Office (ICO).
-          </p>
+            <h3 className="mt-6 text-sm font-semibold tracking-tight text-surface-foreground">Your choices</h3>
+            <p className="mt-2 text-sm leading-relaxed text-surface-foreground/80">You can manage cookies through:</p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>Browser settings (block or delete cookies)</li>
+              <li>Any cookie controls we provide, where applicable</li>
+            </ul>
+            <p className="mt-4 text-sm leading-relaxed text-surface-foreground/80">
+              UK and EU rules may treat certain analytics cookies as “non-essential.” Where required by law (including UK PECR and EU ePrivacy rules), we will seek consent
+              before placing non-essential cookies.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              Google also provides a browser add-on to opt out of Google Analytics.
+            </p>
+          </section>
 
-          <h2>Data Retention</h2>
-          <p>
-            We retain information only as long as needed for the purposes described above, unless a
-            longer retention period is required or permitted by law.
-          </p>
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">6) Authentication (NextAuth)</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              We use <strong>NextAuth</strong> to support sign-in and session management for gated features.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              If you sign in via an external identity provider (for example, Google or LinkedIn):
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>authentication is performed by that provider</li>
+              <li>we use the information returned to create and maintain your session and enable features</li>
+              <li>your use of the provider is governed by their own privacy policy</li>
+            </ul>
+          </section>
 
-          <h2>Security</h2>
-          <p>
-            We use reasonable administrative, technical, and organizational measures designed to
-            protect information. No method of transmission or storage is 100% secure.
-          </p>
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">7) Sharing of Information</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">We <strong>do not sell</strong> your personal information.</p>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">We may share information with:</p>
 
-          <h2>Children</h2>
-          <p>
-            This website is not directed to children. If you believe a child has provided us with
-            personal information, please contact us and we will take appropriate steps.
-          </p>
+            <h3 className="mt-5 text-sm font-semibold tracking-tight text-surface-foreground">A. Service providers</h3>
+            <p className="mt-2 text-sm leading-relaxed text-surface-foreground/80">
+              Third parties who help us operate the site and deliver services, including:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>
+                <strong>Vercel</strong> (hosting and delivery)
+              </li>
+              <li>
+                <strong>Google Cloud Run</strong> (hosting/runtime for certain services)
+              </li>
+              <li>
+                <strong>Google Analytics</strong> (analytics)
+              </li>
+              <li>Authentication-related providers used with NextAuth (identity providers you choose)</li>
+            </ul>
+            <p className="mt-4 text-sm leading-relaxed text-surface-foreground/80">
+              These providers are permitted to process personal information only as necessary to provide services to us.
+            </p>
 
-          <h2>Changes to This Policy</h2>
-          <p>
-            We may update this Privacy Policy from time to time. We will post the updated version on
-            this page and update the “Last updated” date.
-          </p>
+            <h3 className="mt-6 text-sm font-semibold tracking-tight text-surface-foreground">B. Legal and safety disclosures</h3>
+            <p className="mt-2 text-sm leading-relaxed text-surface-foreground/80">
+              We may disclose information if we believe disclosure is necessary to:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>comply with law or legal process</li>
+              <li>protect the rights, property, or safety of CloudKarya, QuPracs, our users, or others</li>
+              <li>investigate and prevent fraud, abuse, or security incidents</li>
+            </ul>
+          </section>
 
-          <h2>Contact</h2>
-          <p>
-            For privacy questions, contact us via the <a href="/contact">contact page</a>.
-          </p>
-        </div>
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">8) International Transfers</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              We may process and store information in countries other than where you live (including the United States) through our service providers.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              Where required, we use appropriate safeguards for cross-border transfers, such as:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>European Commission <strong>Standard Contractual Clauses (SCCs)</strong></li>
+              <li>UK <strong>International Data Transfer Agreement (IDTA)</strong> or UK Addendum</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">9) Your Rights (EEA/UK and other regions where applicable)</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              Depending on your location and applicable law, you may have rights to:
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-surface-foreground/80">
+              <li>request access to personal information we hold about you</li>
+              <li>request correction of inaccurate information</li>
+              <li>request deletion of your information</li>
+              <li>object to or restrict certain processing</li>
+              <li>request portability of your information</li>
+              <li>withdraw consent at any time (where processing is based on consent)</li>
+            </ul>
+            <p className="mt-4 text-sm leading-relaxed text-surface-foreground/80">
+              You may also have the right to lodge a complaint with your local supervisory authority. In the UK, this is the <strong>Information Commissioner’s Office (ICO).</strong>
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">10) Data Retention</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              We retain personal information only as long as necessary for the purposes described in this Policy, unless a longer retention period is required or permitted by law.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">11) Security</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              We use reasonable administrative, technical, and organizational safeguards designed to protect information. However, no method of transmission or storage is 100% secure.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">12) Children</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              This website is not directed to children, and we do not knowingly collect personal information from children.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              If you believe a child has provided personal information, please contact us and we will take appropriate steps.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">13) Changes to This Policy</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              We may update this Privacy Policy from time to time. We will post the updated version on this page and update the “Last updated” date above.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight">14) Contact</h2>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">For privacy questions or requests, contact:</p>
+            <div className="mt-4 rounded-2xl border border-surface-border bg-background/5 p-5">
+              <div className="text-sm leading-relaxed text-surface-foreground/80">
+                <div>
+                  <span className="font-semibold text-surface-foreground">Email:</span>{" "}
+                  <a className="font-semibold text-background hover:underline" href="mailto:qupracs@cloudkarya.com">
+                    qupracs@cloudkarya.com
+                  </a>
+                </div>
+                <div className="mt-2">
+                  Or use our Contact page:{" "}
+                  <a className="font-semibold text-background hover:underline" href="/contact">
+                    /contact
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }

@@ -2,6 +2,22 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+## Firestore login activity logging
+
+This app logs sign-in events to Firestore via `firebase-admin` (see `events.signIn` in NextAuth).
+
+Set one of the following credential options:
+
+1) Service account env vars:
+
+- `FIREBASE_PROJECT_ID`
+- `FIREBASE_CLIENT_EMAIL`
+- `FIREBASE_PRIVATE_KEY` (use `\n` for newlines)
+
+2) Application default credentials (ADC):
+
+- Set `GOOGLE_APPLICATION_CREDENTIALS` to a service account JSON file path, or use a runtime with default credentials (e.g., GCP).
+
 First, run the development server:
 
 ```bash

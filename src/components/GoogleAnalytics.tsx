@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { getOrCreateJoinId } from "@/lib/joinId";
 
 declare global {
   interface Window {
@@ -14,6 +15,25 @@ declare global {
 export function GoogleAnalytics({ measurementId }: { measurementId?: string }) {
   const pathname = usePathname();
   const isFirstPageLoad = useRef(true);
+  const joinIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!measurementId) return;
+
+    if (!joinIdRef.current) {
+      joinIdRef.current = getOrCreateJoinId();
+    }
+
+    const joinId = joinIdRef.current;
+    if (!joinId) return;
+
+    // Wait a tick for gtag to exist (Script loads afterInteractive)
+    requestAnimationFrame(() => {
+      // Prefer user_properties for cross-event association, and also emit a one-time event.
+      window.gtag?.("set", "user_properties", { join_id: joinId });
+      window.gtag?.("event", "join_id_set", { join_id: joinId });
+    });
+  }, [measurementId]);
 
   useEffect(() => {
     if (!measurementId) return;

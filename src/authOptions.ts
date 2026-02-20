@@ -1,6 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import LinkedInProvider from "next-auth/providers/linkedin";
+import { logSignInActivity } from "@/lib/authActivity";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -64,6 +65,21 @@ export const authOptions: NextAuthOptions = {
     debug(code, metadata) {
       if (process.env.NODE_ENV !== "production") {
         console.debug("[next-auth][debug]", code, metadata);
+      }
+    },
+  },
+  events: {
+    async signIn({ user, account, isNewUser }) {
+      try {
+        await logSignInActivity({
+          provider: account?.provider,
+          providerAccountId: account?.providerAccountId,
+          email: user?.email,
+          name: user?.name,
+          isNewUser,
+        });
+      } catch (error) {
+        console.error("[authActivity] Failed to log sign-in activity", error);
       }
     },
   },
