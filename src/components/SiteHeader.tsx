@@ -105,11 +105,11 @@ export function SiteHeader() {
                 <button
                   type="button"
                   onClick={() => signOut({ callbackUrl: "/" })}
-                  className="rounded-xl border border-white/60 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm hover:bg-white/90"
+                  className="inline-flex h-6 items-center justify-center rounded-lg border border-white/60 bg-white px-3 text-[13px] font-semibold leading-none text-slate-900 shadow-sm hover:bg-white/90"
                 >
                   Sign out
                 </button>
-                <div className="mt-1 max-w-[220px] truncate text-center text-xs text-foreground/60">
+                <div className="mt-1 max-w-[220px] truncate text-center text-xs text-white">
                   {signedInLabel}
                 </div>
               </div>

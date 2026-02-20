@@ -57,6 +57,11 @@ export function SiteFooter() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link className="hover:text-foreground" href="/privacy">
+                  Privacy
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 export function SignInClient() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") ?? "/tutorials";
+  const error = searchParams.get("error");
 
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-16">
@@ -16,6 +17,16 @@ export function SignInClient() {
         <p className="mt-4 text-sm leading-relaxed text-surface-foreground/75 sm:text-base">
           We require sign-in to create and manage tutorial sessions. Choose Google or LinkedIn.
         </p>
+
+        {error ? (
+          <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900">
+            <div className="font-semibold">Sign-in didn’t complete</div>
+            <div className="mt-1 text-red-900/80">
+              Error code: <span className="font-mono">{error}</span>. Try again, or use Google.
+              If this persists, contact us and mention this code.
+            </div>
+          </div>
+        ) : null}
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <button
