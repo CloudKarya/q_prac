@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/authOptions";
 
 const DEFAULT_BASE_URL = "https://qprac-runner-1076575453845.us-central1.run.app";
 
@@ -49,6 +51,17 @@ function validateBaseUrl(input: string): { ok: true; baseUrl: string } | { ok: f
 }
 
 export async function POST(req: Request) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json(
+      {
+        error: "UNAUTHORIZED",
+        message: "Sign in is required to use Tutorials.",
+      },
+      { status: 401 }
+    );
+  }
+
   const fallbackBaseUrl = process.env.QPRAC_RUNNER_BASE_URL ?? DEFAULT_BASE_URL;
 
   let requestedBaseUrl: string | undefined;

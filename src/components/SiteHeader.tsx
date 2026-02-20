@@ -3,9 +3,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
+
+  const callbackUrl = pathname ?? "/";
+  const signInHref = `/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+
+  const signedInLabel = session?.user?.name ?? session?.user?.email ?? "Signed in";
 
   function isActive(href: string) {
     if (!pathname) return false;
@@ -40,7 +47,8 @@ export function SiteHeader() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-3 md:flex ml-auto">
+        <div className="ml-auto flex items-center gap-3">
+          <nav className="hidden items-center gap-3 md:flex">
           <Link
             className={navLinkClass("/services")}
             href="/services"
@@ -89,7 +97,32 @@ export function SiteHeader() {
           >
             About Us
           </Link>
-        </nav>
+          </nav>
+
+          <div className="hidden md:flex items-center">
+            {status === "authenticated" ? (
+              <div className="flex flex-col items-center">
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="rounded-xl border border-white/60 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm hover:bg-white/90"
+                >
+                  Sign out
+                </button>
+                <div className="mt-1 max-w-[220px] truncate text-center text-xs text-foreground/60">
+                  {signedInLabel}
+                </div>
+              </div>
+            ) : (
+              <Link
+                href={signInHref}
+                className="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
+              >
+                Sign in
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
     </header>
   );

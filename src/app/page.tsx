@@ -236,7 +236,7 @@ export default function HomePage() {
             <ServiceCard
               num="01"
               title="Quantum Readiness"
-              desc="Assess people, process, and platform readiness; define a staged roadmap and governance."
+              desc="Assess people, process, and platform readiness; define governance, milestones, owners, and a staged adoption roadmap with clear success criteria."
               href="/services/quantum-readiness"
             />
             <div className="relative overflow-hidden rounded-3xl border border-surface-border bg-surface shadow-sm md:row-span-2">
@@ -252,19 +252,19 @@ export default function HomePage() {
             <ServiceCard
               num="02"
               title="Strategy & Use Cases"
-              desc="Prioritize opportunities based on economics, constraints, and what’s feasible today."
+              desc="Prioritize opportunities based on economics, constraints, and feasibility—plus data needs, KPIs, ROI ranges, and stakeholder alignment for sign-off."
               href="/services/strategy-use-cases"
             />
             <ServiceCard
               num="03"
               title="POC Sprints"
-              desc="Build narrow prototypes, benchmark pragmatically, and produce decision-grade evidence packs."
+              desc="Build narrow prototypes, benchmark against strong baselines, and ship decision-grade evidence packs with repeatable runs and measurable acceptance thresholds."
               href="/services/poc-sprints"
             />
             <ServiceCard
               num="04"
               title="Architecture & Integration"
-              desc="Design hybrid pipelines and integration paths that work with your existing stack."
+              desc="Design hybrid pipelines and integration paths that fit your stack—data flows, orchestration, security, deployment, and operational guardrails for production."
               href="/services/architecture-integration"
             />
           </div>
@@ -292,13 +292,13 @@ export default function HomePage() {
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             <CaseStudyCard
               img="/images/landing/case-1.svg"
-              title="Supply chain optimization under constraints"
+              title="Supply chain optimization"
               desc="Benchmarked quantum-inspired solvers vs baselines; produced a clear pursue/pivot memo."
               href="/case-studies/supply-chain-visibility-control"
             />
             <CaseStudyCard
               img="/images/landing/case-2.svg"
-              title="Portfolio scheduling and scenario planning"
+              title="Portfolio scheduling and planning"
               desc="Defined success metrics, built a prototype, and translated learnings into a staged roadmap."
               href="/case-studies/portfolio-scheduling-scenario-planning"
             />
@@ -393,12 +393,18 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link
               href="/blogs"
               className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
             >
               Browse Blogs
+            </Link>
+            <Link
+              href="/case-studies"
+              className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
+            >
+              Read Case Studies
             </Link>
           </div>
         </div>
@@ -476,7 +482,7 @@ function ServiceCard({
         <div className="mt-4">
           <Link
             href={href}
-            className="inline-flex items-center text-sm font-semibold text-accent hover:underline"
+            className="inline-flex items-center text-sm font-semibold text-accent underline-offset-4 hover:underline"
           >
             Learn more →
           </Link>
@@ -560,7 +566,7 @@ function BlogTeaserCard({
       <div className="text-lg font-semibold tracking-tight">{title}</div>
       <div className="mt-2 text-sm leading-relaxed text-surface-foreground/70">{desc}</div>
       <div className="mt-5">
-        <Link href={href} className="text-sm font-semibold text-surface-foreground hover:underline">
+        <Link href={href} className="inline-flex items-center text-sm font-semibold text-accent underline-offset-4 hover:underline">
           Learn more →
         </Link>
       </div>
