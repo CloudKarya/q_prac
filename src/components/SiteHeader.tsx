@@ -10,6 +10,7 @@ import { getOrCreateJoinId } from "@/lib/joinId";
 export function SiteHeader() {
   const pathname = usePathname();
   const { data: session, status } = useSession();
+  const isAdmin = Boolean((session?.user as unknown as Record<string, unknown>)?.isAdmin);
 
   useEffect(() => {
     if (status !== "authenticated") return;
@@ -79,6 +80,11 @@ export function SiteHeader() {
 
         <div className="ml-auto flex items-center gap-3">
           <nav className="hidden items-center gap-3 md:flex">
+          {status === "authenticated" && isAdmin ? (
+            <Link className={navLinkClass("/admin")} href="/admin">
+              Admin
+            </Link>
+          ) : null}
           <Link
             className={navLinkClass("/services")}
             href="/services"

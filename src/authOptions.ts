@@ -2,6 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import LinkedInProvider from "next-auth/providers/linkedin";
 import { logSignInActivity } from "@/lib/authActivity";
+import { isAdminEmail } from "@/lib/admin";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -11,6 +12,20 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      const email = (user?.email ?? token?.email) as string | null | undefined;
+      (token as unknown as Record<string, unknown>).isAdmin = isAdminEmail(email);
+      return token;
+    },
+    async session({ session, token }) {
+      const isAdmin = Boolean((token as unknown as Record<string, unknown>).isAdmin);
+      if (session.user) {
+        (session.user as unknown as Record<string, unknown>).isAdmin = isAdmin;
+      }
+      return session;
+    },
   },
   providers: [
     GoogleProvider({
