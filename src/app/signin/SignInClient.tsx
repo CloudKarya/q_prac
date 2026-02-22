@@ -9,13 +9,24 @@ export function SignInClient() {
   const callbackUrl = searchParams.get("callbackUrl") ?? "/tutorials";
   const error = searchParams.get("error");
 
+  const isLearningFlow =
+    callbackUrl === "/learning" || callbackUrl.startsWith("/learning/");
+
+  const title = isLearningFlow
+    ? "To use Learning, sign in"
+    : "Sign in to use Tutorials";
+
+  const description = isLearningFlow
+    ? "We use sign-in to track your learning progress and quiz scores. Passing the quiz is required to move to the next phase."
+    : "We require sign-in to create and manage tutorial sessions. Choose Google or LinkedIn.";
+
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-16">
       <div className="rounded-[28px] border border-surface-border bg-surface px-6 py-10 text-surface-foreground shadow-sm sm:px-10">
         <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">Sign in</div>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Sign in to use Tutorials</h1>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
         <p className="mt-4 text-sm leading-relaxed text-surface-foreground/75 sm:text-base">
-          We require sign-in to create and manage tutorial sessions. Choose Google or LinkedIn.
+          {description}
         </p>
 
         {error ? (
