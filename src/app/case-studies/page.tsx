@@ -14,7 +14,10 @@ export default function CaseStudiesPage() {
     <main className="mx-auto w-full max-w-6xl px-6 py-12">
       <div className="rounded-[28px] border border-surface-border bg-surface px-6 py-10 text-surface-foreground shadow-sm sm:px-10">
         <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">Case Studies</div>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-5xl">QuPracs Preparedness Assessments for Enterprise</h1>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-5xl">From “Should we do this?” to confident decisions</h1>
+        <p className="mt-4 max-w-4xl text-base leading-relaxed text-surface-foreground/75">
+          Real enterprise teams came to us with pressure, uncertainty, and high stakes. These case notes show how they reduced risk, found clarity, and moved forward with confidence.
+        </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Link
@@ -23,24 +26,16 @@ export default function CaseStudiesPage() {
           >
             <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">Supply chain</div>
             <div className="mt-2 text-lg font-semibold tracking-tight">Supply Chain Visibility &amp; Control</div>
-            <ul className="mt-3 space-y-1 text-sm leading-relaxed text-surface-foreground/75">
-              <li>
-                <span className="font-semibold text-surface-foreground">Client type:</span> Industrial ops team (anonymized)
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Objective:</span> Improve service levels while reducing expedite/carry costs
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Constraints:</span> Noisy data, real-world SLAs, and integration limits
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Built/measured:</span> Visibility baseline + policy simulator; screened optimizers vs classical baselines
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Outcome:</span> Proceed with simulator + baselines; defer “quantum” until justified by scale
-              </li>
-            </ul>
-            <div className="mt-4 text-sm font-semibold text-surface-foreground">Read the case note →</div>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              When delays become daily fire drills, teams need control—not more dashboards.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/75">
+              For an anonymized industrial operations team, we focused on improving service levels while reducing expedite and carrying costs under noisy data, real-world SLAs, and tight integration limits.
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-surface-foreground/75">
+              We built a visibility baseline and policy simulator, screened optimization paths against classical baselines, and recommended a practical next step: proceed with simulator-led improvements and defer quantum adoption until scale clearly justifies it.
+            </p>
+            <div className="mt-4 text-sm font-semibold text-surface-foreground">See how they solved it →</div>
           </Link>
 
           <Link
@@ -49,24 +44,16 @@ export default function CaseStudiesPage() {
           >
             <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">Decision support</div>
             <div className="mt-2 text-lg font-semibold tracking-tight">Risk-Aware Decision Support</div>
-            <ul className="mt-3 space-y-1 text-sm leading-relaxed text-surface-foreground/75">
-              <li>
-                <span className="font-semibold text-surface-foreground">Client type:</span> Risk &amp; analytics team (anonymized)
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Objective:</span> Make decisions under uncertainty with transparent risk tradeoffs
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Constraints:</span> Explainability, governance, and operational latency
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Built/measured:</span> Scenario simulator + scoring; validated stability vs baselines and integration fit
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Outcome:</span> Proceed with simulation-first workflow; pivot away from demo-led approaches
-              </li>
-            </ul>
-            <div className="mt-4 text-sm font-semibold text-surface-foreground">Read the case note →</div>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              When every decision has downside, leaders need clarity they can defend.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/75">
+              For an anonymized risk and analytics team, the goal was to make better decisions under uncertainty with transparent risk tradeoffs, while meeting explainability, governance, and latency constraints.
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-surface-foreground/75">
+              We built a scenario simulator and scoring workflow, validated stability against baselines and integration fit, and recommended a simulation-first operating model instead of demo-led experimentation.
+            </p>
+            <div className="mt-4 text-sm font-semibold text-surface-foreground">See how they solved it →</div>
           </Link>
 
           <Link
@@ -75,24 +62,16 @@ export default function CaseStudiesPage() {
           >
             <div className="text-xs font-semibold uppercase tracking-wide text-surface-foreground/60">Portfolio planning</div>
             <div className="mt-2 text-lg font-semibold tracking-tight">Portfolio Scheduling &amp; Scenario Planning</div>
-            <ul className="mt-3 space-y-1 text-sm leading-relaxed text-surface-foreground/75">
-              <li>
-                <span className="font-semibold text-surface-foreground">Client type:</span> Enterprise PMO / operations planning (anonymized)
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Objective:</span> Improve schedule quality and scenario responsiveness under constraints
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Constraints:</span> Changing priorities, hard constraints, and legacy tooling
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Built/measured:</span> Constraint-aware prototype; compared heuristics vs baseline solvers across scenarios
-              </li>
-              <li>
-                <span className="font-semibold text-surface-foreground">Outcome:</span> Proceed with phased rollout; defer advanced optimization until data/process maturity
-              </li>
-            </ul>
-            <div className="mt-4 text-sm font-semibold text-surface-foreground">Read the case note →</div>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/80">
+              When priorities change every week, planning must stay resilient under pressure.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-surface-foreground/75">
+              For an anonymized enterprise PMO and operations planning function, the challenge was to improve schedule quality and scenario responsiveness despite changing priorities, hard constraints, and legacy tooling.
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-surface-foreground/75">
+              We delivered a constraint-aware prototype, compared heuristic approaches against baseline solvers across realistic scenarios, and advised a phased rollout while deferring advanced optimization until data and process maturity improved.
+            </p>
+            <div className="mt-4 text-sm font-semibold text-surface-foreground">See how they solved it →</div>
           </Link>
 
           <div className="rounded-2xl border border-surface-border bg-background/20 p-6">
@@ -105,7 +84,7 @@ export default function CaseStudiesPage() {
                 href="/contact"
                 className="inline-flex h-11 items-center justify-center rounded-xl bg-accent px-5 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90"
               >
-                Talk to us
+                Let&apos;s solve your bottleneck
               </Link>
             </div>
           </div>
@@ -122,7 +101,7 @@ export default function CaseStudiesPage() {
             href="/contact"
             className="inline-flex h-11 items-center justify-center rounded-xl border border-surface-border bg-surface px-5 text-sm font-semibold text-surface-foreground shadow-sm hover:bg-background/5"
           >
-            Discuss a similar case
+            I have a similar challenge
           </Link>
         </div>
       </div>
